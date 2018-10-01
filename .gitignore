@@ -3,3 +3,5 @@
 ################################################################################
 
 /CMISDemo2/.vs/CMISDemo2/v15/Server/sqlite3
+#IDE related
+.vscode/settings.json
