@@ -1,11 +1,11 @@
 USE cmis_1;
-insert into App_User (USER_ID, USER_NAME, ENCRYPTED_PASSWORD, ENABLED)
+insert into app_user (USER_ID, USER_NAME, ENCRYPTED_PASSWORD, ENABLED)
 values (3, 'dbreader1', '$2a$10$PrI5Gk9L.tSZiW9FXhTS8O8Mz9E97k2FZbFvGFFaSsiTUIl.TCrFu', 1);
  
-insert into App_User (USER_ID, USER_NAME, ENCRYPTED_PASSWORD, ENABLED)
+insert into app_user (USER_ID, USER_NAME, ENCRYPTED_PASSWORD, ENABLED)
 values (1, 'dbadmin1', '$2a$10$PrI5Gk9L.tSZiW9FXhTS8O8Mz9E97k2FZbFvGFFaSsiTUIl.TCrFu', 1);
 
-insert into App_User (USER_ID, USER_NAME, ENCRYPTED_PASSWORD, ENABLED)
+insert into app_user (USER_ID, USER_NAME, ENCRYPTED_PASSWORD, ENABLED)
 values (2, 'dbmanager1', '$2a$10$PrI5Gk9L.tSZiW9FXhTS8O8Mz9E97k2FZbFvGFFaSsiTUIl.TCrFu', 1); 
 ---
  
