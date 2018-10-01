@@ -3,7 +3,7 @@ package Daos;
 import javax.sql.DataSource;
 
 import Mappers.UserMapper;
-import Models.User;
+import Models.Users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -29,13 +29,13 @@ public class UserDAO extends JdbcDaoSupport{
     }
 
     // This method is used to find a user in the database given a userName
-    public User findUserAccount(String userName){
+    public Users findUserAccount(String userName){
         //Select ... from APP_USER u Where u.USER_NAME = ?
-        String sql = UserMapper.BASE_SQL + "where u.USER_NAME + ?";
+        String sql = UserMapper.BASE_SQL + "where u.USER_NAME = ?";
         Object[] params = new Object[] {userName};
         UserMapper mapper = new UserMapper();
         try{
-            User userinfo = this.getJdbcTemplate().queryForObject(sql, params, mapper);
+            Users userinfo = this.getJdbcTemplate().queryForObject(sql, params, mapper);
             return userinfo;
         }
         catch(EmptyResultDataAccessException e){

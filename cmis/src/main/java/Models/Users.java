@@ -1,17 +1,17 @@
 package Models;
 
-public class User {
+public class Users {
 
     private int userId;
     private String userName;
     private String encryptedPassword;
 
 
-//    public User{
+//    public Users{
 //
 //    }
 
-    public User(int userId, String userName, String encryptedPassword){
+    public Users(int userId, String userName, String encryptedPassword){
         this.userId = userId;
         this.userName = userName;
         this.encryptedPassword = encryptedPassword;

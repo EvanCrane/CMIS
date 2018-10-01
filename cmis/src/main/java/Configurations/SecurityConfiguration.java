@@ -16,7 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    UserDetailsService userDetailsService;
+    UserDetailsServiceImpl userDetailsService;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -28,8 +28,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
-        // Setting Service to find User in the database.
-        // And Setting PassswordEncoder
+        // Setting Service to find Users in the database.
+        // And Setting PasswordEncoder
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 
     }
@@ -40,29 +40,30 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         // The pages does not require login
-        http.authorizeRequests().antMatchers("/", "/login", "/logout", "/registration").permitAll();
+        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
 
-        // Modify code below for this app
-//        // dashboards require login as ROLE_USER or ROLE_ADMIN.
-//        // If no login, it will redirect to /login page.
-//        http.authorizeRequests().antMatchers("/player/**").access("hasRole('ROLE_PLAYER')");
-//
-//        // For ADMIN only.
-//        http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
-//
-//        // When the user has logged in as XX.
-//        // But access a page that requires role YY,
-//        // AccessDeniedException will be thrown.
-//        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/error/access-denied");
+        // ********** Modify code below for this app*************
+
+        // dashboards require login as ROLE_USER or ROLE_ADMIN.
+        // If no login, it will redirect to /login page.
+        http.authorizeRequests().antMatchers("/player/**").access("hasRole('ROLE_PLAYER')");
+
+        // For ADMIN only.
+        http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
+
+        // When the user has logged in as XX.
+        // But access a page that requires role YY,
+        // AccessDeniedException will be thrown.
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/error/access-denied");
 
         // Config for Login Form
         http.authorizeRequests().and().formLogin()//
                 // Submit URL of login page.
                 .loginProcessingUrl("/j_spring_security_check") // Submit URL
                 .loginPage("/login")//
-                .defaultSuccessUrl("/diverter")//
+                .defaultSuccessUrl("/WelcomePage")//
                 .failureUrl("/login?error=true")//
-                .usernameParameter("email")//
+                .usernameParameter("username")//
                 .passwordParameter("password")
                 // Config for Logout Page
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
