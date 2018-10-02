@@ -1,5 +1,6 @@
 package Controller;
 
+import java.lang.reflect.Type;
 import java.security.Principal;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.OnError;
 
 @Controller
 public class MainController {
@@ -26,7 +28,7 @@ public class MainController {
     // private CollectionDao collectionDao;
 
 
-//    @RequestMapping("/error")
+//    @RequestMapping(value = "/error", method = RequestMethod.GET)
 //    @ResponseBody
 //    public String errorPage(HttpServletRequest request){
 //        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
@@ -38,13 +40,25 @@ public class MainController {
 //    }
 
 
+    //Going to delete welcome page?
+//    @RequestMapping(value = {"/WelcomePage"}, method = RequestMethod.GET)
+//    public String welcomePage(Model model){
+//        model.addAttribute("title", "Welcome");
+//        model.addAttribute("message", "This is welcome page!");
+//        return "WelcomePage";
+//    }
 
-    @RequestMapping(value = {"/WelcomePage"}, method = RequestMethod.GET)
-    public String welcomePage(Model model){
-        model.addAttribute("title", "Welcome");
-        model.addAttribute("message", "This is welcome page!");
-        return "WelcomePage";
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public String basicErrorController(){
+        return "403Page";
     }
+
+    @OnError
+    @RequestMapping
+    public String errorCatch(){
+        return "403Page";
+    }
+
 
 
 
@@ -109,7 +123,7 @@ public class MainController {
         return "logoutSuccessful";
     }
 
-    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    @RequestMapping(value = "/403")
     public String accessDenied(Model model, Principal principal) {
 
         if (principal != null) {
@@ -126,6 +140,9 @@ public class MainController {
         }
 
         return "403Page";
+
+        // Reference for path variable handling
+        // https://stackoverflow.com/questions/21061638/spring-mvc-how-to-return-custom-404-errorpages#21115267
     }
 
 }
