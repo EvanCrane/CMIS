@@ -40,16 +40,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         // The pages does not require login
-        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
+        http.authorizeRequests().antMatchers("/", "/login", "/logout", "/view").permitAll();
 
         // ********** Modify code below for this app*************
 
-        // dashboards require login as ROLE_USER or ROLE_ADMIN.
+        // For now let admins and managers edit all collections
         // If no login, it will redirect to /login page.
-        http.authorizeRequests().antMatchers("/player/**").access("hasRole('ROLE_PLAYER')");
+        http.authorizeRequests().antMatchers("/add", "edit").access("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')");
 
         // For ADMIN only.
-        http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
+        //http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
 
         // When the user has logged in as XX.
         // But access a page that requires role YY,

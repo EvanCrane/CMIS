@@ -36,22 +36,26 @@ public class MainController {
 //                statusCode, exception==null? "N/A": exception.getMessage());
 //
 //    }
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public String errorToHome(Model model){
 
+        model.addAttribute("message", "Oops, something went wrong");
+        return "Error";
 
-
-    @RequestMapping(value = {"/WelcomePage"}, method = RequestMethod.GET)
-    public String welcomePage(Model model){
-        model.addAttribute("title", "Welcome");
-        model.addAttribute("message", "This is welcome page!");
-        return "WelcomePage";
     }
 
 
-
+    //Going to remove welcome page
+//    @RequestMapping(value = {"/WelcomePage"}, method = RequestMethod.GET)
+//    public String welcomePage(Model model){
+//        model.addAttribute("title", "Welcome");
+//        model.addAttribute("message", "This is welcome page!");
+//        return "WelcomePage";
+//    }
 
 
     // Home page
-    @RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String homePage(Model model, Principal principle){
 
         //User loggedInUser = (User) ((Authentication) principle).getPrincipal();
@@ -60,8 +64,8 @@ public class MainController {
         model.addAttribute("message", "This is the home page");
 
 
-
         return "HomePage";
+
     }
 
     //Page to add collection
