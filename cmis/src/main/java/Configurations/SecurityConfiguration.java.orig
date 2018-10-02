@@ -45,6 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
         // The pages does not require login
+<<<<<<< HEAD
         http.authorizeRequests().antMatchers("/", "/login", "/logoutSuccessful", "/error").permitAll();
 
         // ********** Modify code below for this app*************
@@ -57,6 +58,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         // For Admins and Managers
         http.authorizeRequests().antMatchers("/edit", "/add").access("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')");
+=======
+        http.authorizeRequests().antMatchers("/", "/login", "/logout", "/view").permitAll();
+
+        // ********** Modify code below for this app*************
+
+        // For now let admins and managers edit all collections
+        // If no login, it will redirect to /login page.
+        http.authorizeRequests().antMatchers("/add", "edit").access("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')");
+
+        // For ADMIN only.
+        //http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
+>>>>>>> 53ebac92e8b6e7c8a4c1cd306618c0c431a702cf
 
         // When the user has logged in as XX.
         // But access a page that requires role YY,

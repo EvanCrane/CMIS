@@ -38,18 +38,26 @@ public class MainController {
 //                statusCode, exception==null? "N/A": exception.getMessage());
 //
 //    }
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public String errorToHome(Model model){
 
+        model.addAttribute("message", "Oops, something went wrong");
+        return "Error";
 
+<<<<<<< HEAD
     //Going to delete welcome page?
 //    @RequestMapping(value = {"/WelcomePage"}, method = RequestMethod.GET)
 //    public String welcomePage(Model model){
 //        model.addAttribute("title", "Welcome");
 //        model.addAttribute("message", "This is welcome page!");
 //        return "WelcomePage";
+//    }
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public String basicErrorController(){
         return "403Page";
+=======
+>>>>>>> 53ebac92e8b6e7c8a4c1cd306618c0c431a702cf
     }
 
     @OnError
@@ -60,7 +68,13 @@ public class MainController {
 
 
 
-
+    //Going to remove welcome page
+//    @RequestMapping(value = {"/WelcomePage"}, method = RequestMethod.GET)
+//    public String welcomePage(Model model){
+//        model.addAttribute("title", "Welcome");
+//        model.addAttribute("message", "This is welcome page!");
+//        return "WelcomePage";
+//    }
 
 
     // Home page
