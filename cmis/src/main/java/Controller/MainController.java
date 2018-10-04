@@ -49,14 +49,14 @@ public class MainController {
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public String basicErrorController(){
-        return "403Page";
+        return "Error";
     }
 
-    @OnError
-    @RequestMapping
-    public String errorCatch(){
-        return "403Page";
-    }
+//    @OnError
+//    @RequestMapping
+//    public String errorCatch(){
+//        return "403Page";
+//    }
 
 
 
@@ -64,7 +64,7 @@ public class MainController {
 
 
     // Home page
-    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(Model model, Principal principle){
 
         //User loggedInUser = (User) ((Authentication) principle).getPrincipal();
