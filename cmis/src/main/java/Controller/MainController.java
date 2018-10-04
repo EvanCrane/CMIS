@@ -13,6 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,9 +25,8 @@ import javax.websocket.OnError;
 @Controller
 public class MainController {
 
-    //@Autowired
-    // Fix later
-    // private CollectionDao collectionDao;
+    @Autowired
+    private CollectionDao collectionDao;
 
 
 //    @RequestMapping(value = "/error", method = RequestMethod.GET)
@@ -90,6 +91,19 @@ public class MainController {
     }
 
     //********** POST method for add collection **************
+    @RequestMapping(value="/add", method= RequestMethod.POST)
+    public String SaveCollection(Model model, Principal principal, @ModelAttribute(value = "collection") Collection collection, BindingResult result)
+    {
+        if(result.hasErrors()){
+
+            return "/add";
+        }
+        try{
+            collectionDao.addCollection(collection);
+        }
+        catch(Exception e){}
+        return "home";
+    }
 
     //Page to view specific collection
     @RequestMapping (value = "/view", method = RequestMethod.GET)

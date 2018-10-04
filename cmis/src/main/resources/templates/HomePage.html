@@ -11,7 +11,11 @@
 
 <h2>Message : <span th:utext="${message}"></span></h2>
 
-<button th:href="@{/AddCollection}">Add Collection</button>
+<!--<button type="submit" name="action" value="save">Add Collection</button>-->
+
+<!--<button th:href="@{/add}">go to add collection</button>-->
+
+<a th:class="button" th:href="@{/add}">Go to Add Collection</a>
 
 
 </body>
