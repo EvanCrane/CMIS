@@ -11,8 +11,40 @@
 
 <h2>Message : <span th:utext="${message}"></span></h2>
 
+<div th:if="${errorMessage != null}"
+    th:utext="${errorMessage}" class="error">...</div>
 
-
+<form th:action="@{/add}" th:object="${collection}" method="POST">
+    <table>
+        <tr>
+            <td>Full Name</td>
+            <td><input type="text" field="*{fullName}"> </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Accronym</td>
+            <td><input type="text" field="*{accronym}"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td><input type="text" field="*{status}"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Service Type</td>
+            <td><input type="text" field="*{serviceType}"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>
+                <input type="submit" value="Submit">
+                <a th:href="@{/}">Cancel</a>
+            </td>
+        </tr>
+    </table>
+</form>
 
 </body>
 </html>
