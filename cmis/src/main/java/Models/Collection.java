@@ -16,9 +16,9 @@ public class Collection {
     private List<String> organizations;
     private List<String> desOrganizations;
 
-    public Collection(int aColelctionId, String aCollecType, String aFullName, String aAccronym, String aStatus, String aBackupName, List<String> aOrganizations, String aServiceType, List<String> aDesOrganizations){
+    public Collection(String aCollecType, String aFullName, String aAccronym, String aStatus, String aBackupName, List<String> aOrganizations, String aServiceType, List<String> aDesOrganizations){
 
-        setCollecIid(aColelctionId);
+        //setCollecIid(aColelctionId);
         setCollecType(aCollecType);
         setFullName(aFullName);
         setAccronym(aAccronym);
@@ -27,6 +27,17 @@ public class Collection {
         setOrganizations(aOrganizations);
         setServiceType(aServiceType);
         setDesOrganizations(aDesOrganizations);
+    }
+
+    public Collection(){}
+
+    public Collection(String aFullName, String aAcronym, String aType, String aStatus)
+    {
+        setFullName(aFullName);
+        setAccronym(aAcronym);
+        setCollecType(aType);
+        setStatus(aStatus);
+
     }
 
 
