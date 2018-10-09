@@ -1,22 +1,70 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title th:utext="${title}"></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/home.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
 </head>
 
 <body>
 
-<!-- Include _menu.html -->
-<th:block th:include="/_menu"></th:block>
+    <!-- Include _menu.html -->
+    <th:block th:include="/_menu"></th:block>
 
-<h2>Message : <span th:utext="${message}"></span></h2>
+    <!--<h2><span th:utext="${message}"></span></h2>-->
 
-<!--<button type="submit" name="action" value="save">Add Collection</button>-->
+    <!--<button type="submit" name="action" value="save">Add Collection</button>-->
 
-<!--<button th:href="@{/add}">go to add collection</button>-->
+    <!--<button th:href="@{/add}">go to add collection</button>-->
 
-<a th:class="button" th:href="@{/add}">Go to Add Collection</a>
+    <!--<a th:class="button" th:href="@{/add}">Go to Add Collection</a>-->
 
+
+    <div>
+        <!--TOP NAV-->
+        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap shadow">
+
+            <a href="#" class="navbar-left"><img src="assets/images/SRSLogoReversed.png"></a>
+            <ul class="navbar-nav px-3" style="color: whitesmoke">
+                <li class="nav-item text-nowrap">
+                    <i class="fas fa-edit"></i>
+                    <a th:class="button nav-link" th:href="@{/add}">Add Collection</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav px-3">
+                <li class="nav-item text-nowrap">
+                    <a class="nav-link" href="#">Sign out</a>
+                </li>
+            </ul>
+        </nav>
+        <!--END TOP NAV-->
+        <div class="container-fluid">
+            <div class="row">
+                <main>
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-3">
+                        <input class="search form-control form-control-dark" placeholder="Search for Collections..."
+                            aria-label="Search" type="text">
+                        <button type="button" class="search-button btn btn-primary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                </main>
+            </div>
+        </div>
+    </div>
 
 </body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+
 </html>

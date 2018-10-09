@@ -1,0 +1,43 @@
+nav {
+    box-sizing: border-box;
+}
+
+nav>a>img {
+    width: 100px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar .form-control {
+    padding: .75rem 1rem;
+    border-width: 0;
+    border-radius: 0;
+}
+
+.form-control-dark {
+    color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .1);
+}
+
+.page-wrapper {}
+
+main {
+    margin-top: 60px;
+    width: 100%;
+    padding-top: 1em;
+    padding-left: 5em;
+    padding-right: 5em;
+    padding-bottom: 1em;
+}
+
+.search {
+    padding: 1em;
+}
+
+.search-button {
+    margin-left: 1em;
+    width: 100px;
+
+}
