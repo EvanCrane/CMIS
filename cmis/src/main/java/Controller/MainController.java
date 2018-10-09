@@ -62,7 +62,7 @@ public class MainController {
 
         model.addAttribute("desOrgs", allDesOrgs);
         model.addAttribute("allOrgs", allOrganizations);
-        model.addAttribute("message", "This is the Add Collection Page");
+        model.addAttribute("message", "Add Collection");
         model.addAttribute("title", "Add");
         model.addAttribute("collection", collection);
         return "AddCollection";
