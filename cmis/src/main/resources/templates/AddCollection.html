@@ -2,103 +2,112 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:utext="${title}"></title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <!--<link rel="stylesheet" href="assets/css/style.css">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
           crossorigin="anonymous">
+    <style>
+        .container {
+            padding: 40px;
+            margin:auto;
+        }
+        td {
+            padding: 15px;
+        }
+    </style>
 </head>
+
 
 <body>
 
-<div class="container">
-
-<!-- Include _menu.html -->
 <th:block th:include="/_menu"></th:block>
 
-<h2><span th:utext="${message}"></span></h2>
+<div class="container">
 
-<div th:if="${errorMessage != null}"
-    th:utext="${errorMessage}" class="error">...</div>
+    <h2><span th:utext="${message}"></span></h2>
 
-<form th:action="@{/add}" th:object="${collection}" method="POST">
-    <table>
-        <tr>
-            <td>Collection Type</td>
-            <td>
-                <select th:field="*{collecType}">
-                    <option value=""><i>Select Collection Type</i></option>
-                    <option value="Logical Server">Logical Server</option>
-                    <option value="Environment">Environment</option>
-                    <option value="DBMS">DBMS</option>
-                    <option value="Instance Application">Instance Application</option>
-                </select>
-            </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Full Name</td>
-            <td><input type="text" th:field="*{fullName}"> </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Accronym</td>
-            <td><input type="text" th:field="*{accronym}"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Backup Server</td>
-            <td><input type="text" th:field="*{backUP}"></td>
-        </tr>
-        <tr>
-            <td>Service Type Provided</td>
-            <td>
-                <select th:field="*{serviceType}">
-                    <option value=""><i>Select Service Type</i></option>
-                    <option value="SandBox">Sandbox</option>
-                    <option value="Development">Development</option>
-                    <option value="Acceptance">Acceptance</option>
-                    <option value="Production">Production</option>
-                    <option value="Disaster Recovery">Disaster Recovery</option>
-                </select>
-            </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Status</td>
-            <td>
-                <select th:field="*{status}">
-                    <option value=""><i>Select Status</i></option>
-                    <option value="Active">Active</option>
-                    <option value="Retired">Retired</option>
-                </select>
-            </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Organizations</td>
-            <td>
-                <select th:field="*{organizations}" multiple>
-                    <option th:each="organization : ${allOrgs}" th:value="${organization}" th:text="${organization}"></option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Design Agency Organizations</td>
-            <td>
-                <select th:field="*{desOrganizations}" multiple>
-                    <option th:each="des_org : ${desOrgs}" th:value="${des_org}" th:text="${des_org}"></option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>
-                <input type="submit" value="Submit">
-                <a th:href="@{/}">Cancel</a>
-            </td>
-        </tr>
-    </table>
-</form>
+    <div th:if="${errorMessage != null}"
+        th:utext="${errorMessage}" class="error">...</div>
+
+    <form class="aForm" th:action="@{/add}" th:object="${collection}" method="POST">
+        <table>
+            <tr>
+                <td>Collection Type</td>
+                <td>
+                    <select th:field="*{collecType}">
+                        <option value=""><i>Select Collection Type</i></option>
+                        <option value="Logical Server">Logical Server</option>
+                        <option value="Environment">Environment</option>
+                        <option value="DBMS">DBMS</option>
+                        <option value="Instance Application">Instance Application</option>
+                    </select>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Full Name</td>
+                <td><input type="text" th:field="*{fullName}"> </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Accronym</td>
+                <td><input type="text" th:field="*{accronym}"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Backup Server</td>
+                <td><input type="text" th:field="*{backUP}"></td>
+            </tr>
+            <tr>
+                <td>Service Type Provided</td>
+                <td>
+                    <select th:field="*{serviceType}">
+                        <option value=""><i>Select Service Type</i></option>
+                        <option value="SandBox">Sandbox</option>
+                        <option value="Development">Development</option>
+                        <option value="Acceptance">Acceptance</option>
+                        <option value="Production">Production</option>
+                        <option value="Disaster Recovery">Disaster Recovery</option>
+                    </select>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>
+                    <select th:field="*{status}">
+                        <option value=""><i>Select Status</i></option>
+                        <option value="Active">Active</option>
+                        <option value="Retired">Retired</option>
+                    </select>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Organizations</td>
+                <td>
+                    <select th:field="*{organizations}" multiple>
+                        <option th:each="organization : ${allOrgs}" th:value="${organization}" th:text="${organization}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Design Agency Organizations</td>
+                <td>
+                    <select th:field="*{desOrganizations}" multiple>
+                        <option th:each="des_org : ${desOrgs}" th:value="${des_org}" th:text="${des_org}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Submit">
+                    <a th:href="@{/}">Cancel</a>
+                </td>
+            </tr>
+        </table>
+    </form>
 
 </div>
 
