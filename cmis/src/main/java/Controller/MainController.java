@@ -29,38 +29,11 @@ public class MainController {
     private CollectionDao collectionDao;
 
 
-//    @RequestMapping(value = "/error", method = RequestMethod.GET)
-//    @ResponseBody
-//    public String errorPage(HttpServletRequest request){
-//        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-//        Exception exception = (Exception) request.getAttribute("javax.servlet.error.exception");
-//        return String.format("<html><body><h2>Error Page</h2><div>Status code: <b>%s</b></div>"
-//                        + "<div>Exception Message: <b>%s</b></div><body></html>",
-//                statusCode, exception==null? "N/A": exception.getMessage());
-//
-//    }
-
-
-    //Going to delete welcome page?
-//    @RequestMapping(value = {"/WelcomePage"}, method = RequestMethod.GET)
-//    public String welcomePage(Model model){
-//        model.addAttribute("title", "Welcome");
-//        model.addAttribute("message", "This is welcome page!");
-//        return "WelcomePage";
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public String basicErrorController(){
         return "Error";
     }
-
-//    @OnError
-//    @RequestMapping
-//    public String errorCatch(){
-//        return "403Page";
-//    }
-
-
-
 
 
 
@@ -71,7 +44,8 @@ public class MainController {
         //User loggedInUser = (User) ((Authentication) principle).getPrincipal();
 
         model.addAttribute("title", "Home");
-        model.addAttribute("message", "This is the home page");
+        model.addAttribute("message", "CMIS");
+        model.addAttribute("collections", collectionDao.allCollections());
 
 
         return "HomePage";
@@ -82,11 +56,15 @@ public class MainController {
     @RequestMapping (value = "/add", method = RequestMethod.GET)
     public String AddCollection(Model model){
 
-        //Collection collection = new Collection();
+        Collection collection = new Collection();
+        List<String> allOrganizations = collectionDao.AllOrgs();
+        List<String> allDesOrgs = collectionDao.AllDesOrgs();
 
-        //model.addAttribute("collection", collection);
-        model.addAttribute("message", "This is the Add Collection Page");
+        model.addAttribute("desOrgs", allDesOrgs);
+        model.addAttribute("allOrgs", allOrganizations);
+        model.addAttribute("message", "Add Collection");
         model.addAttribute("title", "Add");
+        model.addAttribute("collection", collection);
         return "AddCollection";
     }
 
@@ -94,15 +72,20 @@ public class MainController {
     @RequestMapping(value="/add", method= RequestMethod.POST)
     public String SaveCollection(Model model, Principal principal, @ModelAttribute(value = "collection") Collection collection, BindingResult result)
     {
-        if(result.hasErrors()){
-
-            return "/add";
-        }
-        try{
-            collectionDao.addCollection(collection);
-        }
-        catch(Exception e){}
-        return "home";
+//        if(result.hasErrors()){
+//
+//            model.addAttribute("message", "Input was not accepted");
+//            return "/add";
+//        }
+//        try{
+//            collection.setCollecIid(-1);
+//
+//            collectionDao.addCollection(collection);
+//        }
+//        catch(Exception e){}
+        collection.setCollecIid(-1);
+        collectionDao.addCollection(collection);
+        return "HomePage";
     }
 
     //Page to view specific collection

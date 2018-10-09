@@ -1,5 +1,6 @@
 package Daos;
 
+import Mappers.CollectionMapper;
 import Models.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,14 +21,15 @@ public class CollectionDao extends JdbcDaoSupport {
         this.setDataSource(dataSource);
     }
 
-    public static List<Collection> allCollections;
+
+
 
     @Autowired
     static JdbcTemplate jdbcTemplate;
 
     public void addCollection(Collection form)
     {
-        String sqlAddCollection = "INSERT INTO COLLECTIONS (collecID, collecType, collecFullName, collecAccronym, collecStatus, collecBackUp, collecServType ) VALUE(?, ?, ?, ?, ?, ?, ?)";
+        String sqlAddCollection = "INSERT INTO COLLECTIONS (ID, TYPE, FULL_NAME, ACRONYM, STATUS, BACKUP_SERVER, SERVICE_TYPE) VALUE(?, ?, ?, ?, ?, ?, ?)";
 
         String maxIndexSql = "SELECT IFNULL(MAX(ID), 0) FROM COLLECTIONS";
         int collecID = getJdbcTemplate().queryForObject(maxIndexSql, int.class);
@@ -40,11 +42,12 @@ public class CollectionDao extends JdbcDaoSupport {
         String collecBackUp = form.getBackUP();
         String collecServType = form.getServiceType();
 
+
         getJdbcTemplate().update(sqlAddCollection, collecID, collecType, collecFullName, collecAccronym, collecStatus, collecBackUp, collecServType);
 
         for(String aOrg : form.getOrganizations())
         {
-            String sqlAddOrg = "INSERT INTO ORGANIZATION (collecID, orgName) VALUE (?, ?)";
+            String sqlAddOrg = "INSERT INTO COLLEC_ORGANIZATION (COL_ID, ORGANIZATION)  VALUE (?, ?)";
             String orgName = aOrg;
             getJdbcTemplate().update(sqlAddOrg, collecID, orgName);
 
@@ -52,18 +55,36 @@ public class CollectionDao extends JdbcDaoSupport {
 
         for(String aDesOrg : form.getDesOrganizations())
         {
-            String sqlAddDesOrg = "INSERT INTO DESIGN_ORGANIZATION (collecID, desOrg) VALUE (?, ?)";
+            String sqlAddDesOrg = "INSERT INTO COLLEC_DESIGN_ORGANIZATION (COL_ID, DES_ORG) VALUE (?, ?)";
             String desOrg = aDesOrg;
             getJdbcTemplate().update(sqlAddDesOrg, collecID, desOrg);
         }
 
 
+
+
     }
 
-    public List<String> allCollections()
+    public List<String> AllDesOrgs()
+    {
+        String sqlAllDesOrgs = "SELECT IFNULL (DESIGN_ORGANIZATION, '') FROM cmis_1.DESIGN_ORGANIZATIONS";
+        List<String> resultSet = getJdbcTemplate().queryForList(sqlAllDesOrgs, String.class);
+        return resultSet;
+    }
+
+    public List<String> AllOrgs()
+    {
+        String sqlAllOrgs = "SELECT ORGANIZATION FROM cmis_1.ORGANIZATIONS";
+        List <String> resultSet = getJdbcTemplate().queryForList(sqlAllOrgs, String.class);
+        return resultSet;
+    }
+
+
+    public List<Collection> allCollections()
     {
         String sqlAllCollections = "SELECT FULL_NAME, ACRONYM, TYPE, STATUS FROM COLLECTIONS";
-        return jdbcTemplate.queryForList(sqlAllCollections, String.class);
+        //return getJdbcTemplate().queryForList(sqlAllCollections, String.class);
+        return getJdbcTemplate().query(sqlAllCollections, new CollectionMapper());
     }
 
 
