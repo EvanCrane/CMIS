@@ -13,20 +13,16 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
         crossorigin="anonymous">
+    <style>
+        th, td {
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+        }
+    </style>
 </head>
 
 <body>
-
-    <!-- Include _menu.html -->
-
-    <!--<h2><span th:utext="${message}"></span></h2>-->
-
-    <!--<button type="submit" name="action" value="save">Add Collection</button>-->
-
-    <!--<button th:href="@{/add}">go to add collection</button>-->
-
-    <!--<a th:class="button" th:href="@{/add}">Go to Add Collection</a>-->
-
 
     <div>
         <!--TOP NAV-->
@@ -55,30 +51,27 @@
                         <button type="button" class="search-button btn btn-primary">
                             <i class="fas fa-search"></i>
                         </button>
+                        </div>
                 </main>
             </div>
         </div>
     </div>
     <div class="container">
-
-        <h2><span th:utext="${message}"></span></h2>
+        <i><strong><h3 align="center" th:utext="${message}"></h3></strong></i>
         <table style="width:100%">
             <tr>
-                <th>Full Name</th>
-                <th>Acronym</th>
-                <th>Type</th>
-                <th>Status</th>
+                <th><h4><b>Full Name</b></h4></th>
+                <th><h4><b>Acronym</b></h4></th>
+                <th><h4><b>Type</b></h4></th>
+                <th><h4><b>Status</b></h4></th>
             </tr>
-            <tr th:each="collection : ${collections}">\
+            <tr th:each="collection : ${collections}">
                 <td th:text="${collection.getFullName()}"></td>
                 <td th:text="${collection.getAccronym()}"></td>
                 <td th:text="${collection.getCollecType()}"></td>
                 <td th:text="${collection.getStatus()}"></td>
             </tr>
         </table>
-
-        <a th:class="button" th:href="@{/add}">Go to Add Collection</a>
-
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

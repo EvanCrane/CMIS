@@ -26,8 +26,8 @@
 
     <h2><span th:utext="${message}"></span></h2>
 
-    <div th:if="${errorMessage != null}"
-        th:utext="${errorMessage}" class="error">...</div>
+    <!--<div th:if="${errorMessage != null}"-->
+        <!--th:utext="${errorMessage}" class="error">...</div>-->
 
     <form class="aForm" th:action="@{/add}" th:object="${collection}" method="POST">
         <table>
@@ -103,7 +103,7 @@
                 <td>&nbsp;</td>
                 <td>
                     <input type="submit" value="Submit">
-                    <a th:href="@{/}">Cancel</a>
+                    <a th:href="@{/home}">Cancel</a>
                 </td>
             </tr>
         </table>

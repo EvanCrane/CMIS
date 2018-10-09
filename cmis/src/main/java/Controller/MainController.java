@@ -44,7 +44,7 @@ public class MainController {
         //User loggedInUser = (User) ((Authentication) principle).getPrincipal();
 
         model.addAttribute("title", "Home");
-        model.addAttribute("message", "CMIS");
+        model.addAttribute("message", "Collections");
         model.addAttribute("collections", collectionDao.allCollections());
 
 
@@ -85,6 +85,10 @@ public class MainController {
 //        catch(Exception e){}
         collection.setCollecIid(-1);
         collectionDao.addCollection(collection);
+
+        model.addAttribute("title", "Home");
+        model.addAttribute("message", "Collections");
+        model.addAttribute("collections", collectionDao.allCollections());
         return "HomePage";
     }
 
