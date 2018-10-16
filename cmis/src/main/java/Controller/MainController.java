@@ -15,10 +15,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.OnError;
@@ -118,8 +115,11 @@ public class MainController {
 
     //Page to edit collection
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String EditCollection(Model model){
-
+    public String EditCollection(Model model, @RequestParam("collection") int collecId){
+        // Get the collection id
+        // create a collection object
+        // add the collection object to the model
+        Collection aCollection = collectionDao.getACollection(collecId);
 
         return "EditCollection";
     }

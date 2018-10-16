@@ -65,6 +65,13 @@ public class CollectionDao extends JdbcDaoSupport {
 
     }
 
+    public Collection getACollection(int aCollecID)
+    {
+        // Incomplete
+        //String sql = "SELECT ";
+        return new Collection();
+    }
+
     public List<String> AllDesOrgs()
     {
         String sqlAllDesOrgs = "SELECT IFNULL (DESIGN_ORGANIZATION, '') FROM cmis_1.DESIGN_ORGANIZATIONS";
