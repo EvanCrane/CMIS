@@ -4,6 +4,7 @@ import java.lang.reflect.Type;
 import java.security.Principal;
 import java.util.List;
 
+import Daos.UserDAO;
 import Models.Collection;
 import Daos.CollectionDao;
 
@@ -28,6 +29,9 @@ public class MainController {
     @Autowired
     private CollectionDao collectionDao;
 
+    @Autowired
+    private UserDAO userDao;
+
 
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
@@ -41,8 +45,19 @@ public class MainController {
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(Model model, Principal principle){
 
-        //User loggedInUser = (User) ((Authentication) principle).getPrincipal();
+        User loggedInUser = (User) ((Authentication) principle).getPrincipal();
 
+        boolean isPlayer = true;
+        String userName = loggedInUser.getUsername();
+        int roleID = userDao.getUserRole(userName);
+        if(roleID!=3)
+        {
+            isPlayer = false;
+        }
+        model.addAttribute("isPlayer", isPlayer);
+
+//            // For Admins and Managers
+//            http.authorizeRequests().antMatchers("/edit", "/add").access("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')");
         model.addAttribute("title", "Home");
         model.addAttribute("message", "Collections");
         model.addAttribute("collections", collectionDao.allCollections());

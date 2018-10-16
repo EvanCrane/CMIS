@@ -1,5 +1,6 @@
 package Daos;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.sql.DataSource;
 
 import Mappers.UserMapper;
@@ -41,5 +42,14 @@ public class UserDAO extends JdbcDaoSupport{
         catch(EmptyResultDataAccessException e){
             return null;
         }
+    }
+
+    public int getUserRole(String userName){
+        String sql = "SELECT ROLE_ID FROM USER_ROLE " +
+                "    inner join APP_USER" +
+                "    ON USER_ROLE.USER_ID = APP_USER.USER_ID" +
+                "    WHERE USER_NAME = ?";
+        Object[] myArg = new Object[] {userName};
+        return getJdbcTemplate().queryForObject(sql, myArg, int.class);
     }
 }

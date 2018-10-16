@@ -29,8 +29,8 @@
         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap shadow">
 
             <a href="#" class="navbar-left"><img src="https://www.srs.gov/general/news/logos/png/03_SRS_full_horiz_rev.png"></a>
-            <ul class="navbar-nav px-3">
-                <li class="nav-item text-nowrap">
+            <ul class="navbar-nav px-3" th:switch="${isPlayer}">
+                <li class="nav-item text-nowrap" th:case="false">
                     <i style="color: whitesmoke;" class="fas fa-edit"></i>
                     <a style="color: whitesmoke;" th:class="button" th:href="@{/add}">Add Collection</a>
                 </li>
