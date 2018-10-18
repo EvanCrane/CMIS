@@ -87,7 +87,13 @@ public class CollectionDao extends JdbcDaoSupport {
         return getJdbcTemplate().query(sqlAllCollections, new CollectionMapper());
     }
 
+    public List<Collection> searchCollections(String wildcard)
+    {
+        String sqlSearchCollections = "SELECT FULL_NAME, ACRONYM, TYPE, STATUS FROM COLLECTIONS" +
+                                " WHERE FULL_NAME LIKE '"+ wildcard + "%'";
 
+        return getJdbcTemplate().query(sqlSearchCollections, new CollectionMapper());
+    }
 
 
 }

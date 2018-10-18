@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.util.List;
 
 import Models.Collection;
+import Models.SearchQuery;
 import Daos.CollectionDao;
 
 import Utils.WebUtils;
@@ -14,10 +15,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.OnError;
@@ -46,6 +44,34 @@ public class MainController {
         model.addAttribute("title", "Home");
         model.addAttribute("message", "Collections");
         model.addAttribute("collections", collectionDao.allCollections());
+
+
+        return "HomePage";
+
+    }
+    //Get method for searching
+    /*
+    @RequestMapping(value = "/home",params = {"q"},method = RequestMethod.GET)
+    public String searchCollections(Model model, Principal principle, @RequestParam(value = "q") String wildcard){
+
+        //User loggedInUser = (User) ((Authentication) principle).getPrincipal();
+        model.addAttribute("title", "Home");
+        model.addAttribute("message", "Collections");
+        model.addAttribute("collections", collectionDao.searchCollections(wildcard));
+
+
+        return "HomePage";
+
+    }
+    */
+
+    @RequestMapping(value = {"/", "/home"}, params={"q"},method = RequestMethod.GET)
+    public String searchCollections(Model model, Principal principle, @RequestParam(value = "q") String query){
+
+        //User loggedInUser = (User) ((Authentication) principle).getPrincipal();
+        model.addAttribute("title", "Home");
+        model.addAttribute("message", "Collections");
+        model.addAttribute("collections", collectionDao.searchCollections(query));
 
 
         return "HomePage";
