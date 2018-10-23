@@ -43,7 +43,7 @@ public class MainController {
     public String homePage(Model model, Principal principle){
 
         User loggedInUser = (User) ((Authentication) principle).getPrincipal();
-
+        String userRole;
         boolean isPlayer = true;
         String userName = loggedInUser.getUsername();
         int roleID = userDao.getUserRole(userName);
@@ -51,6 +51,11 @@ public class MainController {
         {
             isPlayer = false;
         }
+        model.addAttribute("name", userName);
+        if(roleID == 1){userRole = "Admin";}
+        else if(roleID == 2){userRole = "Manager";}
+        else {userRole = "Reader";}
+        model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
 
 //            // For Admins and Managers
