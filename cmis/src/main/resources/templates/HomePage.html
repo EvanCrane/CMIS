@@ -37,6 +37,17 @@
                     <a style="color: whitesmoke;" th:class="button" th:href="@{/add}">Add Collection</a>
                 </li>
             </ul>
+            <ul class="navbar-nav px 3" style="color: whitesmoke;" th:switch="${userRole}">
+                <li th:case="Admin">
+                    <i th:text="${name}"></i> (Admin)
+                </li>
+                <li th:case="Manager">
+                    <i th:text="${name}"></i> (Manager)
+                </li>
+                <li th:case="Reader">
+                    <i th:text="${name}"></i> (Reader)
+                </li>
+            </ul>
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
                     <a style="color:whitesmoke;" th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
