@@ -23,6 +23,10 @@ nav>a>img {
 
 .page-wrapper {}
 
+.extrapadding{
+    padding-bottom: 25px;
+}
+
 main {
     margin-top: 60px;
     width: 100%;
