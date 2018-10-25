@@ -55,22 +55,18 @@
             </ul>
         </nav>
         <!--END TOP NAV-->
-        <div class="container-fluid">
+        <div class="container-fluid" >
             <div class="row">
                 <main>
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-3">
-                        <input class="search form-control form-control-dark" placeholder="Search for Collections..."
-                            aria-label="Search" type="text">
-                        <button type="button" class="search-button btn btn-primary">
-                            <i class="fas fa-search"></i>
-                        </button>
+                        <!--<i><strong><h3 align="center" th:utext="${message}"></h3></strong></i>-->
                         </div>
                 </main>
             </div>
         </div>
     </div>
     <div class="container">
-        <i><strong><h3 align="center" th:utext="${message}"></h3></strong></i>
+        <div class="extrapadding" ><i><strong><h3 align="center" th:utext="${message}"></h3></strong></i></div>
         <table id="homeTable" class="display" style="width:100%">
             <thead>
             <tr>
