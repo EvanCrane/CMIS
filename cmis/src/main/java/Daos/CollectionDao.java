@@ -89,7 +89,7 @@ public class CollectionDao extends JdbcDaoSupport {
 
     public List<Collection> allCollections()
     {
-        String sqlAllCollections = "SELECT FULL_NAME, ACRONYM, TYPE, STATUS FROM COLLECTIONS";
+        String sqlAllCollections = "SELECT FULL_NAME, ACRONYM, TYPE, STATUS, ID FROM COLLECTIONS";
         //return getJdbcTemplate().queryForList(sqlAllCollections, String.class);
         return getJdbcTemplate().query(sqlAllCollections, new CollectionMapper());
     }

@@ -31,12 +31,13 @@ public class Collection {
 
     public Collection(){}
 
-    public Collection(String aFullName, String aAcronym, String aType, String aStatus)
+    public Collection(String aFullName, String aAcronym, String aType, String aStatus, int id)
     {
         setFullName(aFullName);
         setAccronym(aAcronym);
         setCollecType(aType);
         setStatus(aStatus);
+        setCollecIid(id);
 
     }
 

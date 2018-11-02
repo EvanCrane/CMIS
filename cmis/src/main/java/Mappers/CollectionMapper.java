@@ -18,7 +18,8 @@ public class CollectionMapper implements RowMapper<Collection>{
         String acronym = rs.getString("ACRONYM");
         String type = rs.getString("TYPE");
         String status = rs.getString("STATUS");
-        Collection aCollection = new Collection(fullName, acronym, type, status);
+        int id = rs.getInt("ID");
+        Collection aCollection = new Collection(fullName, acronym, type, status, id);
         return aCollection;
     }
 }

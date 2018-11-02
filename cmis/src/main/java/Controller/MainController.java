@@ -106,7 +106,7 @@ public class MainController {
         model.addAttribute("title", "Home");
         model.addAttribute("message", "Collections");
         model.addAttribute("collections", collectionDao.allCollections());
-        return "HomePage";
+        return "redirect:/home";
     }
 
     //Page to view specific collection
@@ -119,12 +119,13 @@ public class MainController {
     //********* POST method for view collection (edit or delete) **********
 
     //Page to edit collection
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String EditCollection(Model model, @RequestParam("collection") int collecId){
+    @RequestMapping(value = "/edit/{collID)", method = RequestMethod.GET)
+    public String EditCollection(@PathVariable int collID, Model model){
         // Get the collection id
         // create a collection object
         // add the collection object to the model
-        Collection aCollection = collectionDao.getACollection(collecId);
+
+        //Collection aCollection = collectionDao.getACollection(collecId);
 
         return "EditCollection";
     }

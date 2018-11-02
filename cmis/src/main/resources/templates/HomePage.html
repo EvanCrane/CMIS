@@ -78,7 +78,7 @@
             </thead>
             <tbody>
             <tr th:each="collection : ${collections}">
-                <td th:text="${collection.getFullName()}"></td>
+                <td ><a th:text="${collection.getFullName()}" th:href="@{'/edit/' + ${collection.getCollecIid()}}" ></a></td>
                 <td th:text="${collection.getAccronym()}"></td>
                 <td th:text="${collection.getCollecType()}"></td>
                 <td th:text="${collection.getStatus()}"></td>
