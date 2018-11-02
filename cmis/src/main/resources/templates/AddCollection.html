@@ -2,32 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:utext="${title}"></title>
-    <!--<link rel="stylesheet" href="assets/css/style.css">-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-          crossorigin="anonymous">
-    <style>
-        .container {
-            padding: 40px;
-            margin:auto;
-        }
-        td {
-            padding: 15px;
-        }
-    </style>
+    <th:block th:include="/_menu"></th:block>
+
 </head>
 
-
 <body>
-
-<th:block th:include="/_menu"></th:block>
 
 <div class="container">
 
     <h2><span th:utext="${message}"></span></h2>
-
-    <!--<div th:if="${errorMessage != null}"-->
-        <!--th:utext="${errorMessage}" class="error">...</div>-->
 
     <form class="aForm" th:action="@{/add}" th:object="${collection}" method="POST">
         <table>

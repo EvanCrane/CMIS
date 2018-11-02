@@ -32,16 +32,9 @@ public class MainController {
 
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
-    public String basicErrorController(){
-        return "Error";
-    }
+    public String basicErrorController(Model model, Principal principle){
 
-
-
-    // Home page
-    @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
-    public String homePage(Model model, Principal principle){
-
+        // ********** Common stuff for each controller so that the header menu works **********
         User loggedInUser = (User) ((Authentication) principle).getPrincipal();
         String userRole;
         boolean isPlayer = true;
@@ -57,9 +50,35 @@ public class MainController {
         else {userRole = "Reader";}
         model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
+        // **************** End of common stuff **************************************
 
-//            // For Admins and Managers
-//            http.authorizeRequests().antMatchers("/edit", "/add").access("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')");
+        return "Error";
+    }
+
+
+
+    // Home page
+    @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
+    public String homePage(Model model, Principal principle){
+
+        // ********** Common stuff for each controller so that the header menu works **********
+        User loggedInUser = (User) ((Authentication) principle).getPrincipal();
+        String userRole;
+        boolean isPlayer = true;
+        String userName = loggedInUser.getUsername();
+        int roleID = userDao.getUserRole(userName);
+        if(roleID!=3)
+        {
+            isPlayer = false;
+        }
+        model.addAttribute("name", userName);
+        if(roleID == 1){userRole = "Admin";}
+        else if(roleID == 2){userRole = "Manager";}
+        else {userRole = "Reader";}
+        model.addAttribute("userRole", userRole);
+        model.addAttribute("isPlayer", isPlayer);
+        // **************** End of common stuff **************************************
+
         model.addAttribute("title", "Home");
         model.addAttribute("message", "Collections");
         model.addAttribute("collections", collectionDao.allCollections());
@@ -71,7 +90,25 @@ public class MainController {
 
     //Page to add collection
     @RequestMapping (value = "/add", method = RequestMethod.GET)
-    public String AddCollection(Model model){
+    public String AddCollection(Model model, Principal principle){
+
+        // ********** Common stuff for each controller so that the header menu works **********
+        User loggedInUser = (User) ((Authentication) principle).getPrincipal();
+        String userRole;
+        boolean isPlayer = true;
+        String userName = loggedInUser.getUsername();
+        int roleID = userDao.getUserRole(userName);
+        if(roleID!=3)
+        {
+            isPlayer = false;
+        }
+        model.addAttribute("name", userName);
+        if(roleID == 1){userRole = "Admin";}
+        else if(roleID == 2){userRole = "Manager";}
+        else {userRole = "Reader";}
+        model.addAttribute("userRole", userRole);
+        model.addAttribute("isPlayer", isPlayer);
+        // **************** End of common stuff **************************************
 
         Collection collection = new Collection();
         List<String> allOrganizations = collectionDao.AllOrgs();
@@ -87,19 +124,26 @@ public class MainController {
 
     //********** POST method for add collection **************
     @RequestMapping(value="/add", method= RequestMethod.POST)
-    public String SaveCollection(Model model, Principal principal, @ModelAttribute(value = "collection") Collection collection, BindingResult result)
+    public String SaveCollection(Model model, Principal principle, @ModelAttribute(value = "collection") Collection collection, BindingResult result)
     {
-//        if(result.hasErrors()){
-//
-//            model.addAttribute("message", "Input was not accepted");
-//            return "/add";
-//        }
-//        try{
-//            collection.setCollecIid(-1);
-//
-//            collectionDao.addCollection(collection);
-//        }
-//        catch(Exception e){}
+        // ********** Common stuff for each controller so that the header menu works **********
+        User loggedInUser = (User) ((Authentication) principle).getPrincipal();
+        String userRole;
+        boolean isPlayer = true;
+        String userName = loggedInUser.getUsername();
+        int roleID = userDao.getUserRole(userName);
+        if(roleID!=3)
+        {
+            isPlayer = false;
+        }
+        model.addAttribute("name", userName);
+        if(roleID == 1){userRole = "Admin";}
+        else if(roleID == 2){userRole = "Manager";}
+        else {userRole = "Reader";}
+        model.addAttribute("userRole", userRole);
+        model.addAttribute("isPlayer", isPlayer);
+        // **************** End of common stuff **************************************
+
         collection.setCollecIid(-1);
         collectionDao.addCollection(collection);
 
@@ -111,19 +155,83 @@ public class MainController {
 
     //Page to view specific collection
     @RequestMapping (value = "/view", method = RequestMethod.GET)
-    public String ViewCollection(Model model){
+    public String ViewCollection(@RequestParam("id") int collID, Model model, Principal principle){
 
+        // ********** Common stuff for each controller so that the header menu works **********
+        User loggedInUser = (User) ((Authentication) principle).getPrincipal();
+        String userRole;
+        boolean isPlayer = true;
+        String userName = loggedInUser.getUsername();
+        int roleID = userDao.getUserRole(userName);
+        if(roleID!=3)
+        {
+            isPlayer = false;
+        }
+        model.addAttribute("name", userName);
+        if(roleID == 1){userRole = "Admin";}
+        else if(roleID == 2){userRole = "Manager";}
+        else {userRole = "Reader";}
+        model.addAttribute("userRole", userRole);
+        model.addAttribute("isPlayer", isPlayer);
+        // **************** End of common stuff **************************************
+
+        model.addAttribute("collID", collID);
         return "ViewCollection";
+    }
+
+    //Page to delte specific collection
+    @RequestMapping (value = "/delete", method = RequestMethod.GET)
+    public String DeleteCollection(@RequestParam("id") int collID, Model model, Principal principle)
+    {
+        // ********** Common stuff for each controller so that the header menu works **********
+        User loggedInUser = (User) ((Authentication) principle).getPrincipal();
+        String userRole;
+        boolean isPlayer = true;
+        String userName = loggedInUser.getUsername();
+        int roleID = userDao.getUserRole(userName);
+        if(roleID!=3)
+        {
+            isPlayer = false;
+        }
+        model.addAttribute("name", userName);
+        if(roleID == 1){userRole = "Admin";}
+        else if(roleID == 2){userRole = "Manager";}
+        else {userRole = "Reader";}
+        model.addAttribute("userRole", userRole);
+        model.addAttribute("isPlayer", isPlayer);
+        // **************** End of common stuff **************************************
+
+        return "Delete";
     }
 
     //********* POST method for view collection (edit or delete) **********
 
     //Page to edit collection
-    @RequestMapping(value = "/edit/{collID)", method = RequestMethod.GET)
-    public String EditCollection(@PathVariable int collID, Model model){
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String EditCollection(@RequestParam("id") String collID, Model model, Principal principle){
+
+        // ********** Common stuff for each controller so that the header menu works **********
+        User loggedInUser = (User) ((Authentication) principle).getPrincipal();
+        String userRole;
+        boolean isPlayer = true;
+        String userName = loggedInUser.getUsername();
+        int roleID = userDao.getUserRole(userName);
+        if(roleID!=3)
+        {
+            isPlayer = false;
+        }
+        model.addAttribute("name", userName);
+        if(roleID == 1){userRole = "Admin";}
+        else if(roleID == 2){userRole = "Manager";}
+        else {userRole = "Reader";}
+        model.addAttribute("userRole", userRole);
+        model.addAttribute("isPlayer", isPlayer);
+        // **************** End of common stuff **************************************
+
         // Get the collection id
         // create a collection object
         // add the collection object to the model
+
 
         //Collection aCollection = collectionDao.getACollection(collecId);
 
@@ -146,6 +254,24 @@ public class MainController {
 
     @RequestMapping(value = "/403")
     public String accessDenied(Model model, Principal principal) {
+
+        // ********** Common stuff for each controller so that the header menu works **********
+        User loggedInUser = (User) ((Authentication) principal).getPrincipal();
+        String userRole;
+        boolean isPlayer = true;
+        String userName = loggedInUser.getUsername();
+        int roleID = userDao.getUserRole(userName);
+        if(roleID!=3)
+        {
+            isPlayer = false;
+        }
+        model.addAttribute("name", userName);
+        if(roleID == 1){userRole = "Admin";}
+        else if(roleID == 2){userRole = "Manager";}
+        else {userRole = "Reader";}
+        model.addAttribute("userRole", userRole);
+        model.addAttribute("isPlayer", isPlayer);
+        // **************** End of common stuff **************************************
 
         if (principal != null) {
             User loginedUser = (User) ((Authentication) principal).getPrincipal();

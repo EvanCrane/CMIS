@@ -3,19 +3,11 @@
 <head>
     <title>Access Denied</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link th:href="@{/css/style.css}" rel="stylesheet" />
-    <link th:href="@{/css/login.css}" rel="stylesheet" />
-
-    <link rel="stylesheet" href="assets/css/style.css">
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-          crossorigin="anonymous">
+    <th:block th:include="/_menu"></th:block>
 </head>
 
 <body>
-<!-- Include _menu.html -->
-<th:block th:include="/_menu"></th:block>
+
 
 <h3 th:if="${message != null}" th:utext="${message}" style="color: red;"></h3>
 

@@ -4,67 +4,11 @@
 <head>
     <title th:utext="${title}"></title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link th:href="@{/css/style.css}" rel="stylesheet" />
-    <link th:href="@{/css/home.css}" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/home.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-        crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <th:block th:include="/_menu"></th:block>
 
-    <style>
-        th, td {
-            border-bottom: 1px solid #ddd;
-            padding: 15px;
-            text-align: left;
-        }
-    </style>
 </head>
 
 <body>
-
-    <div>
-        <!--TOP NAV-->
-        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap shadow">
-
-            <a href="#" class="navbar-left"><img src="https://www.srs.gov/general/news/logos/png/03_SRS_full_horiz_rev.png"></a>
-            <ul class="navbar-nav px-3" th:switch="${isPlayer}">
-                <li class="nav-item text-nowrap" th:case="false">
-                    <i style="color: whitesmoke;" class="fas fa-edit"></i>
-                    <a style="color: whitesmoke;" th:class="button" th:href="@{/add}">Add Collection</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav px 3" style="color: whitesmoke;" th:switch="${userRole}">
-                <li th:case="Admin">
-                    <i th:text="${name}"></i> (Admin)
-                </li>
-                <li th:case="Manager">
-                    <i th:text="${name}"></i> (Manager)
-                </li>
-                <li th:case="Reader">
-                    <i th:text="${name}"></i> (Reader)
-                </li>
-            </ul>
-            <ul class="navbar-nav px-3">
-                <li class="nav-item text-nowrap">
-                    <a style="color:whitesmoke;" th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
-                </li>
-            </ul>
-        </nav>
-        <!--END TOP NAV-->
-        <div class="container-fluid" >
-            <div class="row">
-                <main>
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-3">
-                        <!--<i><strong><h3 align="center" th:utext="${message}"></h3></strong></i>-->
-                        </div>
-                </main>
-            </div>
-        </div>
-    </div>
     <div class="container">
         <div class="extrapadding" ><i><strong><h3 align="center" th:utext="${message}"></h3></strong></i></div>
         <table id="homeTable" class="display" style="width:100%">
@@ -78,7 +22,7 @@
             </thead>
             <tbody>
             <tr th:each="collection : ${collections}">
-                <td ><a th:text="${collection.getFullName()}" th:href="@{'/edit/' + ${collection.getCollecIid()}}" ></a></td>
+                <td><a th:text="${collection.getFullName()}" th:href="@{/view(id=${collection.getCollecIid()})}" ></a></td>
                 <td th:text="${collection.getAccronym()}"></td>
                 <td th:text="${collection.getCollecType()}"></td>
                 <td th:text="${collection.getStatus()}"></td>
@@ -87,6 +31,8 @@
         </table>
     </div>
 </body>
+
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
