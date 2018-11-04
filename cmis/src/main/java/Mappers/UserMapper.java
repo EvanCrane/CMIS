@@ -12,14 +12,15 @@ import org.springframework.jdbc.core.RowMapper;
 public class UserMapper implements RowMapper<Users>{
 
     public static final String BASE_SQL //
-            = "Select u.USER_ID, u.USER_NAME, u.ENCRYPTED_PASSWORD From APP_USER u ";
+            = "Select u.USER_ID, u.USER_NAME, u.ENCRYPTED_PASSWORD, u.ORGANIZATION From APP_USER u ";
 
     @Override
     public Users mapRow(ResultSet rs, int rowNum) throws SQLException {
         int userId = rs.getInt("USER_ID");
         String userName = rs.getString("USER_NAME");
         String encryptedPassword = rs.getString("ENCRYPTED_PASSWORD");
+        String organization = rs.getString("ORGANIZATION");
 
-        return new Users(userId, userName, encryptedPassword);
+        return new Users(userId, userName, encryptedPassword, organization);
     }
 }

@@ -2,9 +2,10 @@ package Models;
 
 public class Users {
 
-    private int userId;
-    private String userName;
-    private String encryptedPassword;
+    public int userId;
+    public String userName;
+    public String encryptedPassword;
+    public String organization;
 
 
 //    public Users{
@@ -17,6 +18,16 @@ public class Users {
         this.encryptedPassword = encryptedPassword;
 
     }
+
+    public Users(int userId, String userName, String encryptedPassword, String organization)
+    {
+        setUserId(userId);
+        setUserName(userName);
+        setEncryptedPassword(encryptedPassword);
+        setOrganization(organization);
+    }
+
+
 
     public int getUserId(){
         return userId;
@@ -47,4 +58,11 @@ public class Users {
     }
 
 
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
 }

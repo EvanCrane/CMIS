@@ -58,6 +58,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // For Admins and Managers
         http.authorizeRequests().antMatchers("/edit", "/add").access("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')");
 
+        //For only Admins
+        http.authorizeRequests().antMatchers("/users").access("hasAnyRole('ROLE_ADMIN')");
+
         // When the user has logged in as XX.
         // But access a page that requires role YY,
         // AccessDeniedException will be thrown.

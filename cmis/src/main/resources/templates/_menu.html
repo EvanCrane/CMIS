@@ -20,7 +20,7 @@
         }
     </style>
 
-    // this is the menu stuff
+    <!--this is the menu stuff-->
     <div>
         <!--TOP NAV-->
         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap shadow">
@@ -35,6 +35,11 @@
                 <li class="nav-item text-nowrap" th:case="false">
                     <i style="color: whitesmoke;" class="fas fa-edit"></i>
                     <a style="color: whitesmoke;" th:class="button" th:href="@{/add}">Add Collection</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav px 3" style="color: whitesmoke;" th:switch="${userRole}">
+                <li th:case="Admin">
+                    <a style="color: whitesmoke;" th:class="button" th:href="@{/users}">Manage Users</a>
                 </li>
             </ul>
             <ul class="navbar-nav px 3" style="color: whitesmoke;" th:switch="${userRole}">

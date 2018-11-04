@@ -12,6 +12,8 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 /*
 The DAO classes are ones used to access the database for queries such as Insert, Update,
@@ -43,6 +45,33 @@ public class UserDAO extends JdbcDaoSupport{
             return null;
         }
     }
+
+    // Returns a user given a userId
+    public Users findUser(Integer userId)
+    {
+        String sql = UserMapper.BASE_SQL + "where u.USER_ID = ?";
+        Object[] params = new Object[] {userId};
+        UserMapper mapper = new UserMapper();
+        try{
+            return this.getJdbcTemplate().queryForObject(sql, params, mapper);
+
+        }
+        catch (EmptyResultDataAccessException e){return null;}
+    }
+
+    //This method is used to find all users and their information
+    public List<Users> getAllUsers()
+    {
+        String sqlAllUsers = "SELECT USER_ID, USER_NAME, ENCRYPTED_PASSWORD, ORGANIZATION" +
+                " FROM APP_USER";
+        return getJdbcTemplate().query(sqlAllUsers, new UserMapper());
+
+
+    }
+
+
+
+
 
     public int getUserRole(String userName){
         String sql = "SELECT ROLE_ID FROM USER_ROLE " +

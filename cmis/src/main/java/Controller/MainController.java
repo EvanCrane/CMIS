@@ -8,7 +8,9 @@ import Daos.UserDAO;
 import Models.Collection;
 import Daos.CollectionDao;
 
+import Models.Users;
 import Utils.WebUtils;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -50,9 +52,37 @@ public class MainController {
         else {userRole = "Reader";}
         model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
+
         // **************** End of common stuff **************************************
 
         return "Error";
+    }
+
+    @RequestMapping(value = "/users", method= RequestMethod.GET)
+    public String usersMap(Model model, Principal principle)
+    {
+//        // ********** Common stuff for each controller so that the header menu works **********
+//        User loggedInUser = (User) ((Authentication) principle).getPrincipal();
+//        String userRole;
+//        boolean isPlayer = true;
+//        String userName = loggedInUser.getUsername();
+//        int roleID = userDao.getUserRole(userName);
+//        if(roleID!=3)
+//        {
+//            isPlayer = false;
+//        }
+//        model.addAttribute("name", userName);
+//        if(roleID == 1){userRole = "Admin";}
+//        else if(roleID == 2){userRole = "Manager";}
+//        else {userRole = "Reader";}
+//        model.addAttribute("userRole", userRole);
+//        model.addAttribute("isPlayer", isPlayer);
+//        // **************** End of common stuff **************************************
+
+        model.addAttribute("users", userDao.getAllUsers());
+
+        return "users";
+
     }
 
 
@@ -179,6 +209,15 @@ public class MainController {
         return "ViewCollection";
     }
 
+    @GetMapping("/findOne")
+    @ResponseBody
+    public Users findOne(Integer userId)
+    {
+        return userDao.findUser(userId);
+
+    }
+
+
     //Page to delte specific collection
     @RequestMapping (value = "/delete", method = RequestMethod.GET)
     public String DeleteCollection(@RequestParam("id") int collID, Model model, Principal principle)
@@ -252,7 +291,7 @@ public class MainController {
         return "logoutSuccessful";
     }
 
-    @RequestMapping(value = "/403")
+    @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String accessDenied(Model model, Principal principal) {
 
         // ********** Common stuff for each controller so that the header menu works **********
