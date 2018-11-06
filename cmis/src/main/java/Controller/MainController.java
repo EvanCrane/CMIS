@@ -36,24 +36,24 @@ public class MainController {
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public String basicErrorController(Model model, Principal principle){
 
-        // ********** Common stuff for each controller so that the header menu works **********
-        User loggedInUser = (User) ((Authentication) principle).getPrincipal();
-        String userRole;
-        boolean isPlayer = true;
-        String userName = loggedInUser.getUsername();
-        int roleID = userDao.getUserRole(userName);
-        if(roleID!=3)
-        {
-            isPlayer = false;
-        }
-        model.addAttribute("name", userName);
-        if(roleID == 1){userRole = "Admin";}
-        else if(roleID == 2){userRole = "Manager";}
-        else {userRole = "Reader";}
-        model.addAttribute("userRole", userRole);
-        model.addAttribute("isPlayer", isPlayer);
-
-        // **************** End of common stuff **************************************
+//        // ********** Common stuff for each controller so that the header menu works **********
+//        User loggedInUser = (User) ((Authentication) principle).getPrincipal();
+//        String userRole;
+//        boolean isPlayer = true;
+//        String userName = loggedInUser.getUsername();
+//        int roleID = userDao.getUserRole(userName);
+//        if(roleID!=3)
+//        {
+//            isPlayer = false;
+//        }
+//        model.addAttribute("name", userName);
+//        if(roleID == 1){userRole = "Admin";}
+//        else if(roleID == 2){userRole = "Manager";}
+//        else {userRole = "Reader";}
+//        model.addAttribute("userRole", userRole);
+//        model.addAttribute("isPlayer", isPlayer);
+//
+//        // **************** End of common stuff **************************************
 
         return "Error";
     }
