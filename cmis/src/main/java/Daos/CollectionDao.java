@@ -94,6 +94,13 @@ public class CollectionDao extends JdbcDaoSupport {
         return getJdbcTemplate().query(sqlAllCollections, new CollectionMapper());
     }
 
+    public String collecType(int collId)
+    {
+        String sqlColID = "SELECT TYPE FROM COLLECTIONS WHERE ID = ?";
+        Object[] myArg = new Object[] {collId};
+        return getJdbcTemplate().queryForObject(sqlColID, myArg, String.class);
+    }
+
 
 
 

@@ -5,7 +5,312 @@
     <title>Edit Collection</title>
     <th:block th:include="/_menu"></th:block>
 </head>
-<body>
+<body style="padding-bottom: 40px">
+<div class="container" >
+    <form>
+        <h3>Collection</h3>
+        <hr>
+        <div class="form-group row">
+            <label for="fullName" class="col-sm-2 col-form-label">Full Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="fullName" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="acronym" class="col-sm-2 col-form-label">Acronym</label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control" id="acronym" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="type" class="col-sm-2 col-form-label">Collection Type</label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control" id="type" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="status" class="col-sm-2 col-form-label">Status</label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control-plaintext" id="status" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="serviceType" class="col-sm-2 col-form-label">Service Type Provided</label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control" id="serviceType" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="organization" class="col-sm-2 col-form-label">Organization</label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control" id="organization" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="desOrganization" class="col-sm-2 col-form-label">Design Agency Organization</label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control" id="desOrganization" value="val">
+            </div>
+        </div>
+        <h4>General</h4>
+        <hr>
+        <div class="form-group row">
+            <label for="userPop" class="col-sm-2 col-form-label">User Population</label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control" id="userPop" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="primCustomer" class="col-sm-2 col-form-label">Primary Customer</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="primCustomer" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="subContMaint" class="col-sm-2 col-form-label">Subcontractor Maintainer</label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control" id="subContMaint" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="description" class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-10">
+                <textarea rows="4" cols="50" class="form-control" id="description">val</textarea>
+            </div>
+        </div>
+        <h4>Controls/Impacts</h4>
+        <hr>
+        <div class="form-group row">
+            <label for="funcClass" class="col-sm-2 col-form-label">Function class</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="funcClass" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="dataClass" class="col-sm-2 col-form-label">Data Classification</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="dataClass" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="missRating" class="col-sm-2 col-form-label">Mission Essential Rating</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="missRating" value="val">
+            </div>
+        </div>
+
+        <h4>Contacts</h4>
+        <hr>
+        <div class="form-group row">
+            <label for="aUserID" class="col-sm-2 col-form-label">UserId</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="aUserID" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="aName" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="aName" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="contType" class="col-sm-2 col-form-label">Contact Type</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="contType" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="phoneNum" class="col-sm-2 col-form-label">Phone Number</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="phoneNum" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="location" class="col-sm-2 col-form-label">Location</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="location" value="val">
+            </div>
+        </div>
+
+        <h4>Vendor Products</h4>
+        <hr>
+        <div class="form-group row">
+            <label for="aProductName" class="col-sm-2 col-form-label">Product Name</label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control" id="aProductName" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="aVersion" class="col-sm-2 col-form-label">Version</label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control" id="aVersion" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="prodDesc" class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-10">
+                <textarea rows="4" cols="50" class="form-control" id="prodDesc">val</textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="classInfo" class="col-sm-2 col-form-label">Classified Information</label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control" id="classInfo" value="val">
+            </div>
+        </div>
+
+        <h4>SubObjects</h4>
+        <hr>
+        <div class="form-group row">
+            <label for="subObjType" class="col-sm-2 col-form-label">Type</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="subObjType" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="subObjName" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control" id="subObjName" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="subObjVers" class="col-sm-2 col-form-label">Version</label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control" id="subObjVers" value="val">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="subObjClass" class="col-sm-2 col-form-label">Classified Information</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="subObjClass" value="val">
+            </div>
+        </div>
+
+        <h4>Relationships</h4>
+        <hr>
+        <div class="form-group row">
+            <label for="aUserID" class="col-sm-2 col-form-label">UserId</label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control" id="aUserID" value="val">
+            </div>
+        </div>
+
+        <h4>Editors</h4>
+        <hr>
+        <div class="form-group row">
+            <label for="aUserID" class="col-sm-2 col-form-label">UserId</label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control" id="aUserID" value="val">
+            </div>
+        </div>
+
+        <div id="specific" th:switch="${collType}">
+            <div th:case="'Instance Application'">
+                <h4>Application Information</h4>
+                <hr>
+                <div class="form-group row">
+                    <label for="aSubType" class="col-sm-2 col-form-label">Subtype</label>
+                    <div class="col-sm-10">
+                        <input type="text"  class="form-control" id="aSubType" value="val">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="aUI" class="col-sm-2 col-form-label">User Interface</label>
+                    <div class="col-sm-10">
+                        <input type="text"  class="form-control" id="aUI" value="val">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="aAppSize" class="col-sm-2 col-form-label">Application Size</label>
+                    <div class="col-sm-10">
+                        <input type="text"  class="form-control" id="aAppSize" value="val">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="totUsers" class="col-sm-2 col-form-label">Total Users</label>
+                    <div class="col-sm-10">
+                        <input type="text"  class="form-control" id="totUsers" value="val">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="totConcUsers" class="col-sm-2 col-form-label">Total Concurrent Users</label>
+                    <div class="col-sm-10">
+                        <input type="text"  class="form-control" id="totConcUsers" value="val">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="priority" class="col-sm-2 col-form-label">Priority</label>
+                    <div class="col-sm-10">
+                        <input type="text"  class="form-control" id="priority" value="val">
+                    </div>
+                </div>
+            </div>
+            <div th:case="'Logical Server'">
+                <h4>Server Information</h4>
+                <hr>
+                <div class="form-group row">
+                    <label for="backupServ" class="col-sm-2 col-form-label">Backp Server</label>
+                    <div class="col-sm-10">
+                        <input type="text"  class="form-control" id="backupServ" value="val">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="monitored" class="col-sm-2 col-form-label">Monitored</label>
+                    <div class="col-sm-10">
+                        <input type="text"  class="form-control" id="monitored" value="val">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="respGroup" class="col-sm-2 col-form-label">Responsible Group</label>
+                    <div class="col-sm-10">
+                        <input type="text"  class="form-control" id="respGroup" value="val">
+                    </div>
+                </div>
+            </div>
+            <div th:case="'Environment'">
+                <h4>Environment Information</h4>
+                <hr>
+                <div class="form-group row">
+                    <label for="envSubType" class="col-sm-2 col-form-label">Environment Subtype</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="envSubType" value="val">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="envBackUp" class="col-sm-2 col-form-label">Backup Server</label>
+                    <div class="col-sm-10">
+                        <input type="text"  class="form-control" id="envBackUp" value="val">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="envMonitored" class="col-sm-2 col-form-label">Monitored</label>
+                    <div class="col-sm-10">
+                        <input type="text"  class="form-control" id="envMonitored" value="val">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="envRespGroup" class="col-sm-2 col-form-label">Responsible Group</label>
+                    <div class="col-sm-10">
+                        <input type="text"  class="form-control" id="envRespGroup" value="val">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Below is the regular input without readonly-->
+        <!--<div class="form-group row">-->
+        <!--<label for="inputPassword" class="col-sm-2 col-form-label">Password</label>-->
+        <!--<div class="col-sm-10">-->
+        <!--<input type="password" class="form-control" id="inputPassword" placeholder="Password">-->
+        <!--</div>-->
+        <!--</div>-->
+    </form>
+    <a><button>Submit</button></a>
+    <a><button>Cancel</button></a>
+</div>
+
+
 
 </body>
 </html>

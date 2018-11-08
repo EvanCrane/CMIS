@@ -61,25 +61,25 @@ public class MainController {
     @RequestMapping(value = "/users", method= RequestMethod.GET)
     public String usersMap(Model model, Principal principle)
     {
-//        // ********** Common stuff for each controller so that the header menu works **********
-//        User loggedInUser = (User) ((Authentication) principle).getPrincipal();
-//        String userRole;
-//        boolean isPlayer = true;
-//        String userName = loggedInUser.getUsername();
-//        int roleID = userDao.getUserRole(userName);
-//        if(roleID!=3)
-//        {
-//            isPlayer = false;
-//        }
-//        model.addAttribute("name", userName);
-//        if(roleID == 1){userRole = "Admin";}
-//        else if(roleID == 2){userRole = "Manager";}
-//        else {userRole = "Reader";}
-//        model.addAttribute("userRole", userRole);
-//        model.addAttribute("isPlayer", isPlayer);
-//        // **************** End of common stuff **************************************
-
+        // ********** Common stuff for each controller so that the header menu works **********
+        User loggedInUser = (User) ((Authentication) principle).getPrincipal();
+        String userRole;
+        boolean isPlayer = true;
+        String userName = loggedInUser.getUsername();
+        int roleID = userDao.getUserRole(userName);
+        if(roleID!=3)
+        {
+            isPlayer = false;
+        }
+        model.addAttribute("name", userName);
+        if(roleID == 1){userRole = "Admin";}
+        else if(roleID == 2){userRole = "Manager";}
+        else {userRole = "Reader";}
+        model.addAttribute("userRole", userRole);
+        model.addAttribute("isPlayer", isPlayer);
+        // **************** End of common stuff **************************************
         model.addAttribute("users", userDao.getAllUsers());
+
 
         return "users";
 
@@ -206,6 +206,7 @@ public class MainController {
         // **************** End of common stuff **************************************
 
         model.addAttribute("collID", collID);
+        model.addAttribute("collType", collectionDao.collecType(collID));
         return "ViewCollection";
     }
 
@@ -247,7 +248,7 @@ public class MainController {
 
     //Page to edit collection
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String EditCollection(@RequestParam("id") String collID, Model model, Principal principle){
+    public String EditCollection(@RequestParam("id") int collID, Model model, Principal principle){
 
         // ********** Common stuff for each controller so that the header menu works **********
         User loggedInUser = (User) ((Authentication) principle).getPrincipal();
@@ -273,6 +274,8 @@ public class MainController {
 
 
         //Collection aCollection = collectionDao.getACollection(collecId);
+        model.addAttribute("collID", collID);
+        model.addAttribute("collType", collectionDao.collecType(collID));
 
         return "EditCollection";
     }
