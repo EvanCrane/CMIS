@@ -7,7 +7,7 @@
 </head>
 <body style="padding-bottom: 40px">
 <div class="container" >
-    <form>
+    <form class="editForm">
         <h3>Collection</h3>
         <hr>
         <div class="form-group row">
@@ -25,13 +25,19 @@
         <div class="form-group row">
             <label for="type" class="col-sm-2 col-form-label">Collection Type</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" id="type" value="val">
+                <input type="text"  class="form-control" id="type" list="collecTypes">
+                <datalist id="collecTypes">
+                    <option value="Logical Server"></option>
+                    <option value="Environment"></option>
+                    <option value="DBMS"></option>
+                    <option value="Instance Application"></option>
+                </datalist>
             </div>
         </div>
         <div class="form-group row">
             <label for="status" class="col-sm-2 col-form-label">Status</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control-plaintext" id="status" value="val">
+                <input type="text"  class="form-control" id="status" value="val">
             </div>
         </div>
         <div class="form-group row">
@@ -43,13 +49,17 @@
         <div class="form-group row">
             <label for="organization" class="col-sm-2 col-form-label">Organization</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" id="organization" value="val">
+                <input type="text"  class="form-control" id="organization" list="orgs">
+                <datalist id="orgs">
+                    <option value="aDesOrg"></option>
+                </datalist>
             </div>
         </div>
         <div class="form-group row">
             <label for="desOrganization" class="col-sm-2 col-form-label">Design Agency Organization</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" id="desOrganization" value="val">
+                <input type="text"  class="form-control" id="desOrganization" list="orgs">
+
             </div>
         </div>
         <h4>General</h4>
@@ -189,20 +199,27 @@
         <h4>Relationships</h4>
         <hr>
         <div class="form-group row">
-            <label for="aUserID" class="col-sm-2 col-form-label">UserId</label>
+            <label for="aRelationship" class="col-sm-2 col-form-label">Sample Relationship</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" id="aUserID" value="val">
+                <input type="text"  class="form-control" id="aRelationship" value="val">
+                <button class="relationships">Edit</button>
+                <button>Delete</button>
             </div>
         </div>
+        <button>Add Relationship</button>
 
         <h4>Editors</h4>
         <hr>
         <div class="form-group row">
-            <label for="aUserID" class="col-sm-2 col-form-label">UserId</label>
+            <label for="aEditor" class="col-sm-2 col-form-label">Sample Editor</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" id="aUserID" value="val">
+                <input type="text"  class="form-control" id="aEditor" value="val">
+                <button class="editors">Edit</button>
+                <button>Delete</button>
             </div>
         </div>
+        <button>Add Editor</button>
+
 
         <div id="specific" th:switch="${collType}">
             <div th:case="'Instance Application'">
@@ -310,7 +327,98 @@
     <a><button>Cancel</button></a>
 </div>
 
+<div class="relationshipForm">
+    <form th:action="@{/relationshipPost}" method="post">
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Relationship</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="oneRelationship" class="col-form-label">Relationship:</label>
+                            <input type="text"  class="form-control" id="oneRelationship" list="relationshipTypes">
+                            <datalist id="relationshipTypes">
+                                <option value="From Service Type"></option>
+                                <option value="From SubObject"></option>
+                                <option value="To Collection"></option>
+                                <option value="To Collection Type"></option>
+                                <option value="To SubObject"></option>
+                                <option value="To Service Type"></option>
+                            </datalist>
+                        </div>
+                        <div class="form-group">
+                            <label for="relationshipValue" class="col-form-label">ORGANIZATION:</label>
+                            <input type="text" class="form-control" id="relationshipValue" name="organization" value=""/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="save"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="editorModal">
+    <form th:action="@{/save}" method="post">
+        <div class="modal fade" id="theEditorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editorModalLabel">Edit Editor</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="editorUserID" class="col-form-label">USER ID</label>
+                            <input type="text" class="form-control" id="editorUserID" name="username" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <label for="editorName" class="col-form-label">Name</label>
+                            <input type="text" class="form-control" id="editorName" name="organization" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <label for="editorAccessLvl" class="col-form-label">Access Level</label>
+                            <input type="password" class="form-control" id="editorAccessLvl" name="password" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <label for="editorPhoneNum" class="col-form-label">Phone Number</label>
+                            <input type="password" class="form-control" id="editorPhoneNum" name="password" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <label for="editorLocation" class="col-form-label">Location</label>
+                            <input type="password" class="form-control" id="editorLocation" name="password" value=""/>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="save"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 
 
 </body>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{/scripts/EditCollection.js}"></script>
 </html>

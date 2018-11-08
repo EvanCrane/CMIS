@@ -18,7 +18,7 @@
                 <td>Collection Type</td>
                 <td>
                     <select th:field="*{collecType}">
-                        <option value=""><i>Select Collection Type</i></option>
+                        <option value="" selected="selected" hidden><i>Select Collection Type</i></option>
                         <option value="Logical Server">Logical Server</option>
                         <option value="Environment">Environment</option>
                         <option value="DBMS">DBMS</option>
@@ -45,7 +45,7 @@
                 <td>Service Type Provided</td>
                 <td>
                     <select th:field="*{serviceType}">
-                        <option value=""><i>Select Service Type</i></option>
+                        <option value="" selected="selected" hidden><i>Select Service Type</i></option>
                         <option value="SandBox">Sandbox</option>
                         <option value="Development">Development</option>
                         <option value="Acceptance">Acceptance</option>
@@ -59,7 +59,7 @@
                 <td>Status</td>
                 <td>
                     <select th:field="*{status}">
-                        <option value=""><i>Select Status</i></option>
+                        <option selected="selected" hidden value=""><i>Select Status</i></option>
                         <option value="Active">Active</option>
                         <option value="Retired">Retired</option>
                     </select>
@@ -69,7 +69,8 @@
             <tr>
                 <td>Organizations</td>
                 <td>
-                    <select th:field="*{organizations}" multiple>
+                    <select th:field="*{organizations}">
+                        <option selected="selected" hidden value=""><i>Choose here</i></option>
                         <option th:each="organization : ${allOrgs}" th:value="${organization}" th:text="${organization}"></option>
                     </select>
                 </td>
@@ -77,8 +78,9 @@
             <tr>
                 <td>Design Agency Organizations</td>
                 <td>
-                    <select th:field="*{desOrganizations}" multiple>
-                        <option th:each="des_org : ${desOrgs}" th:value="${des_org}" th:text="${des_org}"></option>
+                    <select th:field="*{desOrganizations}">
+                        <option selected="selected" hidden value=""><i>Choose here</i></option>
+                        <option th:each="des_org : ${allOrgs}" th:value="${des_org}" th:text="${des_org}"></option>
                     </select>
                 </td>
             </tr>
