@@ -53,10 +53,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // If no login, it will redirect to /403, access denied page.
 
         // For all logged in users
-        http.authorizeRequests().antMatchers("/", "/home", "/view","/error").access("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_READER')");
+        http.authorizeRequests().antMatchers("/", "/home", "/view","/error").access("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_READER', 'ROLE_DEVELOPER')");
 
         // For Admins and Managers
-        http.authorizeRequests().antMatchers("/edit", "/add").access("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/edit", "/add").access("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN', 'ROLE_DEVELOPER')");
 
         //For only Admins
         http.authorizeRequests().antMatchers("/users").access("hasAnyRole('ROLE_ADMIN')");

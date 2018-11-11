@@ -25,10 +25,10 @@
                            <td th:text="${user.getOrganization()}"></td>
                            <td th:case="1" th:text="Admin"></td>
                            <td th:case="2" th:text="Manager"></td>
-                           <td th:case="3" th:text="Reader"></td>
                            <td th:case="4" th:text="Developer"></td>
+                           <td th:case="*" th:text="Reader"></td>
                            <td><a th:href="@{/findOne(id=${user.getUserId()})}" class="btn btn-primary eBtn">Edit</a></td>
-                           <td><a th:href="@{/deleteUser(id=${user.getUserId()})}" class="btn btn-danger delBtn">Delete</a></td>
+                           <td><a th:href="@{/deleteUser(id=${user.getUserId()})}" th:id="${user.getUserName()}" class="btn btn-danger delBtn">Delete</a></td>
                        </tr>
                     </tbody>
                 </table>
@@ -88,6 +88,32 @@
                 </div>
             </div>
         </div>
+        </form>
+    </div>
+
+    <div class="deleteSubmit">
+        <form >
+            <div class="modal fade" id="deleteConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <b><p id="confirmText" ></p></b>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <a type="submit" href="" class="btn btn-danger deleteConBtn"  id="delteConfirm">Confirm Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 

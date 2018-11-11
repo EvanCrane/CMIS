@@ -68,19 +68,27 @@
             </tr>
             <tr>
                 <td>Organizations</td>
-                <td>
-                    <select th:field="*{organizations}">
+                <td th:switch="${curUser.getAccessLvl()}">
+                    <select th:field="*{organizations}" th:case="1">
                         <option selected="selected" hidden value=""><i>Choose here</i></option>
-                        <option th:each="organization : ${allOrgs}" th:value="${organization}" th:text="${organization}"></option>
+                        <option th:each="des_org : ${allOrgs}" th:value="${des_org}" th:text="${des_org}"></option>
+                    </select>
+                    <select th:field="*{desOrganizations}" th:case="*">
+                        <option selected="selected" hidden value=""><i>Choose here</i></option>
+                        <option th:value="${curUser.getOrganization()}" th:text="${curUser.getOrganization()}"></option>
                     </select>
                 </td>
             </tr>
             <tr>
                 <td>Design Agency Organizations</td>
-                <td>
-                    <select th:field="*{desOrganizations}">
+                <td th:switch="${curUser.getAccessLvl()}">
+                    <select th:field="*{organizations}" th:case="1">
                         <option selected="selected" hidden value=""><i>Choose here</i></option>
                         <option th:each="des_org : ${allOrgs}" th:value="${des_org}" th:text="${des_org}"></option>
+                    </select>
+                    <select th:field="*{desOrganizations}" th:case="*">
+                        <option selected="selected" hidden value=""><i>Choose here</i></option>
+                        <option th:value="${curUser.getOrganization()}" th:text="${curUser.getOrganization()}"></option>
                     </select>
                 </td>
             </tr>

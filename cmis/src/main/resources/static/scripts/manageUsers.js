@@ -20,14 +20,26 @@ $(document).ready(function(){
         }
     });
 
+    var deleteHref;
+    var deleteUser;
+
     $('.table .delBtn').on('click', function (event)
     {
         event.preventDefault();
-        var delHref = $(this).attr('href');
+        deleteHref = $(this).attr('href');
+        deleteUser = $(this).attr('id');
+        $('.deleteSubmit #deleteConfirm').modal();
+        $('.deleteSubmit #deleteConfirm #confirmText').text('Are you sure you want to delete user ' + deleteUser+ "? ");
+    });
+
+    $('.deleteSubmit #deleteConfirm .deleteConBtn').on('click', function (event){
+        event.preventDefault();
+        console.log(deleteHref);
         $.ajax({
             type : "GET",
-            url : delHref,
+            url : deleteHref,
             success : function(){
+                $('.deleteSubmit #deleteConfirm').modal('hide');
                 location.reload();
             },
             error : function ()

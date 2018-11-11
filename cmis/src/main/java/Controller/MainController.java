@@ -73,12 +73,15 @@ public class MainController {
         }
         model.addAttribute("name", userName);
         if(roleID == 1){userRole = "Admin";}
-        else if(roleID == 2){userRole = "Manager";}
-        else {userRole = "Reader";}
+    else if(roleID == 2){userRole = "Manager";}
+    else if(roleID == 4){userRole = "Developer";}
+    else{userRole = "Reader";}
         model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
         // **************** End of common stuff **************************************
         List<String> allOrganizations = collectionDao.AllOrgs();
+
+        model.addAttribute("currentUser", loggedInUser.getUsername());
         model.addAttribute("allOrgs", allOrganizations);
         model.addAttribute("users", userDao.getAllUsers());
 
@@ -106,7 +109,8 @@ public class MainController {
         model.addAttribute("name", userName);
         if(roleID == 1){userRole = "Admin";}
         else if(roleID == 2){userRole = "Manager";}
-        else {userRole = "Reader";}
+        else if(roleID == 4){userRole = "Developer";}
+        else{userRole = "Reader";}
         model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
         // **************** End of common stuff **************************************
@@ -137,7 +141,8 @@ public class MainController {
         model.addAttribute("name", userName);
         if(roleID == 1){userRole = "Admin";}
         else if(roleID == 2){userRole = "Manager";}
-        else {userRole = "Reader";}
+        else if(roleID == 4){userRole = "Developer";}
+        else{userRole = "Reader";}
         model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
         // **************** End of common stuff **************************************
@@ -147,6 +152,7 @@ public class MainController {
         List<String> allDesOrgs = collectionDao.AllDesOrgs();
 
         model.addAttribute("desOrgs", allDesOrgs);
+        model.addAttribute("curUser", userDao.findFullUserInfo(userName));
         model.addAttribute("allOrgs", allOrganizations);
         model.addAttribute("message", "Add Collection");
         model.addAttribute("title", "Add");
@@ -171,7 +177,8 @@ public class MainController {
         model.addAttribute("name", userName);
         if(roleID == 1){userRole = "Admin";}
         else if(roleID == 2){userRole = "Manager";}
-        else {userRole = "Reader";}
+        else if(roleID == 4){userRole = "Developer";}
+        else{userRole = "Reader";}
         model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
         // **************** End of common stuff **************************************
@@ -202,7 +209,8 @@ public class MainController {
         model.addAttribute("name", userName);
         if(roleID == 1){userRole = "Admin";}
         else if(roleID == 2){userRole = "Manager";}
-        else {userRole = "Reader";}
+        else if(roleID == 4){userRole = "Developer";}
+        else{userRole = "Reader";}
         model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
         // **************** End of common stuff **************************************
@@ -258,7 +266,8 @@ public class MainController {
         model.addAttribute("name", userName);
         if(roleID == 1){userRole = "Admin";}
         else if(roleID == 2){userRole = "Manager";}
-        else {userRole = "Reader";}
+        else if(roleID == 4){userRole = "Developer";}
+        else{userRole = "Reader";}
         model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
         // **************** End of common stuff **************************************
@@ -285,7 +294,8 @@ public class MainController {
         model.addAttribute("name", userName);
         if(roleID == 1){userRole = "Admin";}
         else if(roleID == 2){userRole = "Manager";}
-        else {userRole = "Reader";}
+        else if(roleID == 4){userRole = "Developer";}
+        else{userRole = "Reader";}
         model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
         // **************** End of common stuff **************************************
@@ -332,7 +342,8 @@ public class MainController {
         model.addAttribute("name", userName);
         if(roleID == 1){userRole = "Admin";}
         else if(roleID == 2){userRole = "Manager";}
-        else {userRole = "Reader";}
+        else if(roleID == 4){userRole = "Developer";}
+        else{userRole = "Reader";}
         model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
         // **************** End of common stuff **************************************

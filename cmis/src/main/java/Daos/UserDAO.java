@@ -49,6 +49,14 @@ public class UserDAO extends JdbcDaoSupport{
         }
     }
 
+    public Users findFullUserInfo(String userName)
+    {
+        String sql = UserMapper.BASE_SQL + "WHERE u.USER_NAME = ?";
+        Object[] params = new Object[] {userName};
+        UserMapper mapper = new UserMapper();
+        return getJdbcTemplate().queryForObject(sql, params, mapper);
+    }
+
     public void manageUser(int userID, String userName, String organization, String password, String accessLvl)
     {    //Assume input validation is done on front-end
 
