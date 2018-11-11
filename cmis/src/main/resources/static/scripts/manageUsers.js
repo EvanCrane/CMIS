@@ -28,11 +28,11 @@ $(document).ready(function(){
             type : "GET",
             url : delHref,
             success : function(){
-                alert("should have worked");
+                location.reload();
             },
             error : function ()
             {
-                alert("didn't work");
+                alert("Delete didn't work");
             }
         });
     });
@@ -54,7 +54,7 @@ $(document).ready(function(){
                 $('.myForm #username').val('a error Value')
             }
         });
-    }
+    };
 
     $('.myForm #exampleModalLabel').on('click', function(event){
         console.log($('.myForm #accessLvl').val());
@@ -92,7 +92,8 @@ $(document).ready(function(){
             url : "/updateUser?id=" + userID + "&name=" + userName + "&org=" + organization + "&pass=" + password + "&lvl=" + level,
             success : function(data){
                 if(data===true){
-                    alert("updated successfully");
+                    $('.myForm #exampleModal').modal('hide');
+                    location.reload();
                 }
             },
             error : function (){
