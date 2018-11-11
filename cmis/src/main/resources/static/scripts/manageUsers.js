@@ -1,31 +1,103 @@
 $(document).ready(function(){
 
-
-    $('.table .eBtn').on('click', function (event) {
+    //Open User Modal
+    $('.addUserBtn, .table .eBtn').on('click', function (event) {
         event.preventDefault();
         var href = $(this).attr('href');
-
-        $.get(href, function(user, status, jqObj){
-           $('.myForm #username').val(user.userId);
-           $(' .myForm #organization').val(user.organization);
-           $('.myForm #password').val('');
-
-        });
-
-        // function populateModal(userId){
-        //     $.ajax({
-        //         type : "GET",
-        //         url : href
-        //         data : {
-        //             userId : userId
-        //         },
-        //         success : function () {
-        //             $('.myForm #username').val(user)
-        //
-        //         }
-        //     })
-        // }
+        var text = $(this).text();
 
         $('.myForm #exampleModal').modal();
+
+        if(text=='Edit'){
+            $('.myForm #exampleModalLabel').text('Edit User');
+            populateModal(href);
+        }else{
+            $('.myForm #exampleModalLabel').text('Add User');
+            $('.myForm #userIDinModal').val('');
+            $('.myForm #username').val('');
+            $('.myForm #organization').val('');
+            $('.myForm #accessLvl').val('');
+        }
+    });
+
+    $('.table .delBtn').on('click', function (event)
+    {
+        event.preventDefault();
+        var delHref = $(this).attr('href');
+        $.ajax({
+            type : "GET",
+            url : delHref,
+            success : function(){
+                alert("should have worked");
+            },
+            error : function ()
+            {
+                alert("didn't work");
+            }
+        });
+    });
+
+
+
+    function populateModal(href){
+        $.ajax({
+            type : "GET",
+            url : href,
+            dataType: "json",
+            success : function (aUser) {
+                $('.myForm #username').val(aUser.userName);
+                $('.myForm #organization').val(aUser.organization);
+                $('.myForm #userIDinModal').val(aUser.userId);
+                $('.myForm #accessLvl').val(aUser.accessLvl);
+            },
+            error : function(e){
+                $('.myForm #username').val('a error Value')
+            }
+        });
+    }
+
+    $('.myForm #exampleModalLabel').on('click', function(event){
+        console.log($('.myForm #accessLvl').val());
+        console.log($('.myForm #organization').val())
+    });
+
+    //Save User Modal
+    $('.myForm #exampleModal #userSaveModal').on('click', function (event){
+        event.preventDefault();
+        //th:href="@{/findOne(id=${user.getUserId()})}"
+
+        var userName = $('.myForm #username').val();
+        if(userName===''){userName = 'none'};
+
+        //if (userName===''){console.log("empty user name");}else{console.log("valid user Name");}
+
+        var organization = $('.myForm #organization').val();
+        if(organization===''){organization = 'none'};
+
+        var password = $('.myForm #password').val();
+        if(password===''){password = 'none'};
+
+        var userID = $('.myForm #userIDinModal').val();
+        if(userID===''){userID = -1;}else{userID = parseInt(userID, 10);}
+        console.log(userID);
+
+        var level = $('.myForm #accessLvl').val();
+        console.log(level);
+
+        console.log("/updateUser?id=" + userID + "?name=" + userName + "?org=" + organization + "?pass=" + password);
+
+        //(@RequestParam("id") int userId, @RequestParam("name") String userName, @RequestParam("org") String organization, @RequestParam("pass") String unEncPass)
+        $.ajax({
+            type : "POST",
+            url : "/updateUser?id=" + userID + "&name=" + userName + "&org=" + organization + "&pass=" + password + "&lvl=" + level,
+            success : function(data){
+                if(data===true){
+                    alert("updated successfully");
+                }
+            },
+            error : function (){
+
+            }
+        });
     });
 });

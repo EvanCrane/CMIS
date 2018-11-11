@@ -15,16 +15,20 @@
                        <tr>
                            <th><h4><b>User Name</b></h4></th>
                            <th><h4><b>Organization</b></h4></th>
+                           <th><h4><b>Access Level</b></h4></th>
                            <th th:colspan="2" ><h4><b>Manage</b></h4></th>
                        </tr>
                     </thead>
                     <tbody>
-                       <tr th:each="user:${users}">
+                       <tr th:each="user:${users}" th:switch="${user.getAccessLvl()}">
                            <td th:text="${user.getUserName()}"></td>
                            <td th:text="${user.getOrganization()}"></td>
-                           <td><a th:href="@{/findOne(id=${user.getUserId()})}" class="btn btn-primary eBtn"><button>Edit</button></a></td>
-                           <!--<td><a th:href="@{/view(id=${collection.getCollecIid()})}" ></a></td>-->
-                           <td><a><button>Delete</button></a></td>
+                           <td th:case="1" th:text="Admin"></td>
+                           <td th:case="2" th:text="Manager"></td>
+                           <td th:case="3" th:text="Reader"></td>
+                           <td th:case="4" th:text="Developer"></td>
+                           <td><a th:href="@{/findOne(id=${user.getUserId()})}" class="btn btn-primary eBtn">Edit</a></td>
+                           <td><a th:href="@{/deleteUser(id=${user.getUserId()})}" class="btn btn-danger delBtn">Delete</a></td>
                        </tr>
                     </tbody>
                 </table>
@@ -49,11 +53,27 @@
 
                             <div class="form-group">
                                 <label for="username" class="col-form-label">USER NAME:</label>
+                                <label id="userIDinModal" hidden></label>
                                 <input type="text" class="form-control" id="username" name="username" value=""/>
                             </div>
                         <div class="form-group">
                             <label for="organization" class="col-form-label">ORGANIZATION:</label>
-                            <input type="text" class="form-control" id="organization" name="organization" value=""/>
+                            <select id="organization" class="col-form-label">
+                                <option selected="selected" hidden value=""><i>Choose here</i></option>
+                                <option th:each="organization : ${allOrgs}" th:value="${organization}" th:text="${organization}"></option>
+                            </select>
+                            <!--<input type="text" class="form-control" id="organization" name="organization" value=""/>-->
+                        </div>
+                        <div class="form-group">
+                            <label for="accessLvl" class="col-form-label">ACCESS LEVEL</label>
+                            <select id="accessLvl" class="col-form-label">
+                                <option selected="selected" hidden value=""><i>Choose here</i></option>
+                                <option value="1">Admin</option>
+                                <option value="2">Manager</option>
+                                <option value="4">Developer</option>
+                                <option value="3">Reader</option>
+                            </select>
+                            <!--<input type="text" class="form-control" id="organization" name="organization" value=""/>-->
                         </div>
                         <div class="form-group">
                             <label for="password" class="col-form-label">New Password:</label>
@@ -63,7 +83,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="save"/>
+                        <input type="submit" class="btn btn-primary" value="save" id="userSaveModal" />
                     </div>
                 </div>
             </div>
@@ -72,7 +92,7 @@
     </div>
 
     <div class="container" style="padding: 20px">
-        <a ><button>Add User</button></a>
+        <a class="btn btn-success addUserBtn">Add User</a>
     </div>
 
 </body>

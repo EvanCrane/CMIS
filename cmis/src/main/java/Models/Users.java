@@ -2,10 +2,11 @@ package Models;
 
 public class Users {
 
-    public int userId;
-    public String userName;
-    public String encryptedPassword;
-    public String organization;
+    private int userId;
+    private String userName;
+    private String encryptedPassword;
+    private String organization;
+    private int accessLvl;
 
 
 //    public Users{
@@ -19,12 +20,21 @@ public class Users {
 
     }
 
+    public Users(int userId, String userName, String encryptedPassword, String organization, int accessLvl)
+    {
+        setUserId(userId);
+        setUserName(userName);
+        setEncryptedPassword(encryptedPassword);
+        setOrganization(organization);
+        setAccessLvl(accessLvl);
+    }
     public Users(int userId, String userName, String encryptedPassword, String organization)
     {
         setUserId(userId);
         setUserName(userName);
         setEncryptedPassword(encryptedPassword);
         setOrganization(organization);
+
     }
 
 
@@ -64,5 +74,13 @@ public class Users {
 
     public void setOrganization(String organization) {
         this.organization = organization;
+    }
+
+    public int getAccessLvl() {
+        return accessLvl;
+    }
+
+    public void setAccessLvl(int accessLvl) {
+        this.accessLvl = accessLvl;
     }
 }

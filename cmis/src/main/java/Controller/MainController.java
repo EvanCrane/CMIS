@@ -78,6 +78,8 @@ public class MainController {
         model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
         // **************** End of common stuff **************************************
+        List<String> allOrganizations = collectionDao.AllOrgs();
+        model.addAttribute("allOrgs", allOrganizations);
         model.addAttribute("users", userDao.getAllUsers());
 
 
@@ -212,14 +214,34 @@ public class MainController {
 
     @GetMapping("/findOne")
     @ResponseBody
-    public Users findOne(Integer userId)
+    public Users findOne(@RequestParam("id") int userId)
     {
         return userDao.findUser(userId);
 
     }
 
+    @GetMapping("/deleteUser")
+    @ResponseBody
+    public boolean deleteUser(@RequestParam("id") int userId)
+    {
+        return userDao.deleteUser(userId);
 
-    //Page to delte specific collection
+    }
+
+
+    //Below method is for saving user information
+    @PostMapping("/updateUser")
+    @ResponseBody
+    public boolean updateUser(@RequestParam("id") String userId, @RequestParam("name") String userName, @RequestParam("org") String organization,
+                              @RequestParam("pass") String unEncPass, @RequestParam("lvl") String accessLvl)
+    {
+
+        userDao.manageUser(Integer.parseInt(userId), userName, organization, unEncPass, accessLvl);
+        return true;
+    }
+
+
+    //Page to delete specific collection
     @RequestMapping (value = "/delete", method = RequestMethod.GET)
     public String DeleteCollection(@RequestParam("id") int collID, Model model, Principal principle)
     {

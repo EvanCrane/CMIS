@@ -6,12 +6,15 @@ import javax.sql.DataSource;
 import Mappers.UserMapper;
 import Models.Users;
 
+import Utils.EncryptedPasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 
@@ -34,7 +37,7 @@ public class UserDAO extends JdbcDaoSupport{
     // This method is used to find a user in the database given a userName
     public Users findUserAccount(String userName){
         //Select ... from APP_USER u Where u.USER_NAME = ?
-        String sql = UserMapper.BASE_SQL + "where u.USER_NAME = ?";
+        String sql = UserMapper.BASE_SQL + "WHERE u.USER_NAME = ?";
         Object[] params = new Object[] {userName};
         UserMapper mapper = new UserMapper();
         try{
@@ -43,6 +46,49 @@ public class UserDAO extends JdbcDaoSupport{
         }
         catch(EmptyResultDataAccessException e){
             return null;
+        }
+    }
+
+    public void manageUser(int userID, String userName, String organization, String password, String accessLvl)
+    {    //Assume input validation is done on front-end
+
+        int accessLvlInt = Integer.parseInt(accessLvl);
+
+        if(userID == -1)
+        {
+            // new user --- Assume all input values are there
+            String maxIndexSql = "SELECT IFNULL(MAX(USER_ID), 0) FROM APP_USER";
+            userID = getJdbcTemplate().queryForObject(maxIndexSql, int.class);
+            ++userID;
+
+            String newUserSQL = "INSERT INTO APP_USER (USER_ID, USER_NAME, ENCRYPTED_PASSWORD, ORGANIZATION) " +
+                    "VALUES (?, ?, ?, ?)";
+            String encPass = EncryptedPasswordUtils.encryptPassword(password);
+            getJdbcTemplate().update(newUserSQL, userID, userName, encPass, organization);
+
+            String userRoleSQL = "INSERT INTO USER_ROLE(ID, USER_ID, ROLE_ID)" +
+                    " VALUES (?, ?, ?)";
+            getJdbcTemplate().update(userRoleSQL, userID, userID, accessLvlInt);
+
+        }
+        else if(password.equals("none"))
+        {
+            // not updating password
+            String theSQL = "UPDATE APP_USER SET USER_NAME = ?, ORGANIZATION = ? WHERE USER_ID = ?";
+            getJdbcTemplate().update(theSQL, userName, organization, userID);
+
+            String aSql = "UPDATE USER_ROLE SET ROLE_ID = ? WHERE USER_ID = ?";
+            getJdbcTemplate().update(aSql, accessLvlInt, userID);
+
+        }
+        else
+        {
+            String theSQL = "UPDATE APP_USER SET USER_NAME = ?, ORGANIZATION = ?, ENCRYPTED_PASSWORD = ? WHERE USER_ID = ?";
+            String encPass = EncryptedPasswordUtils.encryptPassword(password);
+            getJdbcTemplate().update(theSQL, userName, organization, encPass, userID);
+
+            String aSql = "UPDATE USER_ROLE SET ROLE_ID = ? WHERE USER_ID = ?";
+            getJdbcTemplate().update(aSql, accessLvlInt, userID);
         }
     }
 
@@ -59,13 +105,18 @@ public class UserDAO extends JdbcDaoSupport{
         catch (EmptyResultDataAccessException e){return null;}
     }
 
+    public boolean deleteUser(int userId)
+    {
+        String delete = "DELETE FROM APP_USER WHERE USER_ID = ?";
+        getJdbcTemplate().update(delete, userId);
+        return true;
+    }
+
+
     //This method is used to find all users and their information
     public List<Users> getAllUsers()
     {
-        String sqlAllUsers = "SELECT USER_ID, USER_NAME, ENCRYPTED_PASSWORD, ORGANIZATION" +
-                " FROM APP_USER";
-        return getJdbcTemplate().query(sqlAllUsers, new UserMapper());
-
+        return getJdbcTemplate().query(UserMapper.BASE_SQL, new UserMapper());
 
     }
 
