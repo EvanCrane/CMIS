@@ -42,26 +42,15 @@ public class CollectionDao extends JdbcDaoSupport {
         String collecBackUp = form.getBackUP();
         String collecServType = form.getServiceType();
 
-
         getJdbcTemplate().update(sqlAddCollection, collecID, collecType, collecFullName, collecAccronym, collecStatus, collecBackUp, collecServType);
 
-        for(String aOrg : form.getOrganizations())
-        {
-            String sqlAddOrg = "INSERT INTO COLLEC_ORGANIZATION (COL_ID, ORGANIZATION)  VALUE (?, ?)";
-            String orgName = aOrg;
-            getJdbcTemplate().update(sqlAddOrg, collecID, orgName);
+        String sqlAddOrg = "INSERT INTO COLLEC_ORGANIZATION (COL_ID, ORGANIZATION)  VALUE (?, ?)";
+        String orgName = form.getOrganizations();
+        getJdbcTemplate().update(sqlAddOrg, collecID, orgName);
 
-        }
-
-        for(String aDesOrg : form.getDesOrganizations())
-        {
-            String sqlAddDesOrg = "INSERT INTO COLLEC_DESIGN_ORGANIZATION (COL_ID, DES_ORG) VALUE (?, ?)";
-            String desOrg = aDesOrg;
-            getJdbcTemplate().update(sqlAddDesOrg, collecID, desOrg);
-        }
-
-
-
+        String sqlAddDesOrg = "INSERT INTO COLLEC_DESIGN_ORGANIZATION (COL_ID, DES_ORG) VALUE (?, ?)";
+        String desOrg = form.getDesOrganizations();
+        getJdbcTemplate().update(sqlAddDesOrg, collecID, desOrg);
 
     }
 

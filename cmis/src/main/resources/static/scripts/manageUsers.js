@@ -3,6 +3,7 @@ $(document).ready(function(){
     //Open User Modal
     $('.addUserBtn, .table .eBtn').on('click', function (event) {
         event.preventDefault();
+        document.getElementById('errorMsg').style.display = 'none';
         var href = $(this).attr('href');
         var text = $(this).text();
 
@@ -77,6 +78,7 @@ $(document).ready(function(){
     //Save User Modal
     $('.myForm #exampleModal #userSaveModal').on('click', function (event){
         event.preventDefault();
+
         //th:href="@{/findOne(id=${user.getUserId()})}"
 
 
@@ -105,10 +107,9 @@ $(document).ready(function(){
 
         if(organization==="none" || userName==="none" || level==="none" || (password === "none" && modalTitle==="Add User"))
         {
-            $('.myForm #errorMsg').style.display('block');
-            $('#errorDiv').show();
-            document.getElementById("errorDiv").style.display = "block";
-            $('#errorDiv').stlye.visibility('')
+
+            document.getElementById('errorMsg').style.display = 'block';
+
             return;
         }
 

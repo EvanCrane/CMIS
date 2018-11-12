@@ -13,10 +13,10 @@ public class Collection {
     private String backUP;
     private String serviceType;
 
-    private List<String> organizations;
-    private List<String> desOrganizations;
+    private String organizations;
+    private String desOrganizations;
 
-    public Collection(String aCollecType, String aFullName, String aAccronym, String aStatus, String aBackupName, List<String> aOrganizations, String aServiceType, List<String> aDesOrganizations){
+    public Collection(String aCollecType, String aFullName, String aAccronym, String aStatus, String aBackupName, String aOrganizations, String aServiceType, String aDesOrganizations){
 
         //setCollecIid(aColelctionId);
         setCollecType(aCollecType);
@@ -90,11 +90,11 @@ public class Collection {
         this.backUP = backUP;
     }
 
-    public List<String> getOrganizations() {
-        return organizations;
+    public String getOrganizations() {
+        return this.organizations;
     }
 
-    public void setOrganizations(List<String> organizations) {
+    public void setOrganizations(String organizations) {
         this.organizations = organizations;
     }
 
@@ -106,11 +106,11 @@ public class Collection {
         this.serviceType = serviceType;
     }
 
-    public List<String> getDesOrganizations() {
+    public String getDesOrganizations() {
         return desOrganizations;
     }
 
-    public void setDesOrganizations(List<String> desOrganizations) {
+    public void setDesOrganizations(String desOrganizations) {
         this.desOrganizations = desOrganizations;
     }
 }

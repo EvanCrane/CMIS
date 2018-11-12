@@ -13,6 +13,9 @@
     <h2><span th:utext="${message}"></span></h2>
 
     <form class="aForm" th:action="@{/add}" th:object="${collection}" method="POST">
+        <div>
+            <h1 id="errorMsg" style="color: red; display: none;">Please check your input</h1>
+        </div>
         <table>
             <tr>
                 <td>Collection Type</td>
@@ -73,7 +76,7 @@
                         <option selected="selected" hidden value=""><i>Choose here</i></option>
                         <option th:each="des_org : ${allOrgs}" th:value="${des_org}" th:text="${des_org}"></option>
                     </select>
-                    <select th:field="*{desOrganizations}" th:case="*">
+                    <select th:field="*{organizations}" th:case="*">
                         <option selected="selected" hidden value=""><i>Choose here</i></option>
                         <option th:value="${curUser.getOrganization()}" th:text="${curUser.getOrganization()}"></option>
                     </select>
@@ -82,7 +85,7 @@
             <tr>
                 <td>Design Agency Organizations</td>
                 <td th:switch="${curUser.getAccessLvl()}">
-                    <select th:field="*{organizations}" th:case="1">
+                    <select th:field="*{desOrganizations}" th:case="1">
                         <option selected="selected" hidden value=""><i>Choose here</i></option>
                         <option th:each="des_org : ${allOrgs}" th:value="${des_org}" th:text="${des_org}"></option>
                     </select>
@@ -95,7 +98,7 @@
             <tr>
                 <td>&nbsp;</td>
                 <td>
-                    <input type="submit" value="Submit">
+                    <input type="submit" class="btn btn-primary" id="addCollecSave" value="Save" />
                     <a th:href="@{/home}">Cancel</a>
                 </td>
             </tr>
@@ -103,6 +106,13 @@
     </form>
 
 </div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{/scripts/AddCollection.js}"></script>
 
 </body>
 </html>
