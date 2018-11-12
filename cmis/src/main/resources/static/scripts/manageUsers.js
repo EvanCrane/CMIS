@@ -17,6 +17,10 @@ $(document).ready(function(){
             $('.myForm #username').val('');
             $('.myForm #organization').val('');
             $('.myForm #accessLvl').val('');
+
+            var modalTitle = $('.myForm #exampleModal #exampleModalLabel').text();
+            console.log(modalTitle);
+            console.log('log works');
         }
     });
 
@@ -68,15 +72,14 @@ $(document).ready(function(){
         });
     };
 
-    $('.myForm #exampleModalLabel').on('click', function(event){
-        console.log($('.myForm #accessLvl').val());
-        console.log($('.myForm #organization').val())
-    });
+
 
     //Save User Modal
     $('.myForm #exampleModal #userSaveModal').on('click', function (event){
         event.preventDefault();
         //th:href="@{/findOne(id=${user.getUserId()})}"
+
+
 
         var userName = $('.myForm #username').val();
         if(userName===''){userName = 'none'};
@@ -95,6 +98,19 @@ $(document).ready(function(){
 
         var level = $('.myForm #accessLvl').val();
         console.log(level);
+
+        var modalTitle = $('.myForm #exampleModal #exampleModalLabel').text();
+        console.log(modalTitle);
+        console.log('log works');
+
+        if(organization==="none" || userName==="none" || level==="none" || (password === "none" && modalTitle==="Add User"))
+        {
+            $('.myForm #errorMsg').style.display('block');
+            $('#errorDiv').show();
+            document.getElementById("errorDiv").style.display = "block";
+            $('#errorDiv').stlye.visibility('')
+            return;
+        }
 
         console.log("/updateUser?id=" + userID + "?name=" + userName + "?org=" + organization + "?pass=" + password);
 
