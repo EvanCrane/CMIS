@@ -9,17 +9,20 @@ import java.sql.SQLException;
 public class CollectionMapper implements RowMapper<Collection>{
 
     public static final String BASE_SQL //
-        ="SELECT FULL_NAME, ACRONYM, TYPE, STATUS FROM COLLECTIONS";
+        ="SELECT ID, TYPE, FULL_NAME, ACRONYM, STATUS, BACKUP_SERVER, SERVICE_TYPE FROM COLLECTIONS";
 
     @Override
     public Collection mapRow(ResultSet rs, int rowNum) throws SQLException{
 
+        int id = rs.getInt("ID");
+        String type = rs.getString("TYPE");
         String fullName = rs.getString("FULL_NAME");
         String acronym = rs.getString("ACRONYM");
-        String type = rs.getString("TYPE");
         String status = rs.getString("STATUS");
-        int id = rs.getInt("ID");
-        Collection aCollection = new Collection(fullName, acronym, type, status, id);
+        String backUp = rs.getString("BACKUP_SERVER");
+        String serviceType = rs.getString("SERVICE_TYPE");
+
+        Collection aCollection = new Collection(id, type, fullName, acronym, status, backUp, serviceType);
         return aCollection;
     }
 }

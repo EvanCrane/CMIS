@@ -13,43 +13,43 @@
             <div class="form-group row">
                 <label for="fullName" class="col-sm-2 col-form-label">Full Name</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="fullName" value="val">
+                    <input type="text" readonly class="form-control-plaintext" id="fullName" th:value="${highlevel.getFullName()}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="acronym" class="col-sm-2 col-form-label">Acronym</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="acronym" value="val">
+                    <input type="text" readonly class="form-control-plaintext" id="acronym" th:value="${highlevel.getAccronym()}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="type" class="col-sm-2 col-form-label">Collection Type</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="type" value="val">
+                    <input type="text" readonly class="form-control-plaintext" id="type" th:value="${highlevel.getCollecType()}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="status" class="col-sm-2 col-form-label">Status</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="status" value="val">
+                    <input type="text" readonly class="form-control-plaintext" id="status" th:value="${highlevel.getStatus()}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="serviceType" class="col-sm-2 col-form-label">Service Type Provided</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="serviceType" value="val">
+                    <input type="text" readonly class="form-control-plaintext" id="serviceType" th:value="${highlevel.getServiceType()}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="organization" class="col-sm-2 col-form-label">Organization</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="organization" value="val">
+                    <input type="text" readonly class="form-control-plaintext" id="organization" th:value="${collecOrg}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="desOrganization" class="col-sm-2 col-form-label">Design Agency Organization</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="desOrganization" value="val">
+                    <input type="text" readonly class="form-control-plaintext" id="desOrganization" th:value="${collecDesOrg}">
                 </div>
             </div>
             <h4>General</h4>
@@ -57,25 +57,25 @@
             <div class="form-group row">
                 <label for="userPop" class="col-sm-2 col-form-label">User Population</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="userPop" value="val">
+                    <input type="text" readonly class="form-control-plaintext" id="userPop" th:value="${general != null } ? ${general.getUserPop()} : ''">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="primCustomer" class="col-sm-2 col-form-label">Primary Customer</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="primCustomer" value="val">
+                    <input type="text" readonly class="form-control-plaintext" id="primCustomer" th:value="${general != null } ? ${general.getPrimaryCustomer()}: ''">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="subContMaint" class="col-sm-2 col-form-label">Subcontractor Maintainer</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="subContMaint" value="val">
+                    <input type="text" readonly class="form-control-plaintext" id="subContMaint" th:value="${general != null } ? ${general.getSubcontMaintainer()} : ''">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="description" class="col-sm-2 col-form-label">Description</label>
                 <div class="col-sm-10">
-                    <textarea rows="4" cols="50" readonly class="form-control-plaintext" id="description">val</textarea>
+                    <textarea rows="4" cols="50" readonly class="form-control-plaintext" id="description" th:text="${general != null } ? ${general.getDescription()} : ''"></textarea>
                 </div>
             </div>
             <h4>Controls/Impacts</h4>
@@ -83,19 +83,19 @@
             <div class="form-group row">
                 <label for="funcClass" class="col-sm-2 col-form-label">Function class</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="funcClass" value="val">
+                    <input type="text" readonly class="form-control-plaintext" id="funcClass" th:value="${controlsImpacts != null } ? ${controlsImpacts.getFunctionClass()} : ''">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="dataClass" class="col-sm-2 col-form-label">Data Classification</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="dataClass" value="val">
+                    <input type="text" readonly class="form-control-plaintext" id="dataClass" th:value="${controlsImpacts != null } ? ${controlsImpacts.getDataClass()} : ''">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="missRating" class="col-sm-2 col-form-label">Mission Essential Rating</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="missRating" value="val">
+                    <input type="text" readonly class="form-control-plaintext" id="missRating" th:value="${controlsImpacts != null } ? ${controlsImpacts.getMissEssRating()} : ''">
                 </div>
             </div>
 
@@ -273,25 +273,25 @@
                     <div class="form-group row">
                         <label for="envSubType" class="col-sm-2 col-form-label">Environment Subtype</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="envSubType" value="val">
+                            <input type="text" readonly class="form-control-plaintext" id="envSubType" th:value="${environment != null } ? ${environment.getSubType()} : ''">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="envBackUp" class="col-sm-2 col-form-label">Backup Server</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="envBackUp" value="val">
+                            <input type="text" readonly class="form-control-plaintext" id="envBackUp" th:value="${environment != null } ? ${environment.getBackUp()} : ''">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="envMonitored" class="col-sm-2 col-form-label">Monitored</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="envMonitored" value="val">
+                            <input type="text" readonly class="form-control-plaintext" id="envMonitored" th:value="${environment != null } ? ${environment.isMonitored()} : ''">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="envRespGroup" class="col-sm-2 col-form-label">Responsible Group</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="envRespGroup" value="val">
+                            <input type="text" readonly class="form-control-plaintext" id="envRespGroup" th:value="${environment != null } ? ${environment.getRespGroup()} : ''">
                         </div>
                     </div>
                 </div>

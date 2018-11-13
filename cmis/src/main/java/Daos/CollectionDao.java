@@ -1,8 +1,15 @@
 package Daos;
 
 import Mappers.CollectionMapper;
+import Mappers.ControlsImpactsMapper;
+import Mappers.EnvironmentMapper;
+import Mappers.GeneralMapper;
 import Models.Collection;
+import Models.ControlsImpacts;
+import Models.Environment;
+import Models.General;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -54,19 +61,7 @@ public class CollectionDao extends JdbcDaoSupport {
 
     }
 
-    public Collection getACollection(int aCollecID)
-    {
-        // Incomplete
-        //String sql = "SELECT ";
-        return new Collection();
-    }
 
-    public List<String> AllDesOrgs()
-    {
-        String sqlAllDesOrgs = "SELECT IFNULL (DESIGN_ORGANIZATION, '') FROM cmis_1.DESIGN_ORGANIZATIONS";
-        List<String> resultSet = getJdbcTemplate().queryForList(sqlAllDesOrgs, String.class);
-        return resultSet;
-    }
 
     public List<String> AllOrgs()
     {
@@ -78,7 +73,7 @@ public class CollectionDao extends JdbcDaoSupport {
 
     public List<Collection> allCollections()
     {
-        String sqlAllCollections = "SELECT FULL_NAME, ACRONYM, TYPE, STATUS, ID FROM COLLECTIONS";
+        String sqlAllCollections = CollectionMapper.BASE_SQL;
         //return getJdbcTemplate().queryForList(sqlAllCollections, String.class);
         return getJdbcTemplate().query(sqlAllCollections, new CollectionMapper());
     }
@@ -89,6 +84,72 @@ public class CollectionDao extends JdbcDaoSupport {
         Object[] myArg = new Object[] {collId};
         return getJdbcTemplate().queryForObject(sqlColID, myArg, String.class);
     }
+
+    public Collection collectionHighlights(int collecID)
+    {
+        String thisSQL = CollectionMapper.BASE_SQL + " WHERE ID = ?";
+        Object[] parameter = new Object[] {collecID};
+        CollectionMapper mapper = new CollectionMapper();
+        return getJdbcTemplate().queryForObject(thisSQL, parameter, mapper);
+
+    }
+
+    public String getCollecOrg(int collecID)
+    {
+        String thisSQL = "SELECT ORGANIZATION FROM COLLEC_ORGANIZATION WHERE COL_ID = ?";
+        Object[] myArg = new Object[] {collecID};
+        return getJdbcTemplate().queryForObject(thisSQL, myArg, String.class);
+    }
+
+    public String getCollecDesOrg(int collecID)
+    {
+        String thisSQL = "SELECT DES_ORG FROM COLLEC_DESIGN_ORGANIZATION WHERE COL_ID = ?";
+        Object[] myArg = new Object[] {collecID};
+        return getJdbcTemplate().queryForObject(thisSQL, myArg, String.class);
+    }
+
+    public General getGeneral(int collecId)
+    {
+        String thisSQL = GeneralMapper.BASE_SQL + " WHERE COL_ID = ?";
+        Object[] parameter = new Object[] {collecId};
+        GeneralMapper mapper = new GeneralMapper();
+        try{
+            return getJdbcTemplate().queryForObject(thisSQL, parameter, mapper);
+        }
+        catch(EmptyResultDataAccessException e)
+        {
+            return null;
+        }
+    }
+
+    public ControlsImpacts getControlsImpacts(int collecId)
+    {
+        String thisSQL = ControlsImpactsMapper.BASE_SQL + " WHERE COL_ID = ?";
+        Object[] parameter = new Object[] {collecId};
+        ControlsImpactsMapper mapper = new ControlsImpactsMapper();
+        try{
+            return getJdbcTemplate().queryForObject(thisSQL, parameter, mapper);
+        }
+        catch(EmptyResultDataAccessException e)
+        {
+            return null;
+        }
+    }
+
+    public Environment getEnvironment (int collecId)
+    {
+        String thisSQL = EnvironmentMapper.BASE_SQL + " WHERE COL_ID = ?";
+        Object[] parameter = new Object[] {collecId};
+        EnvironmentMapper mapper = new EnvironmentMapper();
+        try{
+            return getJdbcTemplate().queryForObject(thisSQL, parameter, mapper);
+        }
+        catch (EmptyResultDataAccessException e)
+        {
+            return null;
+        }
+    }
+
 
 
 
