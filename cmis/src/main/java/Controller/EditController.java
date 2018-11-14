@@ -55,14 +55,31 @@ public class EditController {
         model.addAttribute("isPlayer", isPlayer);
         // **************** End of common stuff **************************************
 
-        // Get the collection id
-        // create a collection object
-        // add the collection object to the model
+        Collection highlights = collectionDao.collectionHighlights(collID);
+        model.addAttribute("highlevel", highlights);
+        model.addAttribute("collecOrg", collectionDao.getCollecOrg(collID));
+        model.addAttribute("collecDesOrg", collectionDao.getCollecDesOrg(collID));
+        model.addAttribute("general", collectionDao.getGeneral(collID));
+        model.addAttribute("controlsImpacts", collectionDao.getControlsImpacts(collID));
+        String collecType = collectionDao.collecType(collID);
 
+        if(collecType.equals("Environment"))
+        { model.addAttribute("environment", collectionDao.getEnvironment(collID)); }
 
-        //Collection aCollection = collectionDao.getACollection(collecId);
+        else if(collecType.equals("Logical Server"))
+        {
+            model.addAttribute("logicalServer", collectionDao.getLogicalServer(collID));
+        }
+        else if(collecType.equals("Instance Application"))
+        {
+            model.addAttribute("myApplication", collectionDao.getApplication(collID));
+        }
+
         model.addAttribute("collID", collID);
-        model.addAttribute("collType", collectionDao.collecType(collID));
+        model.addAttribute("collType", collecType);
+        model.addAttribute("allOrgs", collectionDao.AllOrgs());
+        model.addAttribute("servType", highlights.getServiceType());
+
 
         return "EditCollection";
     }

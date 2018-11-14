@@ -1,13 +1,7 @@
 package Daos;
 
-import Mappers.CollectionMapper;
-import Mappers.ControlsImpactsMapper;
-import Mappers.EnvironmentMapper;
-import Mappers.GeneralMapper;
-import Models.Collection;
-import Models.ControlsImpacts;
-import Models.Environment;
-import Models.General;
+import Mappers.*;
+import Models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -148,6 +142,35 @@ public class CollectionDao extends JdbcDaoSupport {
         {
             return null;
         }
+    }
+
+    public LogicalServer getLogicalServer (int collecId)
+    {
+        String thisSQL = LogicalServerMapper.BASE_SQL + " WHERE COL_ID = ?";
+        Object[] parameter = new Object[] {collecId};
+        LogicalServerMapper mapper = new LogicalServerMapper();
+        try{
+            return getJdbcTemplate().queryForObject(thisSQL, parameter, mapper);
+        }
+        catch (EmptyResultDataAccessException e)
+        {
+            return null;
+        }
+    }
+
+    public Application getApplication (int collecId)
+    {
+        String thisSQL = ApplicationMapper.BASE_SQL + " WHERE COL_ID = ?";
+        Object[] parameter = new Object[] {collecId};
+        ApplicationMapper mapper = new ApplicationMapper();
+        try{
+            return getJdbcTemplate().queryForObject(thisSQL, parameter, mapper);
+        }
+        catch (EmptyResultDataAccessException e)
+        {
+            return null;
+        }
+
     }
 
 

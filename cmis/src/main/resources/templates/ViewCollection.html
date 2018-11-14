@@ -211,37 +211,37 @@
                     <div class="form-group row">
                         <label for="aSubType" class="col-sm-2 col-form-label">Subtype</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="aSubType" value="val">
+                            <input type="text" readonly class="form-control-plaintext" id="aSubType" th:value="${myApplication != null} ? ${myApplication.getSubType()} : ''">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="aUI" class="col-sm-2 col-form-label">User Interface</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="aUI" value="val">
+                            <input type="text" readonly class="form-control-plaintext" id="aUI" th:value="${myApplication != null} ? ${myApplication.getUserInterface()} : ''">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="aAppSize" class="col-sm-2 col-form-label">Application Size</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="aAppSize" value="val">
+                            <input type="text" readonly class="form-control-plaintext" id="aAppSize" th:value="${myApplication != null} ? ${myApplication.getSize()} : ''">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="totUsers" class="col-sm-2 col-form-label">Total Users</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="totUsers" value="val">
+                            <input type="text" readonly class="form-control-plaintext" id="totUsers" th:value="${myApplication != null} ? ${myApplication.getTotalUsers()} : ''">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="totConcUsers" class="col-sm-2 col-form-label">Total Concurrent Users</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="totConcUsers" value="val">
+                            <input type="text" readonly class="form-control-plaintext" id="totConcUsers" th:value="${myApplication != null} ? ${myApplication.getConcUsers()} : ''">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="priority" class="col-sm-2 col-form-label">Priority</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="priority" value="val">
+                            <input type="text" readonly class="form-control-plaintext" id="priority" th:value="${myApplication != null} ? ${myApplication.getPriority()} : ''">
                         </div>
                     </div>
                 </div>
@@ -251,19 +251,19 @@
                     <div class="form-group row">
                         <label for="backupServ" class="col-sm-2 col-form-label">Backp Server</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="backupServ" value="val">
+                            <input type="text" readonly class="form-control-plaintext" id="backupServ" th:value="${logicalServer != null} ? ${logicalServer.getBackUp()} : ''">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="monitored" class="col-sm-2 col-form-label">Monitored</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="monitored" value="val">
+                            <input type="text" readonly class="form-control-plaintext" id="monitored" th:value="${logicalServer != null} ? ${logicalServer.isMonitored()} : ''">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="respGroup" class="col-sm-2 col-form-label">Responsible Group</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="respGroup" value="val">
+                            <input type="text" readonly class="form-control-plaintext" id="respGroup" th:value="${logicalServer != null} ? ${logicalServer.getRespGroup()} : ''">
                         </div>
                     </div>
                 </div>

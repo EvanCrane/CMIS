@@ -66,11 +66,11 @@ public class ViewController {
 
         else if(collecType.equals("Logical Server"))
         {
-
+            model.addAttribute("logicalServer", collectionDao.getLogicalServer(collID));
         }
         else if(collecType.equals("Instance Application"))
         {
-
+            model.addAttribute("myApplication", collectionDao.getApplication(collID));
         }
 
 

@@ -13,53 +13,84 @@
         <div class="form-group row">
             <label for="fullName" class="col-sm-2 col-form-label">Full Name</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="fullName" value="val">
+                <input type="text" class="form-control" id="fullName" th:value="${highlevel.getFullName()}">
             </div>
         </div>
         <div class="form-group row">
             <label for="acronym" class="col-sm-2 col-form-label">Acronym</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" id="acronym" value="val">
+                <input type="text"  class="form-control" id="acronym" th:value="${highlevel.getAccronym()}">
             </div>
         </div>
         <div class="form-group row">
-            <label for="type" class="col-sm-2 col-form-label">Collection Type</label>
-            <div class="col-sm-10">
-                <input type="text"  class="form-control" id="type" list="collecTypes">
-                <datalist id="collecTypes">
-                    <option value="Logical Server"></option>
-                    <option value="Environment"></option>
-                    <option value="DBMS"></option>
-                    <option value="Instance Application"></option>
-                </datalist>
+            <label for="collecTypes" class="col-sm-2 col-form-label">Collection Type</label>
+            <div class="col-sm-10" th:switch="${highlevel.getCollecType()}">
+                <select id="collecTypes" class="form-control" th:case="'Logical Server'">
+                    <option value="Logical Server" selected="selected">Logical Server</option>
+                    <option value="Environment">Environment</option>
+                    <option value="DBMS">DBMS</option>
+                    <option value="Instance Application">Instance Application</option>
+                </select>
+                <select id="collecTypes" class="form-control" th:case="'Environment'">
+                    <option value="Logical Server" >Logical Server</option>
+                    <option value="Environment" selected="selected">Environment</option>
+                    <option value="DBMS">DBMS</option>
+                    <option value="Instance Application">Instance Application</option>
+                </select>
+                <select id="collecTypes" class="form-control" th:case="'DBMS'">
+                    <option value="Logical Server">Logical Server</option>
+                    <option value="Environment">Environment</option>
+                    <option value="DBMS" selected="selected">DBMS</option>
+                    <option value="Instance Application">Instance Application</option>
+                </select>
+                <select id="collecTypes" class="form-control" th:case="'Instance Application'">
+                    <option value="Logical Server" >Logical Server</option>
+                    <option value="Environment">Environment</option>
+                    <option value="DBMS">DBMS</option>
+                    <option value="Instance Application" selected="selected">Instance Application</option>
+                </select>
             </div>
         </div>
         <div class="form-group row">
             <label for="status" class="col-sm-2 col-form-label">Status</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" id="status" value="val">
+                <input type="text"  class="form-control" id="status" th:value="${highlevel.getStatus()}">
             </div>
         </div>
         <div class="form-group row">
             <label for="serviceType" class="col-sm-2 col-form-label">Service Type Provided</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" id="serviceType" value="val">
+                <!--<input type="text"  class="form-control" id="serviceType" th:value="${highlevel.getServiceType()}">-->
+                <select id="serviceType" class="form-control">
+                    <option value="SandBox" th:if="${highlevel.getServiceType().equals('Sandbox')}" selected="selected">Sandbox</option>
+                    <option value="SandBox" th:if="${!highlevel.getServiceType().equals('Sandbox')}" >Sandbox</option>
+                    <option value="Development" th:if="${highlevel.getServiceType().equals('Development')}" selected="selected">Development</option>
+                    <option value="Development" th:if="${!highlevel.getServiceType().equals('Development')}">Development</option>
+                    <option value="Acceptance" th:if="${highlevel.getServiceType().equals('Acceptance')}" selected="selected">Acceptance</option>
+                    <option value="Acceptance" th:if="${!highlevel.getServiceType().equals('Acceptance')}">Acceptance</option>
+                    <option value="Acceptance" th:if="${highlevel.getServiceType().equals('Acceptance')}" selected="selected">Acceptance</option>
+                    <option value="Acceptance" th:if="${!highlevel.getServiceType().equals('Acceptance')}">Acceptance</option>
+                    <option value="Disaster Recovery" th:if="${highlevel.getServiceType().equals('Disaster Recovery')}" selected="selected">Disaster Recovery</option>
+                    <option value="Disaster Recovery" th:if="${!highlevel.getServiceType().equals('Disaster Recovery')}">Disaster Recovery</option>
+                </select>
             </div>
         </div>
         <div class="form-group row">
-            <label for="organization" class="col-sm-2 col-form-label">Organization</label>
+            <label for="orgs" class="col-sm-2 col-form-label">Organization</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" id="organization" list="orgs">
-                <datalist id="orgs">
-                    <option value="aDesOrg"></option>
-                </datalist>
+                <select id="orgs" class="form-control">
+                    <option th:each="des_org : ${allOrgs}" th:if="${des_org.equals(collecOrg)}" selected="selected" th:text="${des_org}"></option>
+                    <option th:each="des_org : ${allOrgs}" th:if="${!des_org.equals(collecOrg)}" th:text="${des_org}"></option>
+                </select>
             </div>
         </div>
         <div class="form-group row">
             <label for="desOrganization" class="col-sm-2 col-form-label">Design Agency Organization</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" id="desOrganization" list="orgs">
-
+                <select id="desOrganization" class="form-control">
+                    <option th:each="des_org : ${allOrgs}" th:if="${collecDesOrg.equals(collecOrg)}" selected="selected" th:text="${des_org}"></option>
+                    <option th:each="des_org : ${allOrgs}" th:if="${!collecDesOrg.equals(collecOrg)}" th:text="${des_org}"></option>
+                </select>
             </div>
         </div>
         <h4>General</h4>
@@ -67,25 +98,25 @@
         <div class="form-group row">
             <label for="userPop" class="col-sm-2 col-form-label">User Population</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" id="userPop" value="val">
+                <input type="text"  class="form-control" id="userPop" th:value="${general != null } ? ${general.getUserPop()} : ''">
             </div>
         </div>
         <div class="form-group row">
             <label for="primCustomer" class="col-sm-2 col-form-label">Primary Customer</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="primCustomer" value="val">
+                <input type="text" class="form-control" id="primCustomer" th:value="${general != null } ? ${general.getPrimaryCustomer()}: ''">
             </div>
         </div>
         <div class="form-group row">
             <label for="subContMaint" class="col-sm-2 col-form-label">Subcontractor Maintainer</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" id="subContMaint" value="val">
+                <input type="text"  class="form-control" id="subContMaint" th:value="${general != null } ? ${general.getSubcontMaintainer()} : ''">
             </div>
         </div>
         <div class="form-group row">
             <label for="description" class="col-sm-2 col-form-label">Description</label>
             <div class="col-sm-10">
-                <textarea rows="4" cols="50" class="form-control" id="description">val</textarea>
+                <textarea rows="4" cols="50" class="form-control" id="description" th:text="${general != null } ? ${general.getDescription()} : ''"></textarea>
             </div>
         </div>
         <h4>Controls/Impacts</h4>
@@ -93,19 +124,67 @@
         <div class="form-group row">
             <label for="funcClass" class="col-sm-2 col-form-label">Function class</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="funcClass" value="val">
+                <select id="funcClass" class="form-control">
+                    <option value="A" th:if="${(controlsImpacts != null) && controlsImpacts.getFunctionClass().equals('A')}" selected="selected">A</option>
+                    <option value="A" th:if="${(controlsImpacts != null) && !controlsImpacts.getFunctionClass().equals('A')}">A</option>
+                    <option value="B" th:if="${controlsImpacts!=null && controlsImpacts.getFunctionClass().equals('B')}" selected="selected">B</option>
+                    <option value="B" th:if="${controlsImpacts!=null && !controlsImpacts.getFunctionClass().equals('B')}">B</option>
+                    <option value="C" th:if="${controlsImpacts!=null && controlsImpacts.getFunctionClass().equals('C')}" selected="selected">C</option>
+                    <option value="C" th:if="${controlsImpacts!=null && !controlsImpacts.getFunctionClass().equals('C')}">C</option>
+                    <option value="D" th:if="${controlsImpacts!=null && controlsImpacts.getFunctionClass().equals('D')}" selected="selected">D</option>
+                    <option value="D" th:if="${controlsImpacts!=null && !controlsImpacts.getFunctionClass().equals('D')}">D</option>
+                    <option value="E" th:if="${controlsImpacts!=null && controlsImpacts.getFunctionClass().equals('E')}" selected="selected">E</option>
+                    <option value="E" th:if="${controlsImpacts!=null && !controlsImpacts.getFunctionClass().equals('E')}" >E</option>
+                    <option value="" th:if="${controlsImpacts == null}" selected="selected" hidden>Select Function Class</option>
+                    <option value="A" th:if="${controlsImpacts == null}">A</option>
+                    <option value="B" th:if="${controlsImpacts == null}">B</option>
+                    <option value="C" th:if="${controlsImpacts == null}">C</option>
+                    <option value="D" th:if="${controlsImpacts == null}">D</option>
+                    <option value="E" th:if="${controlsImpacts == null}">E</option>
+                </select>
             </div>
         </div>
         <div class="form-group row">
             <label for="dataClass" class="col-sm-2 col-form-label">Data Classification</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="dataClass" value="val">
+                <select id="dataClass" class="form-control">
+                    <option value="U" th:if="${(controlsImpacts != null) && controlsImpacts.getDataClass().equals('U')}" selected="selected">U</option>
+                    <option value="U" th:if="${(controlsImpacts != null) && !controlsImpacts.getDataClass().equals('U')}">U</option>
+                    <option value="C" th:if="${controlsImpacts!=null && controlsImpacts.getDataClass().equals('C')}" selected="selected">C</option>
+                    <option value="C" th:if="${controlsImpacts!=null && !controlsImpacts.getDataClass().equals('C')}">C</option>
+                    <option value="S" th:if="${controlsImpacts!=null && controlsImpacts.getDataClass().equals('S')}" selected="selected">S</option>
+                    <option value="S" th:if="${controlsImpacts!=null && !controlsImpacts.getDataClass().equals('S')}">S</option>
+                    <option value="TS" th:if="${controlsImpacts!=null && controlsImpacts.getDataClass().equals('TS')}" selected="selected">TS</option>
+                    <option value="TS" th:if="${controlsImpacts!=null && !controlsImpacts.getDataClass().equals('TS')}">TS</option>
+                    <option value="" th:if="${controlsImpacts == null}" selected="selected" hidden>Select Data Classification</option>
+                    <option value="U" th:if="${controlsImpacts == null}">U</option>
+                    <option value="C" th:if="${controlsImpacts == null}">C</option>
+                    <option value="S" th:if="${controlsImpacts == null}">S</option>
+                    <option value="TS" th:if="${controlsImpacts == null}">TS</option>
+                </select>
             </div>
         </div>
         <div class="form-group row">
             <label for="missRating" class="col-sm-2 col-form-label">Mission Essential Rating</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="missRating" value="val">
+                <select id="missRating" class="form-control">
+                    <option value="Non-Essential" th:if="${(controlsImpacts != null) && controlsImpacts.getMissEssRating().equals('Non-Essential')}" selected="selected">Non-Essential</option>
+                    <option value="Non-Essential" th:if="${(controlsImpacts != null) && !controlsImpacts.getMissEssRating().equals('Non-Essential')}">Non-Essential</option>
+                    <option value="Routine" th:if="${controlsImpacts!=null && controlsImpacts.getMissEssRating().equals('Routine')}" selected="selected">Routine</option>
+                    <option value="Routine" th:if="${controlsImpacts!=null && !controlsImpacts.getMissEssRating().equals('Routine')}">Routine</option>
+                    <option value="Important" th:if="${controlsImpacts!=null && controlsImpacts.getMissEssRating().equals('Important')}" selected="selected">Important</option>
+                    <option value="Important" th:if="${controlsImpacts!=null && !controlsImpacts.getMissEssRating().equals('Important')}">Important</option>
+                    <option value="Moderately Important" th:if="${controlsImpacts!=null && controlsImpacts.getMissEssRating().equals('Moderately Important')}" selected="selected">Moderately Important</option>
+                    <option value="Moderately Important" th:if="${controlsImpacts!=null && !controlsImpacts.getMissEssRating().equals('Moderately Important')}">Moderately Important</option>
+                    <option value="Highly Important" th:if="${controlsImpacts!=null && controlsImpacts.getMissEssRating().equals('Highly Important')}" selected="selected">Highly Important</option>
+                    <option value="Highly Iportant" th:if="${controlsImpacts!=null && !controlsImpacts.getMissEssRating().equals('Highly Important')}" >Highly Important</option>
+                    <option value="" th:if="${controlsImpacts == null}" selected="selected" hidden>Select Function Class</option>
+                    <option value="Non-Essential" th:if="${controlsImpacts == null}">Non-Essential</option>
+                    <option value="Routine" th:if="${controlsImpacts == null}">Routine</option>
+                    <option value="Important" th:if="${controlsImpacts == null}">Important</option>
+                    <option value="Moderately Important" th:if="${controlsImpacts == null}">Moderately Important</option>
+                    <option value="Highly Important" th:if="${controlsImpacts == null}">Highly Important</option>
+                </select>
             </div>
         </div>
 
@@ -228,37 +307,37 @@
                 <div class="form-group row">
                     <label for="aSubType" class="col-sm-2 col-form-label">Subtype</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="aSubType" value="val">
+                        <input type="text"  class="form-control" id="aSubType" th:value="${myApplication != null} ? ${myApplication.getSubType()} : ''">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="aUI" class="col-sm-2 col-form-label">User Interface</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="aUI" value="val">
+                        <input type="text"  class="form-control" id="aUI" th:value="${myApplication != null} ? ${myApplication.getUserInterface()} : ''">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="aAppSize" class="col-sm-2 col-form-label">Application Size</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="aAppSize" value="val">
+                        <input type="text"  class="form-control" id="aAppSize" th:value="${myApplication != null} ? ${myApplication.getSize()} : ''">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="totUsers" class="col-sm-2 col-form-label">Total Users</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="totUsers" value="val">
+                        <input type="text"  class="form-control" id="totUsers" th:value="${myApplication != null} ? ${myApplication.getTotalUsers()} : ''">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="totConcUsers" class="col-sm-2 col-form-label">Total Concurrent Users</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="totConcUsers" value="val">
+                        <input type="text"  class="form-control" id="totConcUsers" th:value="${myApplication != null} ? ${myApplication.getConcUsers()} : ''">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="priority" class="col-sm-2 col-form-label">Priority</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="priority" value="val">
+                        <input type="text"  class="form-control" id="priority" th:value="${myApplication != null} ? ${myApplication.getPriority()} : ''">
                     </div>
                 </div>
             </div>
@@ -268,19 +347,19 @@
                 <div class="form-group row">
                     <label for="backupServ" class="col-sm-2 col-form-label">Backp Server</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="backupServ" value="val">
+                        <input type="text"  class="form-control" id="backupServ" th:value="${logicalServer != null} ? ${logicalServer.getBackUp()} : ''">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="monitored" class="col-sm-2 col-form-label">Monitored</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="monitored" value="val">
+                        <input type="text"  class="form-control" id="monitored" th:value="${logicalServer != null} ? ${logicalServer.isMonitored()} : ''">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="respGroup" class="col-sm-2 col-form-label">Responsible Group</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="respGroup" value="val">
+                        <input type="text"  class="form-control" id="respGroup" th:value="${logicalServer != null} ? ${logicalServer.getRespGroup()} : ''">
                     </div>
                 </div>
             </div>
@@ -290,25 +369,25 @@
                 <div class="form-group row">
                     <label for="envSubType" class="col-sm-2 col-form-label">Environment Subtype</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="envSubType" value="val">
+                        <input type="text" class="form-control" id="envSubType" th:value="${environment != null } ? ${environment.getSubType()} : ''">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="envBackUp" class="col-sm-2 col-form-label">Backup Server</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="envBackUp" value="val">
+                        <input type="text"  class="form-control" id="envBackUp" th:value="${environment != null } ? ${environment.getBackUp()} : ''">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="envMonitored" class="col-sm-2 col-form-label">Monitored</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="envMonitored" value="val">
+                        <input type="text"  class="form-control" id="envMonitored" th:value="${environment != null } ? ${environment.isMonitored()} : ''">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="envRespGroup" class="col-sm-2 col-form-label">Responsible Group</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="envRespGroup" value="val">
+                        <input type="text"  class="form-control" id="envRespGroup" th:value="${environment != null } ? ${environment.getRespGroup()} : ''">
                     </div>
                 </div>
             </div>
@@ -341,16 +420,15 @@
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label for="oneRelationship" class="col-form-label">Relationship:</label>
-                            <input type="text"  class="form-control" id="oneRelationship" list="relationshipTypes">
-                            <datalist id="relationshipTypes">
-                                <option value="From Service Type"></option>
-                                <option value="From SubObject"></option>
-                                <option value="To Collection"></option>
-                                <option value="To Collection Type"></option>
-                                <option value="To SubObject"></option>
-                                <option value="To Service Type"></option>
-                            </datalist>
+                            <label for="relationshipTypes" class="col-form-label">Relationship:</label>
+                            <select id="relationshipTypes">
+                                <option value="From Service Type">From Service Type</option>
+                                <option value="From SubObject">From SubObject</option>
+                                <option value="To Collection">To Collection</option>
+                                <option value="To Collection Type">To Collection Type</option>
+                                <option value="To SubObject">To SubObject</option>
+                                <option value="To Service Type">To Service Type</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="relationshipValue" class="col-form-label">ORGANIZATION:</label>
