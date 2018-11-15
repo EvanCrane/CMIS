@@ -54,7 +54,12 @@
         <div class="form-group row">
             <label for="status" class="col-sm-2 col-form-label">Status</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" id="status" th:value="${highlevel.getStatus()}">
+                <select id="status" class="form-control">
+                    <option value="Active" th:if="${highlevel.getStatus().equals('Active')}" selected="selected">Active</option>
+                    <option value="Active" th:if="${!highlevel.getStatus().equals('Active')}" >Active</option>
+                    <option value="Retired" th:if="${highlevel.getStatus().equals('Retired')}" selected="selected">Retired</option>
+                    <option value="Retired" th:if="${!highlevel.getStatus().equals('Retired')}" >Retired</option>
+                </select>
             </div>
         </div>
         <div class="form-group row">
@@ -88,8 +93,8 @@
             <label for="desOrganization" class="col-sm-2 col-form-label">Design Agency Organization</label>
             <div class="col-sm-10">
                 <select id="desOrganization" class="form-control">
-                    <option th:each="des_org : ${allOrgs}" th:if="${collecDesOrg.equals(collecOrg)}" selected="selected" th:text="${des_org}"></option>
-                    <option th:each="des_org : ${allOrgs}" th:if="${!collecDesOrg.equals(collecOrg)}" th:text="${des_org}"></option>
+                    <option th:each="des_org : ${allOrgs}" th:if="${des_org.equals(collecDesOrg)}" selected="selected" th:text="${des_org}"></option>
+                    <option th:each="des_org : ${allOrgs}" th:if="${!des_org.equals(collecDesOrg)}" th:text="${des_org}"></option>
                 </select>
             </div>
         </div>
@@ -125,22 +130,22 @@
             <label for="funcClass" class="col-sm-2 col-form-label">Function class</label>
             <div class="col-sm-10">
                 <select id="funcClass" class="form-control">
-                    <option value="A" th:if="${(controlsImpacts != null) && controlsImpacts.getFunctionClass().equals('A')}" selected="selected">A</option>
-                    <option value="A" th:if="${(controlsImpacts != null) && !controlsImpacts.getFunctionClass().equals('A')}">A</option>
-                    <option value="B" th:if="${controlsImpacts!=null && controlsImpacts.getFunctionClass().equals('B')}" selected="selected">B</option>
-                    <option value="B" th:if="${controlsImpacts!=null && !controlsImpacts.getFunctionClass().equals('B')}">B</option>
-                    <option value="C" th:if="${controlsImpacts!=null && controlsImpacts.getFunctionClass().equals('C')}" selected="selected">C</option>
-                    <option value="C" th:if="${controlsImpacts!=null && !controlsImpacts.getFunctionClass().equals('C')}">C</option>
-                    <option value="D" th:if="${controlsImpacts!=null && controlsImpacts.getFunctionClass().equals('D')}" selected="selected">D</option>
-                    <option value="D" th:if="${controlsImpacts!=null && !controlsImpacts.getFunctionClass().equals('D')}">D</option>
-                    <option value="E" th:if="${controlsImpacts!=null && controlsImpacts.getFunctionClass().equals('E')}" selected="selected">E</option>
-                    <option value="E" th:if="${controlsImpacts!=null && !controlsImpacts.getFunctionClass().equals('E')}" >E</option>
-                    <option value="" th:if="${controlsImpacts == null}" selected="selected" hidden>Select Function Class</option>
-                    <option value="A" th:if="${controlsImpacts == null}">A</option>
-                    <option value="B" th:if="${controlsImpacts == null}">B</option>
-                    <option value="C" th:if="${controlsImpacts == null}">C</option>
-                    <option value="D" th:if="${controlsImpacts == null}">D</option>
-                    <option value="E" th:if="${controlsImpacts == null}">E</option>
+                    <option value="A" th:if="${(controlsImpacts != null) && controlsImpacts.getFunctionClass() != null && controlsImpacts.getFunctionClass().equals('A')}" selected="selected">A</option>
+                    <option value="A" th:if="${(controlsImpacts != null) && controlsImpacts.getFunctionClass() != null && !controlsImpacts.getFunctionClass().equals('A')}">A</option>
+                    <option value="B" th:if="${controlsImpacts!=null && controlsImpacts.getFunctionClass() != null && controlsImpacts.getFunctionClass().equals('B')}" selected="selected">B</option>
+                    <option value="B" th:if="${controlsImpacts!=null && controlsImpacts.getFunctionClass() != null && !controlsImpacts.getFunctionClass().equals('B')}">B</option>
+                    <option value="C" th:if="${controlsImpacts!=null && controlsImpacts.getFunctionClass() != null && controlsImpacts.getFunctionClass().equals('C')}" selected="selected">C</option>
+                    <option value="C" th:if="${controlsImpacts!=null && controlsImpacts.getFunctionClass() != null && !controlsImpacts.getFunctionClass().equals('C')}">C</option>
+                    <option value="D" th:if="${controlsImpacts!=null && controlsImpacts.getFunctionClass() != null && controlsImpacts.getFunctionClass().equals('D')}" selected="selected">D</option>
+                    <option value="D" th:if="${controlsImpacts!=null && controlsImpacts.getFunctionClass() != null && !controlsImpacts.getFunctionClass().equals('D')}">D</option>
+                    <option value="E" th:if="${controlsImpacts!=null && controlsImpacts.getFunctionClass() != null && controlsImpacts.getFunctionClass().equals('E')}" selected="selected">E</option>
+                    <option value="E" th:if="${controlsImpacts!=null && controlsImpacts.getFunctionClass() != null && !controlsImpacts.getFunctionClass().equals('E')}" >E</option>
+                    <option value="" th:if="${controlsImpacts == null || controlsImpacts.getFunctionClass() == null }" selected="selected" hidden>Select Function Class</option>
+                    <option value="A" th:if="${controlsImpacts == null || controlsImpacts.getFunctionClass() == null }">A</option>
+                    <option value="B" th:if="${controlsImpacts == null|| controlsImpacts.getFunctionClass() == null }">B</option>
+                    <option value="C" th:if="${controlsImpacts == null|| controlsImpacts.getFunctionClass() == null }">C</option>
+                    <option value="D" th:if="${controlsImpacts == null || controlsImpacts.getFunctionClass() == null }">D</option>
+                    <option value="E" th:if="${controlsImpacts == null || controlsImpacts.getFunctionClass() == null }">E</option>
                 </select>
             </div>
         </div>
@@ -148,19 +153,19 @@
             <label for="dataClass" class="col-sm-2 col-form-label">Data Classification</label>
             <div class="col-sm-10">
                 <select id="dataClass" class="form-control">
-                    <option value="U" th:if="${(controlsImpacts != null) && controlsImpacts.getDataClass().equals('U')}" selected="selected">U</option>
-                    <option value="U" th:if="${(controlsImpacts != null) && !controlsImpacts.getDataClass().equals('U')}">U</option>
-                    <option value="C" th:if="${controlsImpacts!=null && controlsImpacts.getDataClass().equals('C')}" selected="selected">C</option>
-                    <option value="C" th:if="${controlsImpacts!=null && !controlsImpacts.getDataClass().equals('C')}">C</option>
-                    <option value="S" th:if="${controlsImpacts!=null && controlsImpacts.getDataClass().equals('S')}" selected="selected">S</option>
-                    <option value="S" th:if="${controlsImpacts!=null && !controlsImpacts.getDataClass().equals('S')}">S</option>
-                    <option value="TS" th:if="${controlsImpacts!=null && controlsImpacts.getDataClass().equals('TS')}" selected="selected">TS</option>
-                    <option value="TS" th:if="${controlsImpacts!=null && !controlsImpacts.getDataClass().equals('TS')}">TS</option>
-                    <option value="" th:if="${controlsImpacts == null}" selected="selected" hidden>Select Data Classification</option>
-                    <option value="U" th:if="${controlsImpacts == null}">U</option>
-                    <option value="C" th:if="${controlsImpacts == null}">C</option>
-                    <option value="S" th:if="${controlsImpacts == null}">S</option>
-                    <option value="TS" th:if="${controlsImpacts == null}">TS</option>
+                    <option value="U" th:if="${(controlsImpacts != null) && controlsImpacts.getDataClass() != null && controlsImpacts.getDataClass().equals('U')}" selected="selected">U</option>
+                    <option value="U" th:if="${(controlsImpacts != null) && controlsImpacts.getDataClass() != null&& !controlsImpacts.getDataClass().equals('U')}">U</option>
+                    <option value="C" th:if="${controlsImpacts!=null && controlsImpacts.getDataClass() != null && controlsImpacts.getDataClass().equals('C')}" selected="selected">C</option>
+                    <option value="C" th:if="${controlsImpacts!=null && controlsImpacts.getDataClass() != null && !controlsImpacts.getDataClass().equals('C')}">C</option>
+                    <option value="S" th:if="${controlsImpacts!=null && controlsImpacts.getDataClass() != null && controlsImpacts.getDataClass().equals('S')}" selected="selected">S</option>
+                    <option value="S" th:if="${controlsImpacts!=null && controlsImpacts.getDataClass() != null && !controlsImpacts.getDataClass().equals('S')}">S</option>
+                    <option value="TS" th:if="${controlsImpacts!=null && controlsImpacts.getDataClass() != null && controlsImpacts.getDataClass().equals('TS')}" selected="selected">TS</option>
+                    <option value="TS" th:if="${controlsImpacts!=null && controlsImpacts.getDataClass() != null && !controlsImpacts.getDataClass().equals('TS')}">TS</option>
+                    <option value="" th:if="${controlsImpacts == null || controlsImpacts.getDataClass() == null}"  selected="selected" hidden>Select Data Classification</option>
+                    <option value="U" th:if="${controlsImpacts == null || controlsImpacts.getDataClass() == null}">U</option>
+                    <option value="C" th:if="${controlsImpacts == null || controlsImpacts.getDataClass() == null}">C</option>
+                    <option value="S" th:if="${controlsImpacts == null || controlsImpacts.getDataClass() == null}">S</option>
+                    <option value="TS" th:if="${controlsImpacts == null || controlsImpacts.getDataClass() == null}">TS</option>
                 </select>
             </div>
         </div>
@@ -168,22 +173,22 @@
             <label for="missRating" class="col-sm-2 col-form-label">Mission Essential Rating</label>
             <div class="col-sm-10">
                 <select id="missRating" class="form-control">
-                    <option value="Non-Essential" th:if="${(controlsImpacts != null) && controlsImpacts.getMissEssRating().equals('Non-Essential')}" selected="selected">Non-Essential</option>
-                    <option value="Non-Essential" th:if="${(controlsImpacts != null) && !controlsImpacts.getMissEssRating().equals('Non-Essential')}">Non-Essential</option>
-                    <option value="Routine" th:if="${controlsImpacts!=null && controlsImpacts.getMissEssRating().equals('Routine')}" selected="selected">Routine</option>
-                    <option value="Routine" th:if="${controlsImpacts!=null && !controlsImpacts.getMissEssRating().equals('Routine')}">Routine</option>
-                    <option value="Important" th:if="${controlsImpacts!=null && controlsImpacts.getMissEssRating().equals('Important')}" selected="selected">Important</option>
-                    <option value="Important" th:if="${controlsImpacts!=null && !controlsImpacts.getMissEssRating().equals('Important')}">Important</option>
-                    <option value="Moderately Important" th:if="${controlsImpacts!=null && controlsImpacts.getMissEssRating().equals('Moderately Important')}" selected="selected">Moderately Important</option>
-                    <option value="Moderately Important" th:if="${controlsImpacts!=null && !controlsImpacts.getMissEssRating().equals('Moderately Important')}">Moderately Important</option>
-                    <option value="Highly Important" th:if="${controlsImpacts!=null && controlsImpacts.getMissEssRating().equals('Highly Important')}" selected="selected">Highly Important</option>
-                    <option value="Highly Iportant" th:if="${controlsImpacts!=null && !controlsImpacts.getMissEssRating().equals('Highly Important')}" >Highly Important</option>
-                    <option value="" th:if="${controlsImpacts == null}" selected="selected" hidden>Select Function Class</option>
-                    <option value="Non-Essential" th:if="${controlsImpacts == null}">Non-Essential</option>
-                    <option value="Routine" th:if="${controlsImpacts == null}">Routine</option>
-                    <option value="Important" th:if="${controlsImpacts == null}">Important</option>
-                    <option value="Moderately Important" th:if="${controlsImpacts == null}">Moderately Important</option>
-                    <option value="Highly Important" th:if="${controlsImpacts == null}">Highly Important</option>
+                    <option value="Non-Essential" th:if="${(controlsImpacts != null) && controlsImpacts.getMissEssRating() != null && controlsImpacts.getMissEssRating().equals('Non-Essential')}" selected="selected">Non-Essential</option>
+                    <option value="Non-Essential" th:if="${(controlsImpacts != null) && controlsImpacts.getMissEssRating() != null  && !controlsImpacts.getMissEssRating().equals('Non-Essential')}">Non-Essential</option>
+                    <option value="Routine" th:if="${controlsImpacts!=null && controlsImpacts.getMissEssRating() != null  && controlsImpacts.getMissEssRating().equals('Routine')}" selected="selected">Routine</option>
+                    <option value="Routine" th:if="${controlsImpacts!=null && controlsImpacts.getMissEssRating() != null  && !controlsImpacts.getMissEssRating().equals('Routine')}">Routine</option>
+                    <option value="Important" th:if="${controlsImpacts!=null && controlsImpacts.getMissEssRating() != null  && controlsImpacts.getMissEssRating().equals('Important')}" selected="selected">Important</option>
+                    <option value="Important" th:if="${controlsImpacts!=null && controlsImpacts.getMissEssRating() != null  && !controlsImpacts.getMissEssRating().equals('Important')}">Important</option>
+                    <option value="Moderately Important" th:if="${controlsImpacts!=null && controlsImpacts.getMissEssRating() != null  && controlsImpacts.getMissEssRating().equals('Moderately Important')}" selected="selected">Moderately Important</option>
+                    <option value="Moderately Important" th:if="${controlsImpacts!=null && controlsImpacts.getMissEssRating() != null  && !controlsImpacts.getMissEssRating().equals('Moderately Important')}">Moderately Important</option>
+                    <option value="Highly Important" th:if="${controlsImpacts!=null && controlsImpacts.getMissEssRating() != null  && controlsImpacts.getMissEssRating().equals('Highly Important')}" selected="selected">Highly Important</option>
+                    <option value="Highly Iportant" th:if="${controlsImpacts!=null && controlsImpacts.getMissEssRating() != null  && !controlsImpacts.getMissEssRating().equals('Highly Important')}" >Highly Important</option>
+                    <option value="" th:if="${controlsImpacts == null || controlsImpacts.getMissEssRating() == null}" selected="selected" hidden>Select Function Class</option>
+                    <option value="Non-Essential" th:if="${controlsImpacts == null || controlsImpacts.getMissEssRating() == null}">Non-Essential</option>
+                    <option value="Routine" th:if="${controlsImpacts == null || controlsImpacts.getMissEssRating() == null}">Routine</option>
+                    <option value="Important" th:if="${controlsImpacts == null || controlsImpacts.getMissEssRating() == null}">Important</option>
+                    <option value="Moderately Important" th:if="${controlsImpacts == null || controlsImpacts.getMissEssRating() == null}">Moderately Important</option>
+                    <option value="Highly Important" th:if="${controlsImpacts == null || controlsImpacts.getMissEssRating() == null}">Highly Important</option>
                 </select>
             </div>
         </div>
@@ -307,7 +312,18 @@
                 <div class="form-group row">
                     <label for="aSubType" class="col-sm-2 col-form-label">Subtype</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="aSubType" th:value="${myApplication != null} ? ${myApplication.getSubType()} : ''">
+                        <select id="aSubType" class="form-control">
+                            <option value="Web" th:if="${myApplication != null && myApplication.getSubType() != null && myApplication.getSubType().equals('Web')}" selected="selected">Web</option>
+                            <option value="Web" th:if="${myApplication != null && myApplication.getSubType() != null && !myApplication.getSubType().equals('Web')}">Web</option>
+                            <option value="Desktop" th:if="${myApplication != null && myApplication.getSubType() != null && myApplication.getSubType().equals('Desktop')}" selected="selected">Desktop</option>
+                            <option value="Desktop" th:if="${myApplication != null && myApplication.getSubType() != null && !myApplication.getSubType().equals('Desktop')}">Desktop</option>
+                            <option value="Mobile" th:if="${myApplication != null && myApplication.getSubType() != null && myApplication.getSubType().equals('Mobile')}" selected="selected">Mobile</option>
+                            <option value="Mobile" th:if="${myApplication != null && myApplication.getSubType() != null && !myApplication.getSubType().equals('Mobile')}">Mobile</option>
+                            <option value="" th:if="${myApplication == null || myApplication.getSubType()== null}" selected="selected" hidden>Select Application Subtype</option>
+                            <option value="Web" th:if="${myApplication == null || myApplication.getSubType()== null}">Web</option>
+                            <option value="Desktop" th:if="${myApplication == null || myApplication.getSubType()== null}">Desktop</option>
+                            <option value="Mobile" th:if="${myApplication == null || myApplication.getSubType()== null}">Mobile</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -345,7 +361,7 @@
                 <h4>Server Information</h4>
                 <hr>
                 <div class="form-group row">
-                    <label for="backupServ" class="col-sm-2 col-form-label">Backp Server</label>
+                    <label for="backupServ" class="col-sm-2 col-form-label">Backup Server</label>
                     <div class="col-sm-10">
                         <input type="text"  class="form-control" id="backupServ" th:value="${logicalServer != null} ? ${logicalServer.getBackUp()} : ''">
                     </div>
@@ -353,13 +369,26 @@
                 <div class="form-group row">
                     <label for="monitored" class="col-sm-2 col-form-label">Monitored</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="monitored" th:value="${logicalServer != null} ? ${logicalServer.isMonitored()} : ''">
+                        <select id="monitored" class="form-control">
+                            <option value="1" th:if="${logicalServer != null &&logicalServer.isMonitored()!= null && logicalServer.isMonitored() == true}" selected="selected">Yes</option>
+                            <option value="1" th:if="${logicalServer != null &&logicalServer.isMonitored()!= null && logicalServer.isMonitored() == false}">Yes</option>
+                            <option value="0" th:if="${logicalServer != null &&logicalServer.isMonitored()!= null && logicalServer.isMonitored() == false}" selected="selected">No</option>
+                            <option value="0" th:if="${logicalServer != null &&logicalServer.isMonitored()!= null && logicalServer.isMonitored() == true}">No</option>
+                            <option value="" th:if="${logicalServer == null || logicalServer.isMonitored() == null}" selected="selected" hidden>Select Monitored</option>
+                            <option value="1" th:if="${logicalServer == null || logicalServer.isMonitored() == null}">Yes</option>
+                            <option value="0" th:if="${logicalServer == null || logicalServer.isMonitored() == null}">No</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="respGroup" class="col-sm-2 col-form-label">Responsible Group</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="respGroup" th:value="${logicalServer != null} ? ${logicalServer.getRespGroup()} : ''">
+                        <select id="respGroup" class="form-control">
+                            <option th:each="des_org : ${allOrgs}" th:if="${logicalServer != null && logicalServer.getRespGroup() != null && des_org.equals(logicalServer.getRespGroup())}" selected="selected" th:text="${des_org}"></option>
+                            <option th:each="des_org : ${allOrgs}" th:if="${logicalServer!= null && logicalServer.getRespGroup() != null && !des_org.equals(logicalServer.getRespGroup())}" th:text="${des_org}"></option>
+                            <option th:if="${logicalServer == null || logicalServer.getRespGroup() == null}" value="" selected="selected" hidden>Select Responsible Group</option>
+                            <option th:if="${logicalServer == null || logicalServer.getRespGroup() == null}" th:each="des_org : ${allOrgs}" th:text="${des_org}"></option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -369,7 +398,18 @@
                 <div class="form-group row">
                     <label for="envSubType" class="col-sm-2 col-form-label">Environment Subtype</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="envSubType" th:value="${environment != null } ? ${environment.getSubType()} : ''">
+                        <select id="envSubType" class="form-control">
+                            <option th:if="${environment != null && environment.getSubType() != null && environment.getSubType().equals('Windows')}" selected="selected" value="Windows">Windows</option>
+                            <option th:if="${environment != null && environment.getSubType() != null && !environment.getSubType().equals('Windows')}" value="Windows">Windows</option>
+                            <option th:if="${environment != null && environment.getSubType() != null && environment.getSubType().equals('Linux')}" selected="selected" value="Linux">Linux</option>
+                            <option th:if="${environment != null && environment.getSubType() != null && !environment.getSubType().equals('Linux')}" value="Linux">Linux</option>
+                            <option th:if="${environment != null && environment.getSubType() != null && environment.getSubType().equals('macOS')}" selected="selected" value="macOS">macOS</option>
+                            <option th:if="${environment != null && environment.getSubType() != null && !environment.getSubType().equals('macOS')}" value="macOS">macOS</option>
+                            <option th:if="${environment == null || environment.getSubType() == null}" value="" selected="selected" hidden>Select Environment Subtype</option>
+                            <option th:if="${environment == null || environment.getSubType() == null}" value="Windows">Windows</option>
+                            <option th:if="${environment == null || environment.getSubType() == null}" value="Linux">Linux</option>
+                            <option th:if="${environment == null || environment.getSubType() == null}" value="macOS">macOS</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -381,13 +421,26 @@
                 <div class="form-group row">
                     <label for="envMonitored" class="col-sm-2 col-form-label">Monitored</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="envMonitored" th:value="${environment != null } ? ${environment.isMonitored()} : ''">
+                        <select id="envMonitored" class="form-control">
+                            <option value="1" th:if="${environment != null &&environment.isMonitored()!= null && environment.isMonitored() == true}" selected="selected">Yes</option>
+                            <option value="1" th:if="${environment != null &&environment.isMonitored()!= null && environment.isMonitored() == false}">Yes</option>
+                            <option value="0" th:if="${environment != null &&environment.isMonitored()!= null && environment.isMonitored() == false}" selected="selected">No</option>
+                            <option value="0" th:if="${environment != null &&environment.isMonitored()!= null && environment.isMonitored() == true}">No</option>
+                            <option value="" th:if="${environment == null || environment.isMonitored() == null}" selected="selected" hidden>Select Monitored</option>
+                            <option value="1" th:if="${environment == null || environment.isMonitored() == null}">Yes</option>
+                            <option value="0" th:if="${environment == null || environment.isMonitored() == null}">No</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="envRespGroup" class="col-sm-2 col-form-label">Responsible Group</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="envRespGroup" th:value="${environment != null } ? ${environment.getRespGroup()} : ''">
+                        <select id="envRespGroup" class="form-control">
+                            <option th:each="des_org : ${allOrgs}" th:if="${environment != null && environment.getRespGroup() != null && des_org.equals(environment.getRespGroup())}" selected="selected" th:text="${des_org}"></option>
+                            <option th:each="des_org : ${allOrgs}" th:if="${environment!= null && environment.getRespGroup() != null && !des_org.equals(environment.getRespGroup())}" th:text="${des_org}"></option>
+                            <option th:if="${environment == null || environment.getRespGroup() == null}" value="" selected="selected" hidden>Select Responsible Group</option>
+                            <option th:if="${environment == null || environment.getRespGroup() == null}" th:each="des_org : ${allOrgs}" th:text="${des_org}"></option>
+                        </select>
                     </div>
                 </div>
             </div>
