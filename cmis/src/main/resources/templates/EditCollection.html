@@ -7,43 +7,46 @@
 </head>
 <body style="padding-bottom: 40px">
 <div class="container" >
-    <form class="editForm">
+    <form class="editForm" th:action="@{/edit}" th:object="${collection}" method="POST">
         <h3>Collection</h3>
         <hr>
+        <div>
+            <input th:field="*{collecIid}" style="display: none;"/>
+        </div>
         <div class="form-group row">
             <label for="fullName" class="col-sm-2 col-form-label">Full Name</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="fullName" th:value="${highlevel.getFullName()}">
+                <input th:field="*{fullName}" type="text" class="form-control" id="fullName" >
             </div>
         </div>
         <div class="form-group row">
             <label for="acronym" class="col-sm-2 col-form-label">Acronym</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" id="acronym" th:value="${highlevel.getAccronym()}">
+                <input th:field="*{accronym}" type="text"  class="form-control" id="acronym" >
             </div>
         </div>
         <div class="form-group row">
             <label for="collecTypes" class="col-sm-2 col-form-label">Collection Type</label>
             <div class="col-sm-10" th:switch="${highlevel.getCollecType()}">
-                <select id="collecTypes" class="form-control" th:case="'Logical Server'">
+                <select th:field="*{collecType}" id="collecTypes" class="form-control" th:case="'Logical Server'">
                     <option value="Logical Server" selected="selected">Logical Server</option>
                     <option value="Environment">Environment</option>
                     <option value="DBMS">DBMS</option>
                     <option value="Instance Application">Instance Application</option>
                 </select>
-                <select id="collecTypes" class="form-control" th:case="'Environment'">
+                <select th:field="*{collecType}" id="collecTypes" class="form-control" th:case="'Environment'">
                     <option value="Logical Server" >Logical Server</option>
                     <option value="Environment" selected="selected">Environment</option>
                     <option value="DBMS">DBMS</option>
                     <option value="Instance Application">Instance Application</option>
                 </select>
-                <select id="collecTypes" class="form-control" th:case="'DBMS'">
+                <select th:field="*{collecType}" id="collecTypes" class="form-control" th:case="'DBMS'">
                     <option value="Logical Server">Logical Server</option>
                     <option value="Environment">Environment</option>
                     <option value="DBMS" selected="selected">DBMS</option>
                     <option value="Instance Application">Instance Application</option>
                 </select>
-                <select id="collecTypes" class="form-control" th:case="'Instance Application'">
+                <select th:field="*{collecType}" id="collecTypes" class="form-control" th:case="'Instance Application'">
                     <option value="Logical Server" >Logical Server</option>
                     <option value="Environment">Environment</option>
                     <option value="DBMS">DBMS</option>
@@ -52,13 +55,19 @@
             </div>
         </div>
         <div class="form-group row">
+            <label for="backUp" class="col-sm-2 col-form-label">Backup Server</label>
+            <div class="col-sm-10">
+                <input th:field="*{backUP}" type="text"  class="form-control" id="backUp" />
+            </div>
+        </div>
+        <div class="form-group row">
             <label for="status" class="col-sm-2 col-form-label">Status</label>
             <div class="col-sm-10">
-                <select id="status" class="form-control">
-                    <option value="Active" th:if="${highlevel.getStatus().equals('Active')}" selected="selected">Active</option>
-                    <option value="Active" th:if="${!highlevel.getStatus().equals('Active')}" >Active</option>
-                    <option value="Retired" th:if="${highlevel.getStatus().equals('Retired')}" selected="selected">Retired</option>
-                    <option value="Retired" th:if="${!highlevel.getStatus().equals('Retired')}" >Retired</option>
+                <select th:field="*{status}" id="status" class="form-control">
+                    <option value="Active" th:if="${collection.getStatus().equals('Active')}" selected="selected">Active</option>
+                    <option value="Active" th:if="${!collection.getStatus().equals('Active')}" >Active</option>
+                    <option value="Retired" th:if="${collection.getStatus().equals('Retired')}" selected="selected">Retired</option>
+                    <option value="Retired" th:if="${!collection.getStatus().equals('Retired')}" >Retired</option>
                 </select>
             </div>
         </div>
@@ -66,35 +75,35 @@
             <label for="serviceType" class="col-sm-2 col-form-label">Service Type Provided</label>
             <div class="col-sm-10">
                 <!--<input type="text"  class="form-control" id="serviceType" th:value="${highlevel.getServiceType()}">-->
-                <select id="serviceType" class="form-control">
-                    <option value="SandBox" th:if="${highlevel.getServiceType().equals('Sandbox')}" selected="selected">Sandbox</option>
-                    <option value="SandBox" th:if="${!highlevel.getServiceType().equals('Sandbox')}" >Sandbox</option>
-                    <option value="Development" th:if="${highlevel.getServiceType().equals('Development')}" selected="selected">Development</option>
-                    <option value="Development" th:if="${!highlevel.getServiceType().equals('Development')}">Development</option>
-                    <option value="Acceptance" th:if="${highlevel.getServiceType().equals('Acceptance')}" selected="selected">Acceptance</option>
-                    <option value="Acceptance" th:if="${!highlevel.getServiceType().equals('Acceptance')}">Acceptance</option>
-                    <option value="Acceptance" th:if="${highlevel.getServiceType().equals('Acceptance')}" selected="selected">Acceptance</option>
-                    <option value="Acceptance" th:if="${!highlevel.getServiceType().equals('Acceptance')}">Acceptance</option>
-                    <option value="Disaster Recovery" th:if="${highlevel.getServiceType().equals('Disaster Recovery')}" selected="selected">Disaster Recovery</option>
-                    <option value="Disaster Recovery" th:if="${!highlevel.getServiceType().equals('Disaster Recovery')}">Disaster Recovery</option>
+                <select th:field="*{serviceType}" id="serviceType" class="form-control">
+                    <option value="SandBox" th:if="${collection.getServiceType().equals('Sandbox')}" selected="selected">Sandbox</option>
+                    <option value="SandBox" th:if="${!collection.getServiceType().equals('Sandbox')}" >Sandbox</option>
+                    <option value="Development" th:if="${collection.getServiceType().equals('Development')}" selected="selected">Development</option>
+                    <option value="Development" th:if="${!collection.getServiceType().equals('Development')}">Development</option>
+                    <option value="Acceptance" th:if="${collection.getServiceType().equals('Acceptance')}" selected="selected">Acceptance</option>
+                    <option value="Acceptance" th:if="${!collection.getServiceType().equals('Acceptance')}">Acceptance</option>
+                    <option value="Production" th:if="${collection.getServiceType().equals('Production')}" selected="selected">Production</option>
+                    <option value="Production" th:if="${!collection.getServiceType().equals('Production')}">Production</option>
+                    <option value="Disaster Recovery" th:if="${collection.getServiceType().equals('Disaster Recovery')}" selected="selected">Disaster Recovery</option>
+                    <option value="Disaster Recovery" th:if="${!collection.getServiceType().equals('Disaster Recovery')}">Disaster Recovery</option>
                 </select>
             </div>
         </div>
         <div class="form-group row">
             <label for="orgs" class="col-sm-2 col-form-label">Organization</label>
             <div class="col-sm-10">
-                <select id="orgs" class="form-control">
-                    <option th:each="des_org : ${allOrgs}" th:if="${des_org.equals(collecOrg)}" selected="selected" th:text="${des_org}"></option>
-                    <option th:each="des_org : ${allOrgs}" th:if="${!des_org.equals(collecOrg)}" th:text="${des_org}"></option>
+                <select th:field="*{organizations}" id="orgs" class="form-control">
+                    <option th:each="des_org : ${allOrgs}" th:if="${des_org.equals(collecOrg)}" selected="selected" th:text="${des_org}" th:value="${des_org}"></option>
+                    <option th:each="des_org : ${allOrgs}" th:if="${!des_org.equals(collecOrg)}" th:text="${des_org}" th:value="${des_org}"></option>
                 </select>
             </div>
         </div>
         <div class="form-group row">
             <label for="desOrganization" class="col-sm-2 col-form-label">Design Agency Organization</label>
             <div class="col-sm-10">
-                <select id="desOrganization" class="form-control">
-                    <option th:each="des_org : ${allOrgs}" th:if="${des_org.equals(collecDesOrg)}" selected="selected" th:text="${des_org}"></option>
-                    <option th:each="des_org : ${allOrgs}" th:if="${!des_org.equals(collecDesOrg)}" th:text="${des_org}"></option>
+                <select th:field="*{desOrganizations}" id="desOrganization" class="form-control">
+                    <option th:each="des_org : ${allOrgs}" th:if="${des_org.equals(collecDesOrg)}" selected="selected" th:text="${des_org}" th:value="${des_org}"></option>
+                    <option th:each="des_org : ${allOrgs}" th:if="${!des_org.equals(collecDesOrg)}" th:text="${des_org}" th:value="${des_org}"></option>
                 </select>
             </div>
         </div>
@@ -353,7 +362,39 @@
                 <div class="form-group row">
                     <label for="priority" class="col-sm-2 col-form-label">Priority</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="priority" th:value="${myApplication != null} ? ${myApplication.getPriority()} : ''">
+                        <select id="priority" class="form-control">
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && myApplication.getPriority().equals('1')}" value="1" selected="selected">1</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && !myApplication.getPriority().equals('1')}" value="1">1</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && myApplication.getPriority().equals('2')}" value="2" selected="selected">2</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && !myApplication.getPriority().equals('1')}" value="2">2</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && myApplication.getPriority().equals('3')}" value="3" selected="selected">3</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && !myApplication.getPriority().equals('3')}" value="3">3</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && myApplication.getPriority().equals('4')}" value="4" selected="selected">4</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && !myApplication.getPriority().equals('4')}" value="4">4</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && myApplication.getPriority().equals('5')}" value="5" selected="selected">5</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && !myApplication.getPriority().equals('5')}" value="5">5</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && myApplication.getPriority().equals('6')}" value="6" selected="selected">6</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && !myApplication.getPriority().equals('6')}" value="6">6</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && myApplication.getPriority().equals('7')}" value="7" selected="selected">7</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && !myApplication.getPriority().equals('7')}" value="7">7</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && myApplication.getPriority().equals('8')}" value="8" selected="selected">8</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && !myApplication.getPriority().equals('8')}" value="8">8</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && myApplication.getPriority().equals('9')}" value="9" selected="selected">9</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && !myApplication.getPriority().equals('9')}" value="9">9</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && myApplication.getPriority().equals('10')}" value="10" selected="selected">10</option>
+                            <option th:if="${myApplication != null && myApplication.getPriority() != null && !myApplication.getPriority().equals('10')}" value="10">10</option>
+                            <option th:if="${myApplication == null || myApplication.getPriority() == null}" value="" selected="selected">Select Priority</option>
+                            <option th:if="${myApplication == null || myApplication.getPriority() == null}" value="1">1</option>
+                            <option th:if="${myApplication == null || myApplication.getPriority() == null}" value="2">2</option>
+                            <option th:if="${myApplication == null || myApplication.getPriority() == null}" value="3">3</option>
+                            <option th:if="${myApplication == null || myApplication.getPriority() == null}" value="4">4</option>
+                            <option th:if="${myApplication == null || myApplication.getPriority() == null}" value="5">5</option>
+                            <option th:if="${myApplication == null || myApplication.getPriority() == null}" value="6">6</option>
+                            <option th:if="${myApplication == null || myApplication.getPriority() == null}" value="7">7</option>
+                            <option th:if="${myApplication == null || myApplication.getPriority() == null}" value="8">8</option>
+                            <option th:if="${myApplication == null || myApplication.getPriority() == null}" value="9">9</option>
+                            <option th:if="${myApplication == null || myApplication.getPriority() == null}" value="10">10</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -399,23 +440,23 @@
                     <label for="envSubType" class="col-sm-2 col-form-label">Environment Subtype</label>
                     <div class="col-sm-10">
                         <select id="envSubType" class="form-control">
-                            <option th:if="${environment != null && environment.getSubType() != null && environment.getSubType().equals('Windows')}" selected="selected" value="Windows">Windows</option>
-                            <option th:if="${environment != null && environment.getSubType() != null && !environment.getSubType().equals('Windows')}" value="Windows">Windows</option>
-                            <option th:if="${environment != null && environment.getSubType() != null && environment.getSubType().equals('Linux')}" selected="selected" value="Linux">Linux</option>
-                            <option th:if="${environment != null && environment.getSubType() != null && !environment.getSubType().equals('Linux')}" value="Linux">Linux</option>
-                            <option th:if="${environment != null && environment.getSubType() != null && environment.getSubType().equals('macOS')}" selected="selected" value="macOS">macOS</option>
-                            <option th:if="${environment != null && environment.getSubType() != null && !environment.getSubType().equals('macOS')}" value="macOS">macOS</option>
+                            <option th:if="${environment != null && environment.getSubType() != null && environment.getSubType().equals('Virtual Server')}" selected="selected" value="Virtual Server">Virtual Server</option>
+                            <option th:if="${environment != null && environment.getSubType() != null && !environment.getSubType().equals('Virtual Server')}" value="Virtual Server">Virtual Server</option>
+                            <option th:if="${environment != null && environment.getSubType() != null && environment.getSubType().equals('Virtual Machine')}" selected="selected" value="Virtual Machine">Virtual Machine</option>
+                            <option th:if="${environment != null && environment.getSubType() != null && !environment.getSubType().equals('Virtual Machine')}" value="Virtual Machine">Virtual Machine</option>
+                            <option th:if="${environment != null && environment.getSubType() != null && environment.getSubType().equals('Alias')}" selected="selected" value="Alias">Alias</option>
+                            <option th:if="${environment != null && environment.getSubType() != null && !environment.getSubType().equals('Alias')}" value="Alias">Alias</option>
                             <option th:if="${environment == null || environment.getSubType() == null}" value="" selected="selected" hidden>Select Environment Subtype</option>
-                            <option th:if="${environment == null || environment.getSubType() == null}" value="Windows">Windows</option>
-                            <option th:if="${environment == null || environment.getSubType() == null}" value="Linux">Linux</option>
-                            <option th:if="${environment == null || environment.getSubType() == null}" value="macOS">macOS</option>
+                            <option th:if="${environment == null || environment.getSubType() == null}" value="Virtual Server">Virtual Server</option>
+                            <option th:if="${environment == null || environment.getSubType() == null}" value="Virtual Machine">Virtual Machine</option>
+                            <option th:if="${environment == null || environment.getSubType() == null}" value="Alias">Alias</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="envBackUp" class="col-sm-2 col-form-label">Backup Server</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="envBackUp" th:value="${environment != null } ? ${environment.getBackUp()} : ''">
+                        <input type="text" th:field="*{backUP}" class="form-control" id="envBackUp" >
                     </div>
                 </div>
                 <div class="form-group row">
@@ -446,6 +487,10 @@
             </div>
 
         </div>
+        <div>
+            <input type="submit" class="btn btn-primary" id="editCollecSubmit" value="Edit"/>
+            <a class="btn btn-dark" th:href="@{/view(id=${collID})}" >Cancel</a>
+        </div>
 
         <!--Below is the regular input without readonly-->
         <!--<div class="form-group row">-->
@@ -455,8 +500,7 @@
         <!--</div>-->
         <!--</div>-->
     </form>
-    <a><button>Submit</button></a>
-    <a><button>Cancel</button></a>
+
 </div>
 
 <div class="relationshipForm">

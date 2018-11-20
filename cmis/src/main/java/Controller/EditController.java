@@ -79,9 +79,17 @@ public class EditController {
         model.addAttribute("collType", collecType);
         model.addAttribute("allOrgs", collectionDao.AllOrgs());
         model.addAttribute("servType", highlights.getServiceType());
+        model.addAttribute("collection", collectionDao.collectionHighlights(collID));
 
 
         return "EditCollection";
+    }
+
+    @RequestMapping(value="/edit", method =RequestMethod.POST)
+    public String editCollection(Model model, Principal principle, @ModelAttribute(value="collection") Collection collection, BindingResult result)
+    {
+        collectionDao.updateCollection(collection);
+        return "redirect:view?id="+collection.getCollecIid();
     }
 
 }

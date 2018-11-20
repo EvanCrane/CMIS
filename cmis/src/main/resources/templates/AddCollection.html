@@ -16,11 +16,11 @@
         <div>
             <h1 id="errorMsg" style="color: red; display: none;">Please check your input</h1>
         </div>
-        <table>
-            <tr>
-                <td>Collection Type</td>
-                <td>
-                    <select th:field="*{collecType}">
+        <table class="table">
+            <tr class="form-group row">
+                <td class="col-sm-3 col-form-label">Collection Type</td>
+                <td class="col-sm-5">
+                    <select th:field="*{collecType}" class="form-control">
                         <option value="" selected="selected" hidden><i>Select Collection Type</i></option>
                         <option value="Logical Server">Logical Server</option>
                         <option value="Environment">Environment</option>
@@ -28,26 +28,23 @@
                         <option value="Instance Application">Instance Application</option>
                     </select>
                 </td>
-                <td></td>
             </tr>
-            <tr>
-                <td>Full Name</td>
-                <td><input type="text" th:field="*{fullName}"> </td>
-                <td></td>
+            <tr class="form-group row">
+                <td class="col-sm-3 col-form-label">Full Name</td>
+                <td class="col-sm-5"><input class="form-control" type="text" th:field="*{fullName}"> </td>
             </tr>
-            <tr>
-                <td>Accronym</td>
-                <td><input type="text" th:field="*{accronym}"></td>
-                <td></td>
+            <tr class="form-group row">
+                <td class="col-sm-3 col-form-label">Accronym</td>
+                <td class="col-sm-5"><input class="form-control" type="text" th:field="*{accronym}"></td>
             </tr>
-            <tr>
-                <td>Backup Server</td>
-                <td><input type="text" th:field="*{backUP}"></td>
+            <tr class="form-group row">
+                <td class="col-sm-3 col-form-label"> Backup Server</td>
+                <td class="col-sm-5"><input class="form-control" type="text" th:field="*{backUP}"></td>
             </tr>
-            <tr>
-                <td>Service Type Provided</td>
-                <td>
-                    <select th:field="*{serviceType}">
+            <tr class="form-group row">
+                <td class="col-sm-3 col-form-label">Service Type Provided</td>
+                <td class="col-sm-5">
+                    <select class="form-control" th:field="*{serviceType}">
                         <option value="" selected="selected" hidden><i>Select Service Type</i></option>
                         <option value="SandBox">Sandbox</option>
                         <option value="Development">Development</option>
@@ -56,48 +53,46 @@
                         <option value="Disaster Recovery">Disaster Recovery</option>
                     </select>
                 </td>
-                <td></td>
             </tr>
-            <tr>
-                <td>Status</td>
-                <td>
-                    <select th:field="*{status}">
+            <tr class="form-group row">
+                <td class="col-sm-3 col-form-label">Status</td>
+                <td class="col-sm-5">
+                    <select class="form-control" th:field="*{status}">
                         <option selected="selected" hidden value=""><i>Select Status</i></option>
                         <option value="Active">Active</option>
                         <option value="Retired">Retired</option>
                     </select>
                 </td>
-                <td></td>
             </tr>
-            <tr>
-                <td>Organizations</td>
-                <td th:switch="${curUser.getAccessLvl()}">
-                    <select th:field="*{organizations}" th:case="1">
+            <tr class="form-group row">
+                <td class="col-sm-3 col-form-label">Organizations</td>
+                <td class="col-sm-5" th:switch="${curUser.getAccessLvl()}">
+                    <select class="form-control" th:field="*{organizations}" th:case="1">
                         <option selected="selected" hidden value=""><i>Choose here</i></option>
                         <option th:each="des_org : ${allOrgs}" th:value="${des_org}" th:text="${des_org}"></option>
                     </select>
-                    <select th:field="*{organizations}" th:case="*">
+                    <select class="form-control" th:field="*{organizations}" th:case="*">
                         <option selected="selected" hidden value=""><i>Choose here</i></option>
                         <option th:value="${curUser.getOrganization()}" th:text="${curUser.getOrganization()}"></option>
                     </select>
                 </td>
             </tr>
-            <tr>
-                <td>Design Agency Organizations</td>
-                <td th:switch="${curUser.getAccessLvl()}">
-                    <select th:field="*{desOrganizations}" th:case="1">
+            <tr class="form-group row">
+                <td class="col-sm-3 col-form-label">Design Agency Organizations</td>
+                <td class="col-sm-5" th:switch="${curUser.getAccessLvl()}">
+                    <select class="form-control" th:field="*{desOrganizations}" th:case="1">
                         <option selected="selected" hidden value=""><i>Choose here</i></option>
                         <option th:each="des_org : ${allOrgs}" th:value="${des_org}" th:text="${des_org}"></option>
                     </select>
-                    <select th:field="*{desOrganizations}" th:case="*">
+                    <select class="form-control" th:field="*{desOrganizations}" th:case="*">
                         <option selected="selected" hidden value=""><i>Choose here</i></option>
                         <option th:value="${curUser.getOrganization()}" th:text="${curUser.getOrganization()}"></option>
                     </select>
                 </td>
             </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>
+            <tr class="form-group row">
+                <td class="col-sm-3 col-form-label">&nbsp;</td>
+                <td class="col-sm-5">
                     <input type="submit" class="btn btn-primary" id="addCollecSave" value="Save" />
                     <a th:href="@{/home}">Cancel</a>
                 </td>

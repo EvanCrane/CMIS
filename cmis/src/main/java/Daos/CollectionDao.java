@@ -55,6 +55,29 @@ public class CollectionDao extends JdbcDaoSupport {
 
     }
 
+    public void updateCollection(Collection form)
+    {
+        String thisSQL = "UPDATE COLLECTIONS SET TYPE = ?, FULL_NAME = ?, ACRONYM = ?, STATUS = ?," +
+                " BACKUP_SERVER = ?, SERVICE_TYPE = ? WHERE ID = ?;";
+        int collID = form.getCollecIid();
+        String type = form.getCollecType();
+        String fullName = form.getFullName();
+        String acronym = form.getAccronym();
+        String status = form.getStatus();
+        String backUp = form.getBackUP();
+        String servType = form.getServiceType();
+        getJdbcTemplate().update(thisSQL, type, fullName, acronym, status, backUp, servType, collID);
+
+        String thisSQL2 = "UPDATE COLLEC_ORGANIZATION SET ORGANIZATION = ? WHERE COL_ID = ?;";
+        String org = form.getOrganizations();
+        getJdbcTemplate().update(thisSQL2, org, collID);
+
+        String thisSQL3 = "UPDATE COLLEC_DESIGN_ORGANIZATION SET DES_ORG = ? WHERE COL_ID = ?;";
+        String desOrg = form.getDesOrganizations();
+        getJdbcTemplate().update(thisSQL3, desOrg, collID);
+
+    }
+
 
 
     public List<String> AllOrgs()
