@@ -53,6 +53,7 @@ public class EditController {
         else{userRole = "Reader";}
         model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
+        model.addAttribute("userOrg", userDao.findFullUserInfo(userName).getOrganization());
         // **************** End of common stuff **************************************
 
         Collection highlights = collectionDao.collectionHighlights(collID);

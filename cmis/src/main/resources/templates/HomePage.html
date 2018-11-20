@@ -15,7 +15,8 @@
             <thead>
             <tr>
                 <th><h4><b>Full Name</b></h4></th>
-                <th><h4><b>Acronym</b></h4></th>
+                <th><h4><b>Organization</b></h4></th>
+                <th><h4><b>Design Org</b></h4></th>
                 <th><h4><b>Type</b></h4></th>
                 <th><h4><b>Status</b></h4></th>
             </tr>
@@ -23,7 +24,8 @@
             <tbody>
             <tr th:each="collection : ${collections}">
                 <td><a th:text="${collection.getFullName()}" th:href="@{/view(id=${collection.getCollecIid()})}" ></a></td>
-                <td th:text="${collection.getAccronym()}"></td>
+                <td th:text="${collection.getOrganizations()}"></td>
+                <td th:text="${collection.getDesOrganizations()}"></td>
                 <td th:text="${collection.getCollecType()}"></td>
                 <td th:text="${collection.getStatus()}"></td>
             </tr>

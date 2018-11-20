@@ -79,6 +79,8 @@ public class MainController {
         else{userRole = "Reader";}
         model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
+        model.addAttribute("fullUser", userDao.findFullUserInfo(userName));
+        model.addAttribute("userOrg", userDao.findFullUserInfo(userName).getOrganization());
         // **************** End of common stuff **************************************
 
         model.addAttribute("title", "Home");
@@ -111,6 +113,7 @@ public class MainController {
         else{userRole = "Reader";}
         model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
+        model.addAttribute("userOrg", userDao.findFullUserInfo(userName).getOrganization());
         // **************** End of common stuff **************************************
 
         return "Delete";
@@ -149,6 +152,7 @@ public class MainController {
         else{userRole = "Reader";}
         model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
+        model.addAttribute("userOrg", userDao.findFullUserInfo(userName).getOrganization());
         // **************** End of common stuff **************************************
 
         if (principal != null) {

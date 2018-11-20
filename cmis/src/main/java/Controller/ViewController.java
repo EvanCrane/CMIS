@@ -53,6 +53,7 @@ public class ViewController {
         else{userRole = "Reader";}
         model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
+        model.addAttribute("userOrg", userDao.findFullUserInfo(userName).getOrganization());
         // **************** End of common stuff **************************************
 
         model.addAttribute("highlevel", collectionDao.collectionHighlights(collID));
@@ -78,6 +79,8 @@ public class ViewController {
 
         model.addAttribute("collID", collID);
         model.addAttribute("collType", collecType);
+        model.addAttribute("fullUser", userDao.findFullUserInfo(userName));
+
         return "ViewCollection";
 
     }

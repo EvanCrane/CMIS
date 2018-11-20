@@ -29,6 +29,21 @@ public class Collection {
         setDesOrganizations(aDesOrganizations);
     }
 
+    public Collection(int aColID, String aType, String aFullName, String aAcronym, String aStatus, String aBackup, String aServType, String aOrg, String aDesOrg)
+    {
+        setCollecIid(aColID);
+        setCollecType(aType);
+        setFullName(aFullName);
+        setAccronym(aAcronym);
+        setStatus(aStatus);
+        setBackUP(aBackup);
+        setServiceType(aServType);
+        setOrganizations(aOrg);
+        setDesOrganizations(aDesOrg);
+
+    }
+
+
     public Collection(int collID, String aCollecType, String aFullName, String aAccronym, String aStatus, String aBackupName, String aServiceType){
 
         setCollecIid(collID);

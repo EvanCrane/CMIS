@@ -313,8 +313,8 @@
             <!--</div>-->
         </form>
 
-    <a class="btn btn-info" th:href="@{/edit(id=${collID})}">Edit</a>
-    <a class="btn btn-danger" th:href="@{/delete(id=${collID})}">Delete</a>
+    <a class="btn btn-info" th:if="${userRole == 'Admin' || (userRole == 'Manager' && fullUser.getOrganization().equals(collecOrg)) || (userRole == 'Developer' && fullUser.getOrganization().equals(collecOrg))}" th:href="@{/edit(id=${collID})}">Edit</a>
+    <a class="btn btn-danger" th:if="${userRole == 'Admin' || (userRole == 'Manager' && fullUser.getOrganization().equals(collecOrg))}"  th:href="@{/delete(id=${collID})}" >Delete</a>
     </div>
 
 

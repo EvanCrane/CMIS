@@ -53,6 +53,7 @@ public class UsersController {
         else{userRole = "Reader";}
         model.addAttribute("userRole", userRole);
         model.addAttribute("isPlayer", isPlayer);
+        model.addAttribute("userOrg", userDao.findFullUserInfo(userName).getOrganization());
         // **************** End of common stuff **************************************
         List<String> allOrganizations = collectionDao.AllOrgs();
 
