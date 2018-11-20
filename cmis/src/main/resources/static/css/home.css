@@ -1,6 +1,7 @@
 nav {
     color: #005389;
     box-sizing: border-box;
+    min-height: 56px;
 }
 
 nav>a>img {
