@@ -162,7 +162,7 @@ input[type='submit'] {
 }
 
 .login input[type='submit'] {
-    background-color: #ea4c88;
+    background-color: #005389;
     color: #eee;
     font-weight: 700;
     text-transform: uppercase;
@@ -170,5 +170,5 @@ input[type='submit'] {
 
 .login input[type='submit']:focus,
 .login input[type='submit']:hover {
-    background-color: #d44179;
+    background-color: #f4901e;
 }
