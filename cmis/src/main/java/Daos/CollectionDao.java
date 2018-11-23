@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
@@ -57,9 +58,12 @@ public class CollectionDao extends JdbcDaoSupport {
 
     public void updateCollection(Collection form)
     {
+
+        // ************ Update high level collection stuff  *******************
         String thisSQL = "UPDATE COLLECTIONS SET TYPE = ?, FULL_NAME = ?, ACRONYM = ?, STATUS = ?," +
                 " BACKUP_SERVER = ?, SERVICE_TYPE = ? WHERE ID = ?;";
         int collID = form.getCollecIid();
+        Object [] colArg = new Object [] {collID};
         String type = form.getCollecType();
         String fullName = form.getFullName();
         String acronym = form.getAccronym();
@@ -75,6 +79,159 @@ public class CollectionDao extends JdbcDaoSupport {
         String thisSQL3 = "UPDATE COLLEC_DESIGN_ORGANIZATION SET DES_ORG = ? WHERE COL_ID = ?;";
         String desOrg = form.getDesOrganizations();
         getJdbcTemplate().update(thisSQL3, desOrg, collID);
+
+        // Update General Level
+
+        Object[] doesGeneral;
+        String testGeneral = "SELECT COL_ID FROM GENERAL WHERE COL_ID =?";
+        try{
+            doesGeneral = getJdbcTemplate().queryForObject(testGeneral, colArg, Object[].class);
+        }
+        catch(EmptyResultDataAccessException e)
+        {
+            doesGeneral = null;
+        }
+
+
+        if(doesGeneral == null)
+        {
+            String generalInsert = "INSERT INTO GENERAL (COL_ID, USER_POPULATION, PRIM_CUSTOM, SUBCON_MAINT, DESCRIPTION)" +
+                    " VALUES (?, ?, ?, ?, ?)";
+            getJdbcTemplate().update(generalInsert, collID, form.getUserPopulation(), form.getPrimaryCustomer(), form.getSubContractMain()
+            , form.getGenDescription());
+        }
+        else
+        {
+            String generalUpdate = "UPDATE GENERAL SET USER_POPULATION = ?, PRIM_CUSTOM = ?, SUBCON_MAINT = ?, " +
+                    "DESCRIPTION = ? WHERE COL_ID = ?";
+            getJdbcTemplate().update(generalUpdate, form.getUserPopulation(), form.getPrimaryCustomer(), form.getSubContractMain()
+            , form.getGenDescription(), collID);
+        }
+
+        // Update Controls/Impacts
+
+        String testSql = "SELECT COL_ID FROM CONTROLS_IMPACTS WHERE COL_ID = ?";
+
+        Object[] testVal;
+        try
+        {
+            testVal = getJdbcTemplate().queryForObject(testSql, colArg, Object[].class);
+        }
+        catch (EmptyResultDataAccessException e)
+        {
+            testVal = null;
+        }
+
+        if(testVal == null)
+        {
+            String controlSql1 = "INSERT INTO CONTROLS_IMPACTS (COL_ID, FUNCTION_CLASS, DATA_CLASS, MISS_ESS_RAT) " +
+                    "VALUES (?, ?, ?, ?)";
+            getJdbcTemplate().update(controlSql1, collID, form.getFunctionClass(), form.getDataClass(), form.getMissEssRating());
+        }
+        else
+        {
+            String controlSql = "UPDATE CONTROLS_IMPACTS SET FUNCTION_CLASS = ?, DATA_CLASS = ?, " +
+                    "MISS_ESS_RAT = ? WHERE COL_ID = ?";
+            getJdbcTemplate().update(controlSql, form.getFunctionClass(), form.getDataClass(), form.getMissEssRating(), collID);
+        }
+
+
+
+        // Update Logical Server info
+        if(form.getCollecType().equals("Logical Server"))
+        {
+            String testLogic = "SELECT COL_ID FROM LOGICAL_SERVER WHERE COL_ID = ?";
+
+            Object[] doesLogic;
+            try
+            {
+                doesLogic = getJdbcTemplate().queryForObject(testLogic, colArg, Object[].class);
+            }
+            catch (EmptyResultDataAccessException e)
+            {
+                doesLogic = null;
+            }
+
+            if(doesLogic == null)
+            {
+                String insertServer = "INSERT INTO LOGICAL_SERVER (COL_ID, BACKUP_SERVER, MONITORED, RESP_GROUP) " +
+                        "VALUES (?, ?, ?, ?)";
+                getJdbcTemplate().update(insertServer, collID, form.getBackUpServer(), form.isServerMonitored(), form.getRespGroup());
+            }
+            else
+            {
+                String serverSql = "UPDATE LOGICAL_SERVER SET BACKUP_SERVER = ?, MONITORED = ?," +
+                        " RESP_GROUP = ? WHERE COL_ID = ?";
+                getJdbcTemplate().update(serverSql, form.getBackUpServer(), form.isServerMonitored(), form.getRespGroup()
+                        , collID);
+            }
+
+        }
+
+        // Update Environment info
+        if(form.getCollecType().equals("Environment"))
+        {
+            String testEnv = "SELECT COL_ID FROM ENVIRONMENT WHERE COL_ID = ?";
+
+            Object[] doesEnv;
+            try
+            {
+                doesEnv = getJdbcTemplate().queryForObject(testEnv, colArg, Object[].class);
+            }
+            catch (EmptyResultDataAccessException e)
+            {
+                doesEnv = null;
+            }
+
+            if(doesEnv == null)
+            {
+                String insertEnv = "INSERT INTO ENVIRONMENT (COL_ID, SUBTYPE, BACKUP_SEVER, MONITORED, RESP_GROUP) " +
+                        "VALUES (?, ?, ?, ?, ?)";
+                getJdbcTemplate().update(insertEnv, collID, form.getEnvSubtype(), form.getEnvBackup(),
+                        form.isEnvMonitored(), form.getEnvRespGroup());
+
+            }
+            else
+            {
+                String envSql = "UPDATE ENVIRONMENT SET SUBTYPE = ?, BACKUP_SEVER = ?, MONITORED = ?, " +
+                        "RESP_GROUP = ? WHERE COL_ID = ?";
+                getJdbcTemplate().update(envSql, form.getEnvSubtype(), form.getEnvBackup(), form.isEnvMonitored()
+                        , form.getEnvRespGroup(), collID);
+            }
+
+        }
+
+        // Update Application info
+        if(form.getCollecType().equals("Instance Application"))
+        {
+            String testApp = "SELECT COL_ID FROM APPLICATION WHERE COL_ID = ?";
+
+            Object doesApp;
+            try
+            {
+                doesApp = getJdbcTemplate().queryForObject(testApp, colArg, Object[].class);
+            }
+            catch (EmptyResultDataAccessException e)
+            {
+                doesApp = null;
+            }
+
+            if(doesApp == null)
+            {
+                String insertApp = "INSERT INTO APPLICATION (COL_ID, SUBTYPE, USER_INTERFACE, SIZE, TOTAL_USERS, " +
+                        "CONC_USERS, PRIORITY) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                getJdbcTemplate().update(insertApp, collID, form.getAppSubType(), form.getUserInterface(),
+                        form.getAppSize(), form.getTotalUsers(), form.getTotalConcUsers(), form.getPriority());
+            }
+            else
+            {
+                String appSql = "UPDATE APPLICATION SET SUBTYPE = ?, USER_INTERFACE = ?, SIZE = ?, TOTAL_USERS = ?," +
+                        " CONC_USERS = ?, PRIORITY = ? WHERE COL_ID = ?";
+                getJdbcTemplate().update(appSql, form.getAppSubType(), form.getUserInterface(), form.getAppSize(),
+                        form.getTotalUsers(), form.getTotalConcUsers(), form.getPriority(), collID);
+            }
+
+        }
 
     }
 
@@ -102,12 +259,59 @@ public class CollectionDao extends JdbcDaoSupport {
         return getJdbcTemplate().queryForObject(sqlColID, myArg, String.class);
     }
 
-    public Collection collectionHighlights(int collecID)
+    // Change to get the full collection
+    public Collection getFullCollection (int collecID)
     {
         String thisSQL = CollectionMapper.BASE_SQL + " WHERE ID = ?";
         Object[] parameter = new Object[] {collecID};
         CollectionMapper mapper = new CollectionMapper();
-        return getJdbcTemplate().queryForObject(thisSQL, parameter, mapper);
+        Collection fullCollection = getJdbcTemplate().queryForObject(thisSQL, parameter, mapper);
+        fullCollection.setOrganizations(getCollecOrg(collecID));
+        fullCollection.setDesOrganizations(getCollecDesOrg(collecID));
+
+        // General stuff
+        General generalInfo = getGeneral(collecID);
+        fullCollection.setUserPopulation(generalInfo == null || generalInfo.getPrimaryCustomer() == null ? "" : generalInfo.getUserPop());
+        fullCollection.setPrimaryCustomer(generalInfo == null || generalInfo.getPrimaryCustomer() == null ? "" : generalInfo.getPrimaryCustomer());
+        fullCollection.setSubContractMain(generalInfo == null || generalInfo.getSubcontMaintainer() == null ? "" : generalInfo.getSubcontMaintainer());
+        fullCollection.setGenDescription(generalInfo == null || generalInfo.getDescription() == null ? "" : generalInfo.getDescription());
+
+        // Controls/Impacts
+        ControlsImpacts contImpact = getControlsImpacts(collecID);
+        fullCollection.setFunctionClass(contImpact == null || contImpact.getFunctionClass() == null ? "" : contImpact.getFunctionClass());
+        fullCollection.setDataClass(contImpact == null || contImpact.getFunctionClass() == null ? "" : contImpact.getDataClass());
+        fullCollection.setMissEssRating(contImpact == null || contImpact.getMissEssRating() == null ? "" : contImpact.getMissEssRating());
+
+        if(fullCollection.getCollecType().equals("Instance Application"))
+        {
+            //Application
+            Application thisApp = getApplication(collecID);
+            fullCollection.setAppSubType(thisApp == null || thisApp.getSubType() == null ? "" : thisApp.getSubType());
+            fullCollection.setUserInterface(thisApp == null || thisApp.getUserInterface() == null ? "" : thisApp.getUserInterface());
+            fullCollection.setAppSize(thisApp == null || thisApp.getSize() == null ? "" : thisApp.getSize());
+            fullCollection.setTotalUsers(thisApp == null || thisApp.getTotalUsers() == null ? "" : thisApp.getTotalUsers());
+            fullCollection.setTotalConcUsers(thisApp == null || thisApp.getConcUsers() == null ? "" : thisApp.getConcUsers());
+            fullCollection.setPriority(thisApp == null || thisApp.getPriority() == null ? "" : thisApp.getPriority());
+        }
+        else if(fullCollection.getCollecType().equals("Logical Server"))
+        {
+            //Server
+            LogicalServer thisServer = getLogicalServer(collecID);
+            fullCollection.setBackUpServer(thisServer == null || thisServer.getBackUp() == null ? "" : thisServer.getBackUp());
+            fullCollection.setServerMonitored(thisServer.isMonitored());
+            fullCollection.setRespGroup(thisServer == null || thisServer.getRespGroup() == null ? "" : thisServer.getRespGroup());
+        }
+        else if(fullCollection.getCollecType().equals("Environment"))
+        {
+            //Environment
+            Environment thisEnvironment = getEnvironment(collecID);
+            fullCollection.setEnvSubtype(thisEnvironment == null || thisEnvironment.getSubType() == null ? "" : thisEnvironment.getSubType());
+            fullCollection.setEnvBackup(thisEnvironment == null || thisEnvironment.getBackUp() == null ? "" : thisEnvironment.getBackUp());
+            fullCollection.setEnvMonitored(thisEnvironment.isMonitored());
+            fullCollection.setEnvRespGroup(thisEnvironment == null || thisEnvironment.getRespGroup() == null ? "" : thisEnvironment.getRespGroup());
+        }
+
+        return fullCollection;
 
     }
 

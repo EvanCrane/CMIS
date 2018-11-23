@@ -1,15 +1,11 @@
 package Controller;
 
-import java.lang.reflect.Type;
 import java.security.Principal;
-import java.util.List;
 
 import Daos.UserDAO;
 import Models.Collection;
 import Daos.CollectionDao;
 
-import Models.Users;
-import Utils.WebUtils;
 //import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,10 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.w3c.dom.UserDataHandler;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.websocket.OnError;
 
 @Controller
 public class EditController {
@@ -56,8 +48,8 @@ public class EditController {
         model.addAttribute("userOrg", userDao.findFullUserInfo(userName).getOrganization());
         // **************** End of common stuff **************************************
 
-        Collection highlights = collectionDao.collectionHighlights(collID);
-        model.addAttribute("highlevel", highlights);
+        Collection fullCollection = collectionDao.getFullCollection(collID);
+        model.addAttribute("highlevel", fullCollection);
         model.addAttribute("collecOrg", collectionDao.getCollecOrg(collID));
         model.addAttribute("collecDesOrg", collectionDao.getCollecDesOrg(collID));
         model.addAttribute("general", collectionDao.getGeneral(collID));
@@ -79,8 +71,8 @@ public class EditController {
         model.addAttribute("collID", collID);
         model.addAttribute("collType", collecType);
         model.addAttribute("allOrgs", collectionDao.AllOrgs());
-        model.addAttribute("servType", highlights.getServiceType());
-        model.addAttribute("collection", collectionDao.collectionHighlights(collID));
+        model.addAttribute("servType", fullCollection.getServiceType());
+        model.addAttribute("collection", collectionDao.getFullCollection(collID));
 
 
         return "EditCollection";

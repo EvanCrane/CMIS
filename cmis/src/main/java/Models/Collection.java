@@ -16,6 +16,38 @@ public class Collection {
     private String organizations;
     private String desOrganizations;
 
+    //General
+    private String userPopulation;
+    private String primaryCustomer;
+    private String subContractMain;
+    private String genDescription;
+
+    //Controls/Impacts
+    private String functionClass;
+    private String dataClass;
+    private String missEssRating;
+
+    //Application
+    private String appSubType;
+    private String userInterface;
+    private String appSize;
+    private String totalUsers;
+    private String totalConcUsers;
+    private String priority;
+
+    //Server
+    private String backUpServer;
+    private boolean serverMonitored;
+    private String respGroup;
+
+    //Environment
+    private String envSubtype;
+    private String envBackup;
+    private boolean envMonitored;
+    private String envRespGroup;
+
+
+
     public Collection(String aCollecType, String aFullName, String aAccronym, String aStatus, String aBackupName, String aOrganizations, String aServiceType, String aDesOrganizations){
 
         //setCollecIid(aColelctionId);
@@ -141,5 +173,165 @@ public class Collection {
 
     public void setDesOrganizations(String desOrganizations) {
         this.desOrganizations = desOrganizations;
+    }
+
+    public String getUserPopulation() {
+        return userPopulation;
+    }
+
+    public void setUserPopulation(String userPopulation) {
+        this.userPopulation = userPopulation;
+    }
+
+    public String getPrimaryCustomer() {
+        return primaryCustomer;
+    }
+
+    public void setPrimaryCustomer(String primaryCustomer) {
+        this.primaryCustomer = primaryCustomer;
+    }
+
+    public String getSubContractMain() {
+        return subContractMain;
+    }
+
+    public void setSubContractMain(String subContractMain) {
+        this.subContractMain = subContractMain;
+    }
+
+    public String getGenDescription() {
+        return genDescription;
+    }
+
+    public void setGenDescription(String genDescription) {
+        this.genDescription = genDescription;
+    }
+
+    public String getMissEssRating() {
+        return missEssRating;
+    }
+
+    public void setMissEssRating(String missEssRating) {
+        this.missEssRating = missEssRating;
+    }
+
+    public String getDataClass() {
+        return dataClass;
+    }
+
+    public void setDataClass(String dataClass) {
+        this.dataClass = dataClass;
+    }
+
+    public String getFunctionClass() {
+        return functionClass;
+    }
+
+    public void setFunctionClass(String functionClass) {
+        this.functionClass = functionClass;
+    }
+
+    public String getAppSubType() {
+        return appSubType;
+    }
+
+    public void setAppSubType(String appSubType) {
+        this.appSubType = appSubType;
+    }
+
+    public String getUserInterface() {
+        return userInterface;
+    }
+
+    public void setUserInterface(String userInterface) {
+        this.userInterface = userInterface;
+    }
+
+    public String getAppSize() {
+        return appSize;
+    }
+
+    public void setAppSize(String appSize) {
+        this.appSize = appSize;
+    }
+
+    public String getTotalUsers() {
+        return totalUsers;
+    }
+
+    public void setTotalUsers(String totalUsers) {
+        this.totalUsers = totalUsers;
+    }
+
+    public String getTotalConcUsers() {
+        return totalConcUsers;
+    }
+
+    public void setTotalConcUsers(String totalConcUsers) {
+        this.totalConcUsers = totalConcUsers;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public String getBackUpServer() {
+        return backUpServer;
+    }
+
+    public void setBackUpServer(String backUpServer) {
+        this.backUpServer = backUpServer;
+    }
+
+    public boolean isServerMonitored() {
+        return serverMonitored;
+    }
+
+    public void setServerMonitored(boolean serverMonitored) {
+        this.serverMonitored = serverMonitored;
+    }
+
+    public String getRespGroup() {
+        return respGroup;
+    }
+
+    public void setRespGroup(String respGroup) {
+        this.respGroup = respGroup;
+    }
+
+    public String getEnvSubtype() {
+        return envSubtype;
+    }
+
+    public void setEnvSubtype(String envSubtype) {
+        this.envSubtype = envSubtype;
+    }
+
+    public String getEnvBackup() {
+        return envBackup;
+    }
+
+    public void setEnvBackup(String envBackup) {
+        this.envBackup = envBackup;
+    }
+
+    public boolean isEnvMonitored() {
+        return envMonitored;
+    }
+
+    public void setEnvMonitored(boolean envMonitored) {
+        this.envMonitored = envMonitored;
+    }
+
+    public String getEnvRespGroup() {
+        return envRespGroup;
+    }
+
+    public void setEnvRespGroup(String envRespGroup) {
+        this.envRespGroup = envRespGroup;
     }
 }
