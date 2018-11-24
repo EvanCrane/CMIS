@@ -210,30 +210,7 @@
                 <input type="text" class="form-control" id="aUserID" value="val">
             </div>
         </div>
-        <div class="form-group row">
-            <label for="aName" class="col-sm-2 col-form-label">Name</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="aName" value="val">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="contType" class="col-sm-2 col-form-label">Contact Type</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="contType" value="val">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="phoneNum" class="col-sm-2 col-form-label">Phone Number</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="phoneNum" value="val">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="location" class="col-sm-2 col-form-label">Location</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="location" value="val">
-            </div>
-        </div>
+        <a class="btn btn-success" id="addUser">Add User</a>
         <hr style="border-color: red">
         <h4>Vendor Products</h4>
         <hr>
@@ -243,24 +220,7 @@
                 <input type="text"  class="form-control" id="aProductName" value="val">
             </div>
         </div>
-        <div class="form-group row">
-            <label for="aVersion" class="col-sm-2 col-form-label">Version</label>
-            <div class="col-sm-10">
-                <input type="text"  class="form-control" id="aVersion" value="val">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="prodDesc" class="col-sm-2 col-form-label">Description</label>
-            <div class="col-sm-10">
-                <textarea rows="4" cols="50" class="form-control" id="prodDesc">val</textarea>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="classInfo" class="col-sm-2 col-form-label">Classified Information</label>
-            <div class="col-sm-10">
-                <input type="text"  class="form-control" id="classInfo" value="val">
-            </div>
-        </div>
+        <a class="btn btn-success addVendor">Add Vendor Product</a>
         <hr style="border-color: red">
         <h4>SubObjects</h4>
         <hr>
@@ -270,24 +230,7 @@
                 <input type="text" class="form-control" id="subObjType" value="val">
             </div>
         </div>
-        <div class="form-group row">
-            <label for="subObjName" class="col-sm-2 col-form-label">Name</label>
-            <div class="col-sm-10">
-                <input type="text"  class="form-control" id="subObjName" value="val">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="subObjVers" class="col-sm-2 col-form-label">Version</label>
-            <div class="col-sm-10">
-                <input type="text"  class="form-control" id="subObjVers" value="val">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="subObjClass" class="col-sm-2 col-form-label">Classified Information</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="subObjClass" value="val">
-            </div>
-        </div>
+        <a class="btn btn-success addSubObject">Add SubObject</a>
         <hr style="border-color: red">
         <h4>Relationships</h4>
         <hr>
@@ -299,7 +242,7 @@
                 <button>Delete</button>
             </div>
         </div>
-        <button>Add Relationship</button>
+        <a class="btn btn-success addRelationship">Add Relationship</a>
 
         <h4>Editors</h4>
         <hr>
@@ -311,7 +254,7 @@
                 <button>Delete</button>
             </div>
         </div>
-        <button>Add Editor</button>
+        <a class="btn btn-success addEditor">Add Editor</a>
         <hr style="border-color: red">
 
         <div id="specific" th:switch="${collType}">
@@ -503,38 +446,48 @@
 
 </div>
 
-<div class="relationshipForm">
-    <form th:action="@{/relationshipPost}" method="post">
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+//Contacts Modal
+<div class="contactFormModal">
+    <form th:action="@{/saveContacts}" method="post">
+        <div class="modal fade" id="contactsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Relationship</h5>
+                        <h5 class="modal-title" id="contactsModalLabel">Update or Create</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div>
+                            <h1 id="contactErrorMsg" style="color: red; display: none;">Please check your input</h1>
+                        </div>
 
                         <div class="form-group">
-                            <label for="relationshipTypes" class="col-form-label">Relationship:</label>
-                            <select id="relationshipTypes">
-                                <option value="From Service Type">From Service Type</option>
-                                <option value="From SubObject">From SubObject</option>
-                                <option value="To Collection">To Collection</option>
-                                <option value="To Collection Type">To Collection Type</option>
-                                <option value="To SubObject">To SubObject</option>
-                                <option value="To Service Type">To Service Type</option>
+                            <label for="userContact" class="col-form-label">USER</label>
+                            <label id="userContact" hidden></label>
+                            <input type="text" class="form-control" id="contactName" name="username" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactType" class="col-form-label">Contact Type</label>
+                            <select id="contactType" class="col-form-label">
+                                <option selected="selected" hidden value=""><i>Choose here</i></option>
+                                <option value="Cell">Cell</option>
+                                <option value="Home">Home</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="relationshipValue" class="col-form-label">ORGANIZATION:</label>
-                            <input type="text" class="form-control" id="relationshipValue" name="organization" value=""/>
+                            <label for="contactPhone" class="col-form-label">Phone Number</label>
+                            <input type="text" class="form-control" id="contactPhone" value="" name="phoneNumber">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactLocation" class="col-form-label">Location</label>
+                            <input type="text" class="form-control" id="contactLocation" name="contactLocation" value=""/>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="save"/>
+                        <input type="submit" class="btn btn-primary" value="Save" id="contactSaveModal" />
                     </div>
                 </div>
             </div>
@@ -542,6 +495,163 @@
     </form>
 </div>
 
+<!--//Vendor Product Modal-->
+
+<!--<div class="myForm">-->
+    <!--<form th:action="@{/save}" method="post">-->
+        <!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+            <!--<div class="modal-dialog" role="document">-->
+                <!--<div class="modal-content">-->
+                    <!--<div class="modal-header">-->
+                        <!--<h5 class="modal-title" id="exampleModalLabel">Update or Create</h5>-->
+                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                            <!--<span aria-hidden="true">&times;</span>-->
+                        <!--</button>-->
+                    <!--</div>-->
+                    <!--<div class="modal-body">-->
+                        <!--<div>-->
+                            <!--<h1 id="errorMsg" style="color: red; display: none;">Please check your input</h1>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group">-->
+                            <!--<label for="username" class="col-form-label">USER NAME:</label>-->
+                            <!--<label id="userIDinModal" hidden></label>-->
+                            <!--<input type="text" class="form-control" id="username" name="username" value=""/>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label for="organization" class="col-form-label">ORGANIZATION:</label>-->
+                            <!--<select id="organization" class="col-form-label">-->
+                                <!--<option selected="selected" hidden value=""><i>Choose here</i></option>-->
+                                <!--<option th:each="organization : ${allOrgs}" th:value="${organization}" th:text="${organization}"></option>-->
+                            <!--</select>-->
+                            <!--&lt;!&ndash;<input type="text" class="form-control" id="organization" name="organization" value=""/>&ndash;&gt;-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label for="accessLvl" class="col-form-label">ACCESS LEVEL</label>-->
+                            <!--<select id="accessLvl" class="col-form-label">-->
+                                <!--<option selected="selected" hidden value=""><i>Choose here</i></option>-->
+                                <!--<option value="1">Admin</option>-->
+                                <!--<option value="2">Manager</option>-->
+                                <!--<option value="4">Developer</option>-->
+                                <!--<option value="3">Reader</option>-->
+                            <!--</select>-->
+                            <!--&lt;!&ndash;<input type="text" class="form-control" id="organization" name="organization" value=""/>&ndash;&gt;-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label for="password" class="col-form-label">New Password:</label>-->
+                            <!--<input type="password" class="form-control" id="password" name="password" value=""/>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+                    <!--<div class="modal-footer">-->
+                        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                        <!--<input type="submit" class="btn btn-primary" value="Save" id="userSaveModal" />-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</form>-->
+<!--</div>-->
+
+<!--//Subobjects-->
+<!--<div class="myForm">-->
+    <!--<form th:action="@{/save}" method="post">-->
+        <!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+            <!--<div class="modal-dialog" role="document">-->
+                <!--<div class="modal-content">-->
+                    <!--<div class="modal-header">-->
+                        <!--<h5 class="modal-title" id="exampleModalLabel">Update or Create</h5>-->
+                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                            <!--<span aria-hidden="true">&times;</span>-->
+                        <!--</button>-->
+                    <!--</div>-->
+                    <!--<div class="modal-body">-->
+                        <!--<div>-->
+                            <!--<h1 id="errorMsg" style="color: red; display: none;">Please check your input</h1>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group">-->
+                            <!--<label for="username" class="col-form-label">USER NAME:</label>-->
+                            <!--<label id="userIDinModal" hidden></label>-->
+                            <!--<input type="text" class="form-control" id="username" name="username" value=""/>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label for="organization" class="col-form-label">ORGANIZATION:</label>-->
+                            <!--<select id="organization" class="col-form-label">-->
+                                <!--<option selected="selected" hidden value=""><i>Choose here</i></option>-->
+                                <!--<option th:each="organization : ${allOrgs}" th:value="${organization}" th:text="${organization}"></option>-->
+                            <!--</select>-->
+                            <!--&lt;!&ndash;<input type="text" class="form-control" id="organization" name="organization" value=""/>&ndash;&gt;-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label for="accessLvl" class="col-form-label">ACCESS LEVEL</label>-->
+                            <!--<select id="accessLvl" class="col-form-label">-->
+                                <!--<option selected="selected" hidden value=""><i>Choose here</i></option>-->
+                                <!--<option value="1">Admin</option>-->
+                                <!--<option value="2">Manager</option>-->
+                                <!--<option value="4">Developer</option>-->
+                                <!--<option value="3">Reader</option>-->
+                            <!--</select>-->
+                            <!--&lt;!&ndash;<input type="text" class="form-control" id="organization" name="organization" value=""/>&ndash;&gt;-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label for="password" class="col-form-label">New Password:</label>-->
+                            <!--<input type="password" class="form-control" id="password" name="password" value=""/>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+                    <!--<div class="modal-footer">-->
+                        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                        <!--<input type="submit" class="btn btn-primary" value="Save" id="userSaveModal" />-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</form>-->
+<!--</div>-->
+
+
+<!--//Relationship Modal-->
+<!--<div class="relationshipForm">-->
+    <!--<form th:action="@{/relationshipPost}" method="post">-->
+        <!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+            <!--<div class="modal-dialog" role="document">-->
+                <!--<div class="modal-content">-->
+                    <!--<div class="modal-header">-->
+                        <!--<h5 class="modal-title" id="exampleModalLabel">Edit Relationship</h5>-->
+                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                            <!--<span aria-hidden="true">&times;</span>-->
+                        <!--</button>-->
+                    <!--</div>-->
+                    <!--<div class="modal-body">-->
+
+                        <!--<div class="form-group">-->
+                            <!--<label for="relationshipTypes" class="col-form-label">Relationship:</label>-->
+                            <!--<select id="relationshipTypes">-->
+                                <!--<option value="From Service Type">From Service Type</option>-->
+                                <!--<option value="From SubObject">From SubObject</option>-->
+                                <!--<option value="To Collection">To Collection</option>-->
+                                <!--<option value="To Collection Type">To Collection Type</option>-->
+                                <!--<option value="To SubObject">To SubObject</option>-->
+                                <!--<option value="To Service Type">To Service Type</option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label for="relationshipValue" class="col-form-label">ORGANIZATION:</label>-->
+                            <!--<input type="text" class="form-control" id="relationshipValue" name="organization" value=""/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="modal-footer">-->
+                        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                        <!--<input type="submit" class="btn btn-primary" value="save"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</form>-->
+<!--</div>-->
+
+//Editor Modal
 <div class="editorModal">
     <form th:action="@{/save}" method="post">
         <div class="modal fade" id="theEditorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
