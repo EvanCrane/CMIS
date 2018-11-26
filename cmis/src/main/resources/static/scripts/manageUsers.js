@@ -68,7 +68,7 @@ $(document).ready(function(){
                 $('.myForm #accessLvl').val(aUser.accessLvl);
             },
             error : function(e){
-                $('.myForm #username').val('a error Value')
+                $('.myForm #username').val('No user found');
             }
         });
     };

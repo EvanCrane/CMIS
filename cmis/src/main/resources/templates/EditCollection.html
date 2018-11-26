@@ -201,61 +201,90 @@
                 </select>
             </div>
         </div>
-        <hr style="border-color: red">
         <h4>Contacts</h4>
         <hr>
         <div class="form-group row">
-            <label for="aUserID" class="col-sm-2 col-form-label">UserId</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="aUserID" value="val">
-            </div>
+            <table>
+                    <tr>
+                    <td>Example Contact</td>
+                    <td>
+                        <a class="btn btn-primary" id="editContactBtn">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" id="deleteContactBtn">Delete</a>
+                    </td>
+                    <tr>
+            </table>
         </div>
-        <a class="btn btn-success" id="addUser">Add User</a>
-        <hr style="border-color: red">
+        <a class="btn btn-success" id="addUser">Add Contact</a>
         <h4>Vendor Products</h4>
         <hr>
         <div class="form-group row">
-            <label for="aProductName" class="col-sm-2 col-form-label">Product Name</label>
-            <div class="col-sm-10">
-                <input type="text"  class="form-control" id="aProductName" value="val">
-            </div>
+            <table>
+                <tr>
+                    <td>Example Product</td>
+                    <td>
+                        <a class="btn btn-primary" id="editVendorBtn">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" id="deleteVendorBtn">Delete</a>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <a class="btn btn-success addVendor">Add Vendor Product</a>
-        <hr style="border-color: red">
+        <a class="btn btn-success addVendor" id="addVendorBtn">Add Vendor Product</a>
+
         <h4>SubObjects</h4>
         <hr>
         <div class="form-group row">
-            <label for="subObjType" class="col-sm-2 col-form-label">Type</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="subObjType" value="val">
-            </div>
+            <table>
+                <tr>
+                    <td>Example SubObject</td>
+                    <td>
+                        <a class="btn btn-primary" id="editSubObjBtn">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" id="deleteSubObjBtn">Delete</a>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <a class="btn btn-success addSubObject">Add SubObject</a>
-        <hr style="border-color: red">
+        <a class="btn btn-success" id="addSubObject">Add SubObject</a>
+
         <h4>Relationships</h4>
         <hr>
         <div class="form-group row">
-            <label for="aRelationship" class="col-sm-2 col-form-label">Sample Relationship</label>
-            <div class="col-sm-10">
-                <input type="text"  class="form-control" id="aRelationship" value="val">
-                <button class="relationships">Edit</button>
-                <button>Delete</button>
-            </div>
+            <table>
+                <tr>
+                    <td>Example Relationship</td>
+                    <td>
+                        <a class="btn btn-primary" id="editRelationBtn">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" id="deleteRelationBtn">Delete</a>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <a class="btn btn-success addRelationship">Add Relationship</a>
+        <a class="btn btn-success" id="addRelationship">Add Relationship</a>
 
         <h4>Editors</h4>
         <hr>
         <div class="form-group row">
-            <label for="aEditor" class="col-sm-2 col-form-label">Sample Editor</label>
-            <div class="col-sm-10">
-                <input type="text"  class="form-control" id="aEditor" value="val">
-                <button class="editors">Edit</button>
-                <button>Delete</button>
-            </div>
+            <table>
+                <tr>
+                    <td>Example Editor</td>
+                    <td>
+                        <a class="btn btn-primary" id="editEditorBtn">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" id="deleteEditorBtn">Delete</a>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <a class="btn btn-success addEditor">Add Editor</a>
-        <hr style="border-color: red">
+        <a class="btn btn-success" id="addEditor">Add Editor</a>
+        \
 
         <div id="specific" th:switch="${collType}">
             <div th:case="'Instance Application'">
@@ -446,14 +475,14 @@
 
 </div>
 
-//Contacts Modal
+<!--Contacts Modal-->
 <div class="contactFormModal">
     <form th:action="@{/saveContacts}" method="post">
         <div class="modal fade" id="contactsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="contactsModalLabel">Update or Create</h5>
+                        <h5 class="modal-title" id="contactsModalLabel">Add Contact</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -470,7 +499,7 @@
                         </div>
                         <div class="form-group">
                             <label for="contactType" class="col-form-label">Contact Type</label>
-                            <select id="contactType" class="col-form-label">
+                            <select id="contactType" class="form-control">
                                 <option selected="selected" hidden value=""><i>Choose here</i></option>
                                 <option value="Cell">Cell</option>
                                 <option value="Home">Home</option>
@@ -495,170 +524,205 @@
     </form>
 </div>
 
-<!--//Vendor Product Modal-->
+<!--Confirm delete contact-->
 
-<!--<div class="myForm">-->
-    <!--<form th:action="@{/save}" method="post">-->
-        <!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-            <!--<div class="modal-dialog" role="document">-->
-                <!--<div class="modal-content">-->
-                    <!--<div class="modal-header">-->
-                        <!--<h5 class="modal-title" id="exampleModalLabel">Update or Create</h5>-->
-                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-                            <!--<span aria-hidden="true">&times;</span>-->
-                        <!--</button>-->
-                    <!--</div>-->
-                    <!--<div class="modal-body">-->
-                        <!--<div>-->
-                            <!--<h1 id="errorMsg" style="color: red; display: none;">Please check your input</h1>-->
-                        <!--</div>-->
-
-                        <!--<div class="form-group">-->
-                            <!--<label for="username" class="col-form-label">USER NAME:</label>-->
-                            <!--<label id="userIDinModal" hidden></label>-->
-                            <!--<input type="text" class="form-control" id="username" name="username" value=""/>-->
-                        <!--</div>-->
-                        <!--<div class="form-group">-->
-                            <!--<label for="organization" class="col-form-label">ORGANIZATION:</label>-->
-                            <!--<select id="organization" class="col-form-label">-->
-                                <!--<option selected="selected" hidden value=""><i>Choose here</i></option>-->
-                                <!--<option th:each="organization : ${allOrgs}" th:value="${organization}" th:text="${organization}"></option>-->
-                            <!--</select>-->
-                            <!--&lt;!&ndash;<input type="text" class="form-control" id="organization" name="organization" value=""/>&ndash;&gt;-->
-                        <!--</div>-->
-                        <!--<div class="form-group">-->
-                            <!--<label for="accessLvl" class="col-form-label">ACCESS LEVEL</label>-->
-                            <!--<select id="accessLvl" class="col-form-label">-->
-                                <!--<option selected="selected" hidden value=""><i>Choose here</i></option>-->
-                                <!--<option value="1">Admin</option>-->
-                                <!--<option value="2">Manager</option>-->
-                                <!--<option value="4">Developer</option>-->
-                                <!--<option value="3">Reader</option>-->
-                            <!--</select>-->
-                            <!--&lt;!&ndash;<input type="text" class="form-control" id="organization" name="organization" value=""/>&ndash;&gt;-->
-                        <!--</div>-->
-                        <!--<div class="form-group">-->
-                            <!--<label for="password" class="col-form-label">New Password:</label>-->
-                            <!--<input type="password" class="form-control" id="password" name="password" value=""/>-->
-                        <!--</div>-->
-
-                    <!--</div>-->
-                    <!--<div class="modal-footer">-->
-                        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-                        <!--<input type="submit" class="btn btn-primary" value="Save" id="userSaveModal" />-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</form>-->
-<!--</div>-->
-
-<!--//Subobjects-->
-<!--<div class="myForm">-->
-    <!--<form th:action="@{/save}" method="post">-->
-        <!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-            <!--<div class="modal-dialog" role="document">-->
-                <!--<div class="modal-content">-->
-                    <!--<div class="modal-header">-->
-                        <!--<h5 class="modal-title" id="exampleModalLabel">Update or Create</h5>-->
-                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-                            <!--<span aria-hidden="true">&times;</span>-->
-                        <!--</button>-->
-                    <!--</div>-->
-                    <!--<div class="modal-body">-->
-                        <!--<div>-->
-                            <!--<h1 id="errorMsg" style="color: red; display: none;">Please check your input</h1>-->
-                        <!--</div>-->
-
-                        <!--<div class="form-group">-->
-                            <!--<label for="username" class="col-form-label">USER NAME:</label>-->
-                            <!--<label id="userIDinModal" hidden></label>-->
-                            <!--<input type="text" class="form-control" id="username" name="username" value=""/>-->
-                        <!--</div>-->
-                        <!--<div class="form-group">-->
-                            <!--<label for="organization" class="col-form-label">ORGANIZATION:</label>-->
-                            <!--<select id="organization" class="col-form-label">-->
-                                <!--<option selected="selected" hidden value=""><i>Choose here</i></option>-->
-                                <!--<option th:each="organization : ${allOrgs}" th:value="${organization}" th:text="${organization}"></option>-->
-                            <!--</select>-->
-                            <!--&lt;!&ndash;<input type="text" class="form-control" id="organization" name="organization" value=""/>&ndash;&gt;-->
-                        <!--</div>-->
-                        <!--<div class="form-group">-->
-                            <!--<label for="accessLvl" class="col-form-label">ACCESS LEVEL</label>-->
-                            <!--<select id="accessLvl" class="col-form-label">-->
-                                <!--<option selected="selected" hidden value=""><i>Choose here</i></option>-->
-                                <!--<option value="1">Admin</option>-->
-                                <!--<option value="2">Manager</option>-->
-                                <!--<option value="4">Developer</option>-->
-                                <!--<option value="3">Reader</option>-->
-                            <!--</select>-->
-                            <!--&lt;!&ndash;<input type="text" class="form-control" id="organization" name="organization" value=""/>&ndash;&gt;-->
-                        <!--</div>-->
-                        <!--<div class="form-group">-->
-                            <!--<label for="password" class="col-form-label">New Password:</label>-->
-                            <!--<input type="password" class="form-control" id="password" name="password" value=""/>-->
-                        <!--</div>-->
-
-                    <!--</div>-->
-                    <!--<div class="modal-footer">-->
-                        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-                        <!--<input type="submit" class="btn btn-primary" value="Save" id="userSaveModal" />-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</form>-->
-<!--</div>-->
-
-
-<!--//Relationship Modal-->
-<!--<div class="relationshipForm">-->
-    <!--<form th:action="@{/relationshipPost}" method="post">-->
-        <!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-            <!--<div class="modal-dialog" role="document">-->
-                <!--<div class="modal-content">-->
-                    <!--<div class="modal-header">-->
-                        <!--<h5 class="modal-title" id="exampleModalLabel">Edit Relationship</h5>-->
-                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-                            <!--<span aria-hidden="true">&times;</span>-->
-                        <!--</button>-->
-                    <!--</div>-->
-                    <!--<div class="modal-body">-->
-
-                        <!--<div class="form-group">-->
-                            <!--<label for="relationshipTypes" class="col-form-label">Relationship:</label>-->
-                            <!--<select id="relationshipTypes">-->
-                                <!--<option value="From Service Type">From Service Type</option>-->
-                                <!--<option value="From SubObject">From SubObject</option>-->
-                                <!--<option value="To Collection">To Collection</option>-->
-                                <!--<option value="To Collection Type">To Collection Type</option>-->
-                                <!--<option value="To SubObject">To SubObject</option>-->
-                                <!--<option value="To Service Type">To Service Type</option>-->
-                            <!--</select>-->
-                        <!--</div>-->
-                        <!--<div class="form-group">-->
-                            <!--<label for="relationshipValue" class="col-form-label">ORGANIZATION:</label>-->
-                            <!--<input type="text" class="form-control" id="relationshipValue" name="organization" value=""/>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="modal-footer">-->
-                        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-                        <!--<input type="submit" class="btn btn-primary" value="save"/>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</form>-->
-<!--</div>-->
-
-//Editor Modal
-<div class="editorModal">
-    <form th:action="@{/save}" method="post">
-        <div class="modal fade" id="theEditorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="delContactSub">
+    <form >
+        <div class="modal fade" id="confirmDelCont" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editorModalLabel">Edit Editor</h5>
+                        <h5 class="modal-title" >Delete Contact</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <b><p id="deleteConfirmText" ></p></b>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <a type="submit" class="btn btn-danger"  id="deleteConConfirm">Confirm Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!--Vendor Product Modal-->
+
+<div class="myForm">
+    <form th:action="@{/}" method="post">
+        <div class="modal fade" id="vendorLoadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="vendorLoadLabel">Add Vendor Product</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <h1 id="venErrorMsg" style="color: red; display: none;">Please check your input</h1>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="vendorName" class="col-form-label">Product Name</label>
+                            <label id="vendorID" hidden></label>
+                            <input type="text" class="form-control" id="vendorName" name="username" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <label for="vendorVersion" class="col-form-label">Version</label>
+                            <input type="text" class="form-control" id="vendorVersion" name="username" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <label for="vendorDescription" class="col-form-label">Description</label>
+                            <textarea rows="4" cols="50" class="form-control" id="vendorDescription" ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="vendorClassified" class="col-form-label">Version</label>
+                            <select id="vendorClassified" class="form-control">
+                                <option selected="selected" hidden value="">Choose here</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Save" id="submitVendor" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--Confirm delete vendor-->
+
+<div class="delVendorSub">
+    <form >
+        <div class="modal fade" id="confirmDelVen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" >Delete Vendor Product</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <b><p id="deleteConfirmVen" ></p></b>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <a type="submit" class="btn btn-danger"  id="deleteVenConfirm">Confirm Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--Subobjects-->
+<div class="myForm">
+    <form th:action="@{/}" method="post">
+        <div class="modal fade" id="subObjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="subObjLabel">Add SubObject</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <h1 id="subErrorMsg" style="color: red; display: none;">Please check your input</h1>
+                        </div>
+                        <div class="form-group">
+                            <label for="subObjType" class="col-form-label">Type</label>
+                            <select id="subObjType" class="form-control">
+                                <option selected="selected" hidden value="">Choose here</option>
+                                <option value="Alias">Alias</option>
+                                <option value="Application Account">Application Account</option>
+                                <option value="Database Instance">Database Instance</option>
+                                <option value="Schema">Schema</option>
+                                <option value="URL">URL</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="subObjName" class="col-form-label">Name</label>
+                            <label id="subObjID" hidden></label>
+                            <input type="text" class="form-control" id="subObjName" name="username" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <label for="subObjVers" class="col-form-label">Version</label>
+                            <input type="text" class="form-control" id="subObjVers" name="username" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <label for="subObjClassified" class="col-form-label">Classified Information</label>
+                            <select id="subObjClassified" class="form-control">
+                                <option selected="selected" hidden value="">Choose here</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Save" id="saveSubObj" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--Confirm delete subobject-->
+
+<div class="delVendorSub">
+    <form >
+        <div class="modal fade" id="confirmDelSub" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" >Delete SubObject</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <b><p id="deleteConfirmSub" ></p></b>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <a type="submit" class="btn btn-danger"  id="deleteSubConfirm">Confirm Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--//Relationship Modal-->
+
+<div class="relationshipForm">
+    <form th:action="@{/}" method="post">
+        <div class="modal fade" id="relationshipModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="relationshipModalLabel">Add Relationship</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -666,11 +730,76 @@
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label for="editorUserID" class="col-form-label">USER ID</label>
-                            <input type="text" class="form-control" id="editorUserID" name="username" value=""/>
+                            <label for="relationshipTypes" class="col-form-label">Type</label>
+                            <select id="relationshipTypes" class="form-control">
+                                <option selected="selected" hidden value="">Choose here</option>
+                                <option value="From Service Type">From Service Type</option>
+                                <option value="From SubObject">From SubObject</option>
+                                <option value="To Collection">To Collection</option>
+                                <option value="To Collection Type">To Collection Type</option>
+                                <option value="To SubObject">To SubObject</option>
+                                <option value="To Service Type">To Service Type</option>
+                            </select>
                         </div>
                         <div class="form-group">
+                            <label for="relationshipValue" class="col-form-label"></label>
+                            <input type="text" class="form-control" id="relationshipValue" value=""/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="save"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--Confirm delete relationship-->
+
+<div class="delRelationship">
+    <form >
+        <div class="modal fade" id="confirmDelRel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" >Delete Relationship</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <b><p id="deleteConfirmRel" ></p></b>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <a type="submit" class="btn btn-danger"  id="deleteRelConfirm">Confirm Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--Editor Modal-->
+<div class="editorModal">
+    <form th:action="@{/}" method="post">
+        <div class="modal fade" id="theEditorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editorModalLabel">Add Editor</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
                             <label for="editorName" class="col-form-label">Name</label>
+                            <label id="editorNameID" hidden></label>
                             <input type="text" class="form-control" id="editorName" name="organization" value=""/>
                         </div>
                         <div class="form-group">
@@ -685,11 +814,38 @@
                             <label for="editorLocation" class="col-form-label">Location</label>
                             <input type="password" class="form-control" id="editorLocation" name="password" value=""/>
                         </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <input type="submit" class="btn btn-primary" value="save"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--Confirm delete subobject-->
+
+<div class="delEditor">
+    <form >
+        <div class="modal fade" id="confirmDelEditor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" >Delete Editor</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <b><p id="deleteConfirmEditor" ></p></b>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <a type="submit" class="btn btn-danger"  id="deleteEditConfirm">Confirm Delete</a>
                     </div>
                 </div>
             </div>
