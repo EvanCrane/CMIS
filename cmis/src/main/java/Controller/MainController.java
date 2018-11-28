@@ -116,7 +116,9 @@ public class MainController {
         model.addAttribute("userOrg", userDao.findFullUserInfo(userName).getOrganization());
         // **************** End of common stuff **************************************
 
-        return "Delete";
+        collectionDao.deleteCollection(collID);
+
+        return "redirect:/home";
     }
 
 
