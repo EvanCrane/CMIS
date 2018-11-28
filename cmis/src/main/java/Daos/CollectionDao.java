@@ -55,10 +55,10 @@ public class CollectionDao extends JdbcDaoSupport {
         getJdbcTemplate().update(sqlAddDesOrg, collecID, desOrg);
 
     }
-     public void deleteCollection(Collection form){
-        //Deleting collection from
+    
+    public void deleteCollection(int collID){
+        //Deleting collection from high level 
         String sql = "DELETE FROM COLLECTIONS WHERE ID = ?";
-        int collID = form.getCollecIid();
         Object [] colArg = new Object [] {collID};
 
         getJdbcTemplate().update(sql, collID);
@@ -68,7 +68,7 @@ public class CollectionDao extends JdbcDaoSupport {
         String sql3 = "DELETE FROM COLLEC_DESIGN_ORGANIZATION WHERE COL_ID=?";
         getJdbcTemplate().update(sql3, collID);
 
-       //Delete General Level
+        //Delete General Level
 
         Object[] doesGeneral;
         String testGeneral = "SELECT COL_ID FROM GENERAL WHERE COL_ID =?";
@@ -108,71 +108,62 @@ public class CollectionDao extends JdbcDaoSupport {
         }
 
         // Delete Logical Server info
-        if(form.getCollecType().equals("Logical Server"))
+        String testLogic = "SELECT COL_ID FROM LOGICAL_SERVER WHERE COL_ID = ?";
+
+        Object[] doesLogic;
+        try
         {
-            String testLogic = "SELECT COL_ID FROM LOGICAL_SERVER WHERE COL_ID = ?";
+            doesLogic = getJdbcTemplate().queryForObject(testLogic, colArg, Object[].class);
+        }
+        catch (EmptyResultDataAccessException e)
+        {
+            doesLogic = null;
+        }
 
-            Object[] doesLogic;
-            try
-            {
-                doesLogic = getJdbcTemplate().queryForObject(testLogic, colArg, Object[].class);
-            }
-            catch (EmptyResultDataAccessException e)
-            {
-                doesLogic = null;
-            }
+        if(doesLogic != null)
+        {
+            String deleteServer = "DELETE FROM LOGICAL_SERVER WHERE COL_ID=?";
+            getJdbcTemplate().update(deleteServer, collID);
+        }
 
-            if(doesLogic != null)
-            {
-                String deleteServer = "DELETE FROM LOGICAL_SERVER WHERE COL_ID=?";
-                getJdbcTemplate().update(deleteServer, collID);
+
+        //Deleting Environment Info
+        String testEnv = "SELECT COL_ID FROM ENVIRONMENT WHERE COL_ID = ?";
+
+        Object[] doesEnv;
+        try
+        {
+            doesEnv = getJdbcTemplate().queryForObject(testEnv, colArg, Object[].class);
+        }
+        catch (EmptyResultDataAccessException e)
+        {
+            doesEnv = null;
+        }
+
+        if(doesEnv == null) {
+            if (doesEnv != null) {
+                String deleteEnv = "DELETE FROM ENVIRONMENT WHERE COL_ID=?";
+                getJdbcTemplate().update(deleteEnv, collID);
             }
 
         }
 
-        // Delete Environment info
-        if(form.getCollecType().equals("Environment"))
+    // Delete Application info
+        String testApp = "SELECT COL_ID FROM APPLICATION WHERE COL_ID = ?";
+
+        Object doesApp;
+        try
         {
-            String testEnv = "SELECT COL_ID FROM ENVIRONMENT WHERE COL_ID = ?";
-
-            Object[] doesEnv;
-            try
-            {
-                doesEnv = getJdbcTemplate().queryForObject(testEnv, colArg, Object[].class);
-            }
-            catch (EmptyResultDataAccessException e)
-            {
-                doesEnv = null;
-            }
-
-            if(doesEnv == null) {
-                if (doesEnv != null) {
-                    String deleteEnv = "DELETE FROM ENVIRONMENT WHERE COL_ID=?";
-                    getJdbcTemplate().update(deleteEnv, collID);
-                }
-
-            }
+            doesApp = getJdbcTemplate().queryForObject(testApp, colArg, Object[].class);
+        }
+        catch (EmptyResultDataAccessException e)
+        {
+            doesApp = null;
         }
 
-        // Delete Application info
-        if(form.getCollecType().equals("Instance Application"))
-        {
-            String testApp = "SELECT COL_ID FROM APPLICATION WHERE COL_ID = ?";
-
-            Object doesApp;
-            try
-            {
-                doesApp = getJdbcTemplate().queryForObject(testApp, colArg, Object[].class);
-            }
-            catch (EmptyResultDataAccessException e)
-            {
-                doesApp = null;
-            }
-
-            if(doesApp != null) {
-                String deleteApp = "DELETE FROM APPLICATION WHERE COL_ID=?";
-                getJdbcTemplate().update(deleteApp, collID);
-            }
+        if(doesApp != null) {
+            String deleteApp = "DELETE FROM APPLICATION WHERE COL_ID=?";
+            getJdbcTemplate().update(deleteApp, collID);
         }
     }
     
