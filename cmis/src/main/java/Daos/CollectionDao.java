@@ -409,7 +409,12 @@ public class CollectionDao extends JdbcDaoSupport {
             //Server
             LogicalServer thisServer = getLogicalServer(collecID);
             fullCollection.setBackUpServer(thisServer == null || thisServer.getBackUp() == null ? "" : thisServer.getBackUp());
-            fullCollection.setServerMonitored(thisServer.isMonitored());
+            try {
+                fullCollection.setServerMonitored(thisServer.isMonitored());
+            }
+            catch (NullPointerException exp){
+                fullCollection.setServerMonitored(false);
+            }
             fullCollection.setRespGroup(thisServer == null || thisServer.getRespGroup() == null ? "" : thisServer.getRespGroup());
         }
         else if(fullCollection.getCollecType().equals("Environment"))
@@ -418,7 +423,12 @@ public class CollectionDao extends JdbcDaoSupport {
             Environment thisEnvironment = getEnvironment(collecID);
             fullCollection.setEnvSubtype(thisEnvironment == null || thisEnvironment.getSubType() == null ? "" : thisEnvironment.getSubType());
             fullCollection.setEnvBackup(thisEnvironment == null || thisEnvironment.getBackUp() == null ? "" : thisEnvironment.getBackUp());
-            fullCollection.setEnvMonitored(thisEnvironment.isMonitored());
+            try {
+                fullCollection.setEnvMonitored(thisEnvironment.isMonitored());
+            }
+            catch (NullPointerException exp) {
+                fullCollection.setEnvMonitored(false);
+            }
             fullCollection.setEnvRespGroup(thisEnvironment == null || thisEnvironment.getRespGroup() == null ? "" : thisEnvironment.getRespGroup());
         }
 
