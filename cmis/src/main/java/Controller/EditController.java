@@ -91,6 +91,7 @@ public class EditController {
     @ResponseBody
     public Contacts editContact(@RequestParam("id") int collID, @RequestParam("uID") int userID)
     {
+
         return collectionDao.getAContact(collID, userID);
     }
 

@@ -487,11 +487,10 @@ public class CollectionDao extends JdbcDaoSupport {
     public Contacts getAContact(int aCollID, int aUserID)
     {
         String sqlContact = ContactsMapper.BASE_SQL + " WHERE COL_ID = ? AND USER_ID = ?";
-        Object[] collID = new Object[] {aCollID};
-        Object[] userID = new Object[] {aUserID};
+        Object[] ids = new Object[] {aCollID, aUserID};
         try
         {
-            return getJdbcTemplate().queryForObject(sqlContact, new ContactsMapper(), collID, userID);
+            return getJdbcTemplate().queryForObject(sqlContact, ids, new ContactsMapper());
         }
         catch(EmptyResultDataAccessException e)
         {

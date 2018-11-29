@@ -121,6 +121,7 @@ $(document).ready(function(){
     // Populate the Edit Contact modal
     function populateContact(aHref)
     {
+        console.log('Gets to populate contact');
         $.ajax({
            type: "GET",
            url: aHref,
@@ -134,7 +135,9 @@ $(document).ready(function(){
 
            },
            error : function(e) {
-
+               console.log('Ajax fails');
+               console.log(aHref);
+               console.log(e);
            }
         });
     }
