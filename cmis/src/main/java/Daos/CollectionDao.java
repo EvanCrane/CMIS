@@ -484,6 +484,21 @@ public class CollectionDao extends JdbcDaoSupport {
 
     }
 
+    public Contacts getAContact(int aCollID, int aUserID)
+    {
+        String sqlContact = ContactsMapper.BASE_SQL + " WHERE COL_ID = ? AND USER_ID = ?";
+        Object[] collID = new Object[] {aCollID};
+        Object[] userID = new Object[] {aUserID};
+        try
+        {
+            return getJdbcTemplate().queryForObject(sqlContact, new ContactsMapper(), collID, userID);
+        }
+        catch(EmptyResultDataAccessException e)
+        {
+            return null;
+        }
+    }
+
     public List<VendorProducts> getAllVendorProducts(int collecID)
     {
         String sqlAllVendorProducts = VendorMapper.BASE_SQL + " WHERE COL_ID = ?";

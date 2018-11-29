@@ -7,11 +7,12 @@ $(document).ready(function(){
         var href = $(this).attr('href');
         var text = $(this).text();
 
-        $('.myForm #exampleModal').modal();
+
 
         if(text=='Edit'){
             $('.myForm #exampleModalLabel').text('Edit User');
             populateModal(href);
+            $('.myForm #exampleModal').modal();
         }else{
             $('.myForm #exampleModalLabel').text('Add User');
             $('.myForm #userIDinModal').val('');
@@ -20,6 +21,7 @@ $(document).ready(function(){
             $('.myForm #accessLvl').val('');
 
             var modalTitle = $('.myForm #exampleModal #exampleModalLabel').text();
+            $('.myForm #exampleModal').modal();
             console.log(modalTitle);
             console.log('log works');
         }
@@ -55,7 +57,7 @@ $(document).ready(function(){
     });
 
 
-
+    // populates the user modal
     function populateModal(href){
         $.ajax({
             type : "GET",

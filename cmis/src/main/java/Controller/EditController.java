@@ -7,6 +7,7 @@ import Models.Collection;
 import Daos.CollectionDao;
 
 //import com.sun.org.apache.xpath.internal.operations.Mod;
+import Models.Contacts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import sun.misc.Request;
 
 @Controller
 public class EditController {
@@ -83,6 +85,13 @@ public class EditController {
     {
         collectionDao.updateCollection(collection);
         return "redirect:view?id="+collection.getCollecIid();
+    }
+
+    @RequestMapping(value="/editContact", method =RequestMethod.GET)
+    @ResponseBody
+    public Contacts editContact(@RequestParam("id") int collID, @RequestParam("uID") int userID)
+    {
+        return collectionDao.getAContact(collID, userID);
     }
 
 }

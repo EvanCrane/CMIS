@@ -6,10 +6,12 @@ $(document).ready(function(){
     $('#addUser, #editContactBtn').on('click', function (event) {
         event.preventDefault();
         var text = $(this).text();
+        var href = $(this).attr('href');
 
         if(text === 'Edit')
         {
             $('#contactsModalLabel').text('Edit Contact');
+            populateContact(href);
             $('#contactsModal').modal();
         }
         else
@@ -115,6 +117,27 @@ $(document).ready(function(){
         $('#deleteConfirmEditor').text('Are you sure you want to delete editor ?')
         $('#confirmDelEditor').modal();
     });
+
+    // Populate the Edit Contact modal
+    function populateContact(aHref)
+    {
+        $.ajax({
+           type: "GET",
+           url: aHref,
+           dataType : "json",
+           success : function (aContact) {
+               console.log(aContact);
+               $('#contactName').val(aContact.contName);
+               $('#contactType').val(aContact.contType);
+               $('#contactPhone').val(aContact.phoneNum);
+               $('#contactLocation').val(aContact.location);
+
+           },
+           error : function(e) {
+
+           }
+        });
+    }
 
 
 });
