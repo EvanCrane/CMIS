@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -359,7 +360,6 @@ public class CollectionDao extends JdbcDaoSupport {
     public List<Collection> allCollections()
     {
         String sqlAllCollections = CollectionMapper.BASE_SQL;
-        //return getJdbcTemplate().queryForList(sqlAllCollections, String.class);
         return getJdbcTemplate().query(sqlAllCollections, new CollectionMapper());
     }
 
@@ -422,6 +422,21 @@ public class CollectionDao extends JdbcDaoSupport {
             fullCollection.setEnvRespGroup(thisEnvironment == null || thisEnvironment.getRespGroup() == null ? "" : thisEnvironment.getRespGroup());
         }
 
+        // Contacts
+        fullCollection.setCollContacts(getAllContacts(collecID));
+
+        // Vendor Products
+        fullCollection.setCollVendorProducts(getAllVendorProducts(collecID));
+
+        // SubObjects
+        fullCollection.setCollSubObjects(getAllSubObjects(collecID));
+
+        // Relationships
+        fullCollection.setCollRelationships(getAllRelationships(collecID));
+
+        // Editors
+        fullCollection.setCollEditors(getAllEditors(collecID));
+
         return fullCollection;
 
     }
@@ -453,6 +468,67 @@ public class CollectionDao extends JdbcDaoSupport {
             return null;
         }
     }
+
+    public List<Contacts> getAllContacts(int collecID)
+    {
+        String sqlAllContacts = ContactsMapper.BASE_SQL + " WHERE COL_ID = ?";
+        Object[] collID = new Object[] {collecID};
+        try
+        {
+            return getJdbcTemplate().query(sqlAllContacts, new ContactsMapper(), collID);
+        }
+        catch(EmptyResultDataAccessException e)
+        {
+            return null;
+        }
+
+    }
+
+    public List<VendorProducts> getAllVendorProducts(int collecID)
+    {
+        String sqlAllVendorProducts = VendorMapper.BASE_SQL + " WHERE COL_ID = ?";
+        Object[] collID = new Object[] {collecID};
+        try
+        {
+            return getJdbcTemplate().query(sqlAllVendorProducts, new VendorMapper(), collID);
+        }
+        catch (EmptyResultDataAccessException e){return null;}
+
+    }
+
+    public List<SubObjects> getAllSubObjects(int collecID)
+    {
+        String sqlAllSubObjects = SubObjectsMapper.BASE_SQL + " WHERE COL_ID = ?";
+        Object[] collID = new Object[] {collecID};
+        try
+        {
+            return getJdbcTemplate().query(sqlAllSubObjects, new SubObjectsMapper(), collID);
+        }
+        catch(EmptyResultDataAccessException e){return null;}
+    }
+
+    public List<Relationships> getAllRelationships(int collecID)
+    {
+        String sqlAllRelationships = RelationshipsMapper.BASE_SQL + " WHERE COL_ID = ?";
+        Object[] collID = new Object[] {collecID};
+        try
+        {
+            return getJdbcTemplate().query(sqlAllRelationships, new RelationshipsMapper(), collID);
+        }
+        catch(EmptyResultDataAccessException e) {return null;}
+    }
+
+    public List<Editors> getAllEditors(int collecID)
+    {
+        String sqlAllEditors = EditorsMapper.BASE_SQL + " WHERE COL_ID = ?";
+        Object[] collID = new Object[] {collecID};
+        try
+        {
+            return getJdbcTemplate().query(sqlAllEditors, new EditorsMapper(), collID);
+        }
+        catch(EmptyResultDataAccessException e) {return null;}
+    }
+
 
     public ControlsImpacts getControlsImpacts(int collecId)
     {

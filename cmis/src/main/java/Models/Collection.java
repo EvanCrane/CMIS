@@ -46,6 +46,21 @@ public class Collection {
     private boolean envMonitored;
     private String envRespGroup;
 
+    // Contacts
+    private List<Contacts> collContacts;
+
+    // Vendor Products
+    private List<VendorProducts> collVendorProducts;
+
+    // SubObjects
+    private List<SubObjects> collSubObjects;
+
+    // Relationships
+    private List<Relationships> collRelationships;
+
+    // Editors
+    private List<Editors> collEditors;
+
 
 
     public Collection(String aCollecType, String aFullName, String aAccronym, String aStatus, String aBackupName, String aOrganizations, String aServiceType, String aDesOrganizations){
@@ -333,5 +348,45 @@ public class Collection {
 
     public void setEnvRespGroup(String envRespGroup) {
         this.envRespGroup = envRespGroup;
+    }
+
+    public List<Contacts> getCollContacts() {
+        return collContacts;
+    }
+
+    public void setCollContacts(List<Contacts> collContacts) {
+        this.collContacts = collContacts;
+    }
+
+    public List<VendorProducts> getCollVendorProducts() {
+        return collVendorProducts;
+    }
+
+    public void setCollVendorProducts(List<VendorProducts> collVendorProducts) {
+        this.collVendorProducts = collVendorProducts;
+    }
+
+    public List<SubObjects> getCollSubObjects() {
+        return collSubObjects;
+    }
+
+    public void setCollSubObjects(List<SubObjects> collSubObjects) {
+        this.collSubObjects = collSubObjects;
+    }
+
+    public List<Relationships> getCollRelationships() {
+        return collRelationships;
+    }
+
+    public void setCollRelationships(List<Relationships> collRelationships) {
+        this.collRelationships = collRelationships;
+    }
+
+    public List<Editors> getCollEditors() {
+        return collEditors;
+    }
+
+    public void setCollEditors(List<Editors> collEditors) {
+        this.collEditors = collEditors;
     }
 }

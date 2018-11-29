@@ -201,45 +201,76 @@
                 </select>
             </div>
         </div>
-        <h4>Contacts</h4>
+        <h4 style="padding-top: 20pt;">Contacts</h4>
         <hr>
         <div class="form-group row">
             <table>
                     <tr>
-                    <td>Example Contact</td>
-                    <td>
-                        <a class="btn btn-primary" id="editContactBtn">Edit</a>
-                    </td>
-                    <td>
-                        <a class="btn btn-danger" id="deleteContactBtn">Delete</a>
-                    </td>
+                        <td>Name</td>
+                        <td>Contact Type</td>
+                        <td>Phone Number</td>
+                        <td>Location</td>
+                        <td colspan="2">Manage</td>
+                    </tr>
+                    <tr th:if="${collection.getCollContacts() != null}" th:each="contact : ${collection.getCollContacts()}">
+                        <td th:text="${contact.getContName()}"></td>
+                        <td th:text="${contact.getContType()}"></td>
+                        <td th:text="${contact.getPhoneNum()}"></td>
+                        <td th:text="${contact.getLocation()}"></td>
+                        <td>
+                            <a th:href="@{/editContact(id=${collID}, uID=${contact.getUserID()})}" class="btn btn-primary" id="editContactBtn">Edit</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/deleteContact(id=${collID}, uID=${contact.getUserID()})}" class="btn btn-danger" id="deleteContactBtn">Delete</a>
+                        </td>
                     <tr>
             </table>
         </div>
-        <a class="btn btn-success" id="addUser">Add Contact</a>
-        <h4>Vendor Products</h4>
+        <a class="btn btn-success" id="addUser" >Add Contact</a>
+        <h4 style="padding-top: 20pt;">Vendor Products</h4>
         <hr>
-        <div class="form-group row">
-            <table>
+        <div class="form-group row" >
+            <table >
                 <tr>
-                    <td>Example Product</td>
+                    <td>Product Name</td>
+                    <td>Version</td>
+                    <td>Description</td>
+                    <td>Classified Information</td>
+                    <td colspan="2">Manage</td>
+                </tr>
+                <tr th:if="${collection.getCollVendorProducts() != null}" th:each="vendorProduct : ${collection.getCollVendorProducts()}">
+                    <!--<td>Example Product</td>-->
+                    <td th:text="${vendorProduct.getProdName()}"></td>
+                    <td th:text="${vendorProduct.getVersion()}"></td>
+                    <td th:text="${vendorProduct.getDescription()}"></td>
+                    <td th:text="${vendorProduct.isClassified()}"></td>
                     <td>
-                        <a class="btn btn-primary" id="editVendorBtn">Edit</a>
+                        <a th:href="@{/editVendorProd(id=${collID}, name=${vendorProduct.getProdName()})}" class="btn btn-primary" id="editVendorBtn">Edit</a>
                     </td>
                     <td>
-                        <a class="btn btn-danger" id="deleteVendorBtn">Delete</a>
+                        <a th:href="@{/deleteVendorProd(id=${collID}, name=${vendorProduct.getProdName()})}" class="btn btn-danger" id="deleteVendorBtn">Delete</a>
                     </td>
                 </tr>
             </table>
         </div>
         <a class="btn btn-success addVendor" id="addVendorBtn">Add Vendor Product</a>
 
-        <h4>SubObjects</h4>
+        <h4 style="padding-top: 20pt;">SubObjects</h4>
         <hr>
         <div class="form-group row">
-            <table>
+            <table >
                 <tr>
-                    <td>Example SubObject</td>
+                    <td>Name</td>
+                    <td>Type</td>
+                    <td>Version</td>
+                    <td>Classified Information</td>
+                    <td colspan="2">Manage</td>
+                </tr>
+                <tr th:if="${collection.getCollSubObjects() != null}" th:each="subObj : ${collection.getCollSubObjects()}">
+                    <td th:text="${subObj.getSubName()}"></td>
+                    <td th:text="${subObj.getSubType()}"></td>
+                    <td th:text="${subObj.getVersion()}"></td>
+                    <td th:text="${subObj.isClassified()}"></td>
                     <td>
                         <a class="btn btn-primary" id="editSubObjBtn">Edit</a>
                     </td>
@@ -251,34 +282,50 @@
         </div>
         <a class="btn btn-success" id="addSubObject">Add SubObject</a>
 
-        <h4>Relationships</h4>
+        <h4 style="padding-top: 20pt;">Relationships</h4>
         <hr>
         <div class="form-group row">
-            <table>
+            <table th:field>
                 <tr>
-                    <td>Example Relationship</td>
+                    <td>Relationship Type</td>
+                    <td>Relationship With</td>
+                    <td colspan="2">Manage</td>
+                </tr>
+                <tr th:if="${collection.getCollRelationships() != null}" th:each="relationship : ${collection.getCollRelationships()}">
+                    <td th:text="${relationship.getType()}"></td>
+                    <td th:text="${relationship.getValue()}"></td>
                     <td>
-                        <a class="btn btn-primary" id="editRelationBtn">Edit</a>
+                        <a th:href="@{/editRelationship(id=${collID}, type=${relationship.getType()}, val=${relationship.getValue()})}" class="btn btn-primary" id="editRelationBtn">Edit</a>
                     </td>
                     <td>
-                        <a class="btn btn-danger" id="deleteRelationBtn">Delete</a>
+                        <a th:href="@{/deleteRelationship(id=${collID}, type=${relationship.getType()}, val=${relationship.getValue()})}" class="btn btn-danger" id="deleteRelationBtn">Delete</a>
                     </td>
                 </tr>
             </table>
         </div>
         <a class="btn btn-success" id="addRelationship">Add Relationship</a>
 
-        <h4>Editors</h4>
+        <h4 style="padding-top: 20pt;">Editors</h4>
         <hr>
         <div class="form-group row">
             <table>
                 <tr>
-                    <td>Example Editor</td>
+                    <td>User Name</td>
+                    <td>Access Level</td>
+                    <td>Phone Number</td>
+                    <td>Location</td>
+                    <td colspan="2">Manage</td>
+                </tr>
+                <tr th:if="${collection.getCollEditors() != null}" th:each="editor : ${collection.getCollEditors()}">
+                    <td th:text="${editor.getUserName()}"></td>
+                    <td th:text="${editor.getAccessLvl()}"></td>
+                    <td th:text="${editor.getPhoneNum()}"></td>
+                    <td th:text="${editor.getLocation()}"></td>
                     <td>
-                        <a class="btn btn-primary" id="editEditorBtn">Edit</a>
+                        <a th:href="@{/editEditors(id=${collID}, uID=${editor.getUserID()})}" class="btn btn-primary" id="editEditorBtn">Edit</a>
                     </td>
                     <td>
-                        <a class="btn btn-danger" id="deleteEditorBtn">Delete</a>
+                        <a th:href="@{/deleteEditors(id=${collID}, uID=${editor.getUserID()})}" class="btn btn-danger" id="deleteEditorBtn">Delete</a>
                     </td>
                 </tr>
             </table>
@@ -288,7 +335,7 @@
 
         <div id="specific" th:switch="${collType}">
             <div th:case="'Instance Application'">
-                <h4>Application Information</h4>
+                <h4 style="padding-top: 20pt;">Application Information</h4>
                 <hr>
                 <div class="form-group row">
                     <label for="aSubType" class="col-sm-2 col-form-label">Subtype</label>
@@ -371,7 +418,7 @@
                 </div>
             </div>
             <div th:case="'Logical Server'">
-                <h4>Server Information</h4>
+                <h4 style="padding-top: 20pt;">Server Information</h4>
                 <hr>
                 <div class="form-group row">
                     <label for="backupServ" class="col-sm-2 col-form-label">Backup Server</label>
@@ -406,7 +453,7 @@
                 </div>
             </div>
             <div th:case="'Environment'">
-                <h4>Environment Information</h4>
+                <h4 style="padding-top: 20pt;">Environment Information</h4>
                 <hr>
                 <div class="form-group row">
                     <label for="envSubType" class="col-sm-2 col-form-label">Environment Subtype</label>
