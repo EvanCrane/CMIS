@@ -482,13 +482,13 @@
                     <label for="envMonitored" class="col-sm-2 col-form-label">Monitored</label>
                     <div class="col-sm-10">
                         <select id="envMonitored" th:field="*{envMonitored}" class="form-control">
-                            <option value="1" th:if="${environment != null &&environment.isMonitored()!= null && environment.isMonitored() == true}" selected="selected">Yes</option>
-                            <option value="1" th:if="${environment != null &&environment.isMonitored()!= null && environment.isMonitored() == false}">Yes</option>
-                            <option value="0" th:if="${environment != null &&environment.isMonitored()!= null && environment.isMonitored() == false}" selected="selected">No</option>
-                            <option value="0" th:if="${environment != null &&environment.isMonitored()!= null && environment.isMonitored() == true}">No</option>
-                            <option value="" th:if="${environment == null || environment.isMonitored() == null}" selected="selected" hidden>Select Monitored</option>
-                            <option value="1" th:if="${environment == null || environment.isMonitored() == null}">Yes</option>
-                            <option value="0" th:if="${environment == null || environment.isMonitored() == null}">No</option>
+                            <option value="1" th:if="${highlevel.isEnvMonitored() != null && environment.isMonitored() == true}" selected="selected">Yes</option>
+                            <option value="1" th:if="${highlevel.isEnvMonitored() != null &&highlevel.isEnvMonitored()!= null && environment.isMonitored() == false}">Yes</option>
+                            <option value="0" th:if="${highlevel.isEnvMonitored() != null &&highlevel.isEnvMonitored()!= null && environment.isMonitored() == false}" selected="selected">No</option>
+                            <option value="0" th:if="${highlevel.isEnvMonitored() != null &&highlevel.isEnvMonitored()!= null && environment.isMonitored() == true}">No</option>
+                            <option value="" th:if="${envi == null || environment.isMonitored() == false}" selected="selected" hidden>Select Monitored</option>
+                            <option value="1" th:if="${environment == null || environment.isMonitored() == false}">Yes</option>
+                            <option value="0" th:if="${environment == null || environment.isMonitored() == false}">No</option>
                         </select>
                     </div>
                 </div>

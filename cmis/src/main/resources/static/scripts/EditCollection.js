@@ -22,8 +22,6 @@ $(document).ready(function(){
 
         //Add logic of when to put information in the modal
 
-
-
     });
     //Delete Contact modal
     $('#deleteContactBtn').on('click', function (event){
@@ -35,9 +33,11 @@ $(document).ready(function(){
     //Load Vendor Products Modal
     $('#editVendorBtn, #addVendorBtn').on('click', function(){
         var text = $(this).text();
+        var href = $(this).attr('href');
         if(text === 'Edit')
         {
             $('#vendorLoadLabel').text('Edit Vendor Product');
+            populateVendor(href);
             $('#vendorLoadModal').modal();
         }
         else
@@ -140,7 +140,27 @@ $(document).ready(function(){
                console.log(e);
            }
         });
+    };
+
+    function populateVendor(aHref)
+    {
+        $.ajax({
+           type: "GET",
+           url: aHref,
+           datatype : "json",
+           sucess : function (aVendor)
+           {
+               $('#vendorName').val(aVendor.prodName);
+               $('#vendorVersion').val(aVendor.version);
+               $('#vendorDescription').val(aVednor.description);
+               $('#vendorClassified').val(aVendor.classified);
+           },
+           error : function (e) {
+
+           }
+        });
     }
+
 
 
 });

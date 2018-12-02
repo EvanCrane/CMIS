@@ -56,7 +56,7 @@ public class CollectionDao extends JdbcDaoSupport {
         getJdbcTemplate().update(sqlAddDesOrg, collecID, desOrg);
 
     }
-    
+
     public void deleteCollection(int collID){
         //Deleting collection from high level 
         String sql = "DELETE FROM COLLECTIONS WHERE ID = ?";
@@ -167,7 +167,7 @@ public class CollectionDao extends JdbcDaoSupport {
             getJdbcTemplate().update(deleteApp, collID);
         }
     }
-    
+
     public void updateCollection(Collection form)
     {
 
@@ -501,6 +501,20 @@ public class CollectionDao extends JdbcDaoSupport {
         try
         {
             return getJdbcTemplate().queryForObject(sqlContact, ids, new ContactsMapper());
+        }
+        catch(EmptyResultDataAccessException e)
+        {
+            return null;
+        }
+    }
+
+    public VendorProducts getAVendor(int aCollID, String aName)
+    {
+        String sqlVendor = VendorMapper.BASE_SQL + "WHERE COL_ID = ? AND PRODUCT_NAME = ?";
+        Object[] args = new Object[] {aCollID, aName};
+        try
+        {
+            return getJdbcTemplate().queryForObject(sqlVendor, args, new VendorMapper());
         }
         catch(EmptyResultDataAccessException e)
         {

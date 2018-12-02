@@ -8,6 +8,7 @@ import Daos.CollectionDao;
 
 //import com.sun.org.apache.xpath.internal.operations.Mod;
 import Models.Contacts;
+import Models.VendorProducts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -91,8 +92,14 @@ public class EditController {
     @ResponseBody
     public Contacts editContact(@RequestParam("id") int collID, @RequestParam("uID") int userID)
     {
-
         return collectionDao.getAContact(collID, userID);
+    }
+
+    @RequestMapping(value="editVendorProd", method=RequestMethod.GET)
+    @ResponseBody
+    public VendorProducts getContact(@RequestParam("id") int collID, @RequestParam("name") String aName)
+    {
+        return collectionDao.getAVendor(collID, aName);
     }
 
 }
