@@ -3,6 +3,8 @@
 ################################################################################
 
 /CMISDemo2/.vs/CMISDemo2/v15/Server/sqlite3
+#node
+/node_modules
 #IDE related
 .vscode/settings.json
 .idea/
