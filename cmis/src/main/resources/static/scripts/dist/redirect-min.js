@@ -1,0 +1,1 @@
+window.onload=function(){setTimeout(function(){window.location.href="/"},3e3)};
