@@ -17,12 +17,13 @@ gulp.task('minify-js', function() {
     .pipe(gulp.dest('../CMIS/cmis/src/main/resources/static/scripts/dist/'));
 });
 
-gulp.task('minify', function () {
-    gulp.src('../CMIS/cmis/src/main/resources/static/css/*.css')
-        .pipe(minify({keepBreaks: true}))
-        .pipe(rename({
-            suffix: '-min'
-        }))
-        .pipe(gulp.dest('../CMIS/cmis/src/main/resources/static/css/dist/'))
-    ;
-});
+gulp.task('minify-css',() => {
+    return gulp.src('../CMIS/cmis/src/main/resources/static/css/*.css')
+      .pipe(sourcemaps.init())
+      .pipe(cleanCSS())
+      .pipe(rename({
+          suffix: '-min'
+      }))
+      .pipe(sourcemaps.write())
+      .pipe(gulp.dest('../CMIS/cmis/src/main/resources/static/css/dist/'));
+  });
