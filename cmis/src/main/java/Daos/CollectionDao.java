@@ -57,6 +57,17 @@ public class CollectionDao extends JdbcDaoSupport {
 
     }
 
+    public void deleteAContact(int aCollID, int aUserID)
+    {
+        String delConSQL = "DELETE FROM COLLECTION_CONTACTS WHERE COL_ID = ? AND USER_ID = ?";
+        Object[] args = new Object[] {aCollID, aUserID};
+        try
+        {
+            getJdbcTemplate().update(delConSQL, args);
+        }
+        catch(EmptyResultDataAccessException e) {}
+    }
+
     public void deleteCollection(int collID){
         //Deleting collection from high level 
         String sql = "DELETE FROM COLLECTIONS WHERE ID = ?";
@@ -520,6 +531,42 @@ public class CollectionDao extends JdbcDaoSupport {
         {
             return null;
         }
+    }
+
+    public SubObjects getASubObj(int aCollID, String aType, String aName)
+    {
+        String sqlSubOBj = SubObjectsMapper.BASE_SQL + " WHERE COL_ID = ? AND TYPE = ? AND NAME = ?";
+        Object[] args = new Object[] {aCollID, aType, aName};
+        try
+        {
+            return getJdbcTemplate().queryForObject(sqlSubOBj, args, new SubObjectsMapper());
+        }
+        catch(EmptyResultDataAccessException e)
+        {
+            return null;
+        }
+    }
+
+    public Relationships getARelationship(int aCollID, String aType, String aValue)
+    {
+        String sqlRelationship = RelationshipsMapper.BASE_SQL + " WHERE COL_ID = ? AND TYPE = ? AND VALUE = ?";
+        Object[] args = new Object[] {aCollID, aType, aValue};
+        try
+        {
+            return getJdbcTemplate().queryForObject(sqlRelationship, args, new RelationshipsMapper());
+        }
+        catch(EmptyResultDataAccessException e){return null;}
+    }
+
+    public Editors getEditor (int aCollID, int aUserID)
+    {
+        String sqlGetEditor = EditorsMapper.BASE_SQL + " WHERE COL_ID = ? AND USER_ID = ?";
+        Object[] args = new Object[] {aCollID, aUserID};
+        try
+        {
+            return getJdbcTemplate().queryForObject(sqlGetEditor, args, new EditorsMapper());
+        }
+        catch(EmptyResultDataAccessException e){return  null;}
     }
 
     public List<VendorProducts> getAllVendorProducts(int collecID)
