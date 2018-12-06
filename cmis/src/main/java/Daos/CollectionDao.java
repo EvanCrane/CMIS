@@ -560,7 +560,7 @@ public class CollectionDao extends JdbcDaoSupport {
 
     public Editors getEditor (int aCollID, int aUserID)
     {
-        String sqlGetEditor = EditorsMapper.BASE_SQL + " WHERE COL_ID = ? AND USER_ID = ?";
+        String sqlGetEditor = EditorsMapper.BASE_SQL + " WHERE COL_ID = ? AND e.USER_ID = ?";
         Object[] args = new Object[] {aCollID, aUserID};
         try
         {

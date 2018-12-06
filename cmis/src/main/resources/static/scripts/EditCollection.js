@@ -1,9 +1,12 @@
 $(document).ready(function(){
 
+    var deleteConHref;
+    var deleteVendHref;
+
 
 
     // Load Contacts Modal
-    $('#addUser, #editContactBtn').on('click', function (event) {
+    $('#addUser, .editContactBtn').on('click', function (event) {
         event.preventDefault();
         var text = $(this).text();
         var href = $(this).attr('href');
@@ -25,15 +28,37 @@ $(document).ready(function(){
 
 
     });
+
     //Delete Contact modal
-    $('#deleteContactBtn').on('click', function (event){
+    $('.deleteContactBtn').on('click', function (event){
+        event.preventDefault();
+        console.log('Here');
         $('#deleteConfirmText').text('Are you sure you want to delete contact ?');
+        deleteConHref = $(this).attr('href');
         $('#confirmDelCont').modal();
 
     });
 
+    // Confirm delete
+    $('#deleteConConfirm').on('click', function(event){
+        event.preventDefault();
+        $.ajax({
+            type : "DELETE",
+            url : deleteConHref,
+            success : function(){
+                $('#confirmDelCont').modal('hide');
+                location.reload();
+            },
+            error : function ()
+            {
+                alert("Delete didn't work");
+            }
+        });
+    });
+
     //Load Vendor Products Modal
-    $('#editVendorBtn, #addVendorBtn').on('click', function(){
+    $('#editVendorBtn, #addVendorBtn').on('click', function(event){
+        event.preventDefault();
         var text = $(this).text();
         var href = $(this).attr('href');
         if(text === 'Edit')
@@ -50,10 +75,31 @@ $(document).ready(function(){
     });
 
     //Delete Vendor Product modal
-    $('#deleteVendorBtn').on('click', function(){
+    $('#deleteVendorBtn').on('click', function(event){
+        event.preventDefault();
+        deleteVendHref = $(this).attr('href');
         $('#deleteConfirmVen').text('Are you sure you want to delete Vendor Product ?')
         $('#confirmDelVen').modal();
     });
+
+    // Confirm delete ve
+    $('#deleteVenConfirm').on('click', function(event){
+        event.preventDefault();
+        $.ajax({
+            type : "DELETE",
+            url : deleteVendHref,
+            success : function(){
+                $('#confirmDelVen').modal('hide');
+                location.reload();
+            },
+            error : function ()
+            {
+                alert("Delete didn't work");
+            }
+        });
+    });
+
+
 
 
     //SubObjects Load Modal
@@ -82,7 +128,8 @@ $(document).ready(function(){
     });
 
     //Relationhip Load Modal
-    $('#editRelationBtn, #addRelationship').on('click', function(){
+    $('#editRelationBtn, #addRelationship').on('click', function(event){
+        event.preventDefault();
         var text = $(this).text();
         var href = $(this).attr('href');
 
@@ -106,7 +153,8 @@ $(document).ready(function(){
     });
 
     // Editor Load Modal
-    $('#editEditorBtn, #addEditor').on('click', function(){
+    $('#editEditorBtn, #addEditor').on('click', function(event){
+        event.preventDefault();
         var text = $(this).text();
         var href = $(this).attr('href');
 
@@ -130,28 +178,7 @@ $(document).ready(function(){
     });
 
     // Populate the Edit Contact modal
-    function populateContact(aHref)
-    {
-        console.log('Gets to populate contact');
-        $.ajax({
-           type: "GET",
-           url: aHref,
-           dataType : "json",
-           success : function (aContact) {
-               console.log(aContact);
-               $('#contactName').val(aContact.contName);
-               $('#contactType').val(aContact.contType);
-               $('#contactPhone').val(aContact.phoneNum);
-               $('#contactLocation').val(aContact.location);
 
-           },
-           error : function(e) {
-               console.log('Ajax fails');
-               console.log(aHref);
-               console.log(e);
-           }
-        });
-    }
 
     //Save Contact Modal
     $('#contactSaveModal').on('click', function (event){
@@ -467,6 +494,28 @@ $(document).ready(function(){
             }
         });
     });
+    function populateContact(aHref)
+    {
+        console.log('Gets to populate contact');
+        $.ajax({
+            type: "GET",
+            url: aHref,
+            dataType : "json",
+            success : function (aContact) {
+                console.log(aContact);
+                $('#contactName').val(aContact.contName);
+                $('#contactType').val(aContact.contType);
+                $('#contactPhone').val(aContact.phoneNum);
+                $('#contactLocation').val(aContact.location);
+
+            },
+            error : function(e) {
+                console.log('Ajax fails');
+                console.log(aHref);
+                console.log(e);
+            }
+        });
+    }
 
     function populateVendor(aHref){
         $.ajax({

@@ -66,7 +66,7 @@ public class ViewController {
 
 
 
-
+        model.addAttribute("collection", collectionDao.getFullCollection(collID));
         model.addAttribute("collID", collID);
         model.addAttribute("collType", collecType);
         model.addAttribute("fullUser", userDao.findFullUserInfo(userName));

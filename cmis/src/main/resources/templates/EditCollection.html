@@ -218,10 +218,10 @@
                         <td th:text="${contact.getPhoneNum()}"></td>
                         <td th:text="${contact.getLocation()}"></td>
                         <td>
-                            <a th:href="@{/editContact(id=${collID}, uID=${contact.getUserID()})}" class="btn btn-primary" id="editContactBtn">Edit</a>
+                            <a th:href="@{/editContact(id=${collID}, uID=${contact.getUserID()})}" class="btn btn-primary editContactBtn">Edit</a>
                         </td>
                         <td>
-                            <a th:href="@{/deleteContact(id=${collID}, uID=${contact.getUserID()})}" class="btn btn-danger" id="deleteContactBtn">Delete</a>
+                            <a th:href="@{/deleteContact(id=${collID}, uID=${contact.getUserID()})}" class="btn btn-danger deleteContactBtn">Delete</a>
                         </td>
                     <tr>
             </table>
@@ -245,10 +245,10 @@
                     <td th:text="${vendorProduct.getDescription()}"></td>
                     <td th:text="${vendorProduct.isClassified()}"></td>
                     <td>
-                        <a th:href="@{/editVendorProd(id=${collID}, name=${vendorProduct.getProdName()})}" class="btn btn-primary" id="editVendorBtn">Edit</a>
+                        <a th:href="@{/editVendorProd(id=${collID}, name=${vendorProduct.getProdName()})}" class="btn btn-primary editVendorBtn">Edit</a>
                     </td>
                     <td>
-                        <a th:href="@{/deleteVendorProd(id=${collID}, name=${vendorProduct.getProdName()})}" class="btn btn-danger" id="deleteVendorBtn">Delete</a>
+                        <a th:href="@{/deleteVendorProd(id=${collID}, name=${vendorProduct.getProdName()})}" class="btn btn-danger deleteVendorBtn">Delete</a>
                     </td>
                 </tr>
             </table>
@@ -272,10 +272,10 @@
                     <td th:text="${subObj.getVersion()}"></td>
                     <td th:text="${subObj.isClassified()}"></td>
                     <td>
-                        <a th:href="@{/editSubObj(id=${collID}, type=${subObj.getSubType()}, name=${subObj.getSubName()})}" class="btn btn-primary" id="editSubObjBtn">Edit</a>
+                        <a th:href="@{/editSubObj(id=${collID}, type=${subObj.getSubType()}, name=${subObj.getSubName()})}" class="btn btn-primary editSubObjBtn">Edit</a>
                     </td>
                     <td>
-                        <a th:href="@{/deleteSubObj(id=${collID}, type=${subObj.getSubType()}, name=${subObj.getSubName()})}" class="btn btn-danger" id="deleteSubObjBtn">Delete</a>
+                        <a th:href="@{/deleteSubObj(id=${collID}, type=${subObj.getSubType()}, name=${subObj.getSubName()})}" class="btn btn-danger deleteSubObjBtn">Delete</a>
                     </td>
                 </tr>
             </table>
@@ -295,10 +295,10 @@
                     <td th:text="${relationship.getType()}"></td>
                     <td th:text="${relationship.getValue()}"></td>
                     <td>
-                        <a th:href="@{/editRelationship(id=${collID}, type=${relationship.getType()}, val=${relationship.getValue()})}" class="btn btn-primary" id="editRelationBtn">Edit</a>
+                        <a th:href="@{/editRelationship(id=${collID}, type=${relationship.getType()}, val=${relationship.getValue()})}" class="btn btn-primary editRelationBtn">Edit</a>
                     </td>
                     <td>
-                        <a th:href="@{/deleteRelationship(id=${collID}, type=${relationship.getType()}, val=${relationship.getValue()})}" class="btn btn-danger" id="deleteRelationBtn">Delete</a>
+                        <a th:href="@{/deleteRelationship(id=${collID}, type=${relationship.getType()}, val=${relationship.getValue()})}" class="btn btn-danger deleteRelationBtn">Delete</a>
                     </td>
                 </tr>
             </table>
@@ -322,10 +322,10 @@
                     <td th:text="${editor.getPhoneNum()}"></td>
                     <td th:text="${editor.getLocation()}"></td>
                     <td>
-                        <a th:href="@{/editEditors(id=${collID}, uID=${editor.getUserID()})}" class="btn btn-primary" id="editEditorBtn">Edit</a>
+                        <a th:href="@{/editEditors(id=${collID}, uID=${editor.getUserID()})}" class="btn btn-primary editEditorBtn">Edit</a>
                     </td>
                     <td>
-                        <a th:href="@{/deleteEditors(id=${collID}, uID=${editor.getUserID()})}" class="btn btn-danger" id="deleteEditorBtn">Delete</a>
+                        <a class="btn btn-danger deleteEditorBtn" th:href="@{/deleteEditor(id=${collID}, uID=${editor.getUserID()})}">Delete</a>
                     </td>
                 </tr>
             </table>
@@ -589,9 +589,10 @@
                             <b><p id="deleteConfirmText" ></p></b>
                         </div>
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <a type="submit" class="btn btn-danger"  id="deleteConConfirm">Confirm Delete</a>
+                        <a class="btn btn-danger"  id="deleteConConfirm">Confirm Delete</a>
                     </div>
                 </div>
             </div>
@@ -632,7 +633,7 @@
                             <textarea rows="4" cols="50" class="form-control" id="vendorDescription" ></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="vendorClassified" class="col-form-label">Version</label>
+                            <label for="vendorClassified" class="col-form-label">Classified Information</label>
                             <select id="vendorClassified" class="form-control">
                                 <option selected="selected" hidden value="">Choose here</option>
                                 <option value="Yes">Yes</option>
@@ -777,7 +778,7 @@
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label for="relationshipTypes" class="col-form-label">Type</label>
+                            <label for="relationshipTypes" class="col-form-label">Relationship Type</label>
                             <select id="relationshipTypes" class="form-control">
                                 <option selected="selected" hidden value="">Choose here</option>
                                 <option value="From Service Type">From Service Type</option>
@@ -789,7 +790,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="relationshipValue" class="col-form-label"></label>
+                            <label for="relationshipValue" class="col-form-label">Relationship With</label>
                             <input type="text" class="form-control" id="relationshipValue" value=""/>
                         </div>
                     </div>
@@ -851,15 +852,15 @@
                         </div>
                         <div class="form-group">
                             <label for="editorAccessLvl" class="col-form-label">Access Level</label>
-                            <input type="password" class="form-control" id="editorAccessLvl" name="password" value=""/>
+                            <input type="text" class="form-control" id="editorAccessLvl" name="password" value=""/>
                         </div>
                         <div class="form-group">
                             <label for="editorPhoneNum" class="col-form-label">Phone Number</label>
-                            <input type="password" class="form-control" id="editorPhoneNum" name="password" value=""/>
+                            <input type="text" class="form-control" id="editorPhoneNum" name="phoneNum" value=""/>
                         </div>
                         <div class="form-group">
                             <label for="editorLocation" class="col-form-label">Location</label>
-                            <input type="password" class="form-control" id="editorLocation" name="password" value=""/>
+                            <input type="text" class="form-control" id="editorLocation" name="location" value=""/>
                         </div>
                     </div>
                     <div class="modal-footer">

@@ -3,12 +3,10 @@ package Controller;
 import java.security.Principal;
 
 import Daos.UserDAO;
-import Models.Collection;
+import Models.*;
 import Daos.CollectionDao;
 
 //import com.sun.org.apache.xpath.internal.operations.Mod;
-import Models.Contacts;
-import Models.VendorProducts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -95,25 +93,24 @@ public class EditController {
         return collectionDao.getAContact(collID, userID);
     }
 
-     @RequestMapping(value="/editVendorProd", method =RequestMethod.GET)
+    @RequestMapping(value="/editVendorProd", method =RequestMethod.GET)
     @ResponseBody
-    public Contacts editVendorProd(@RequestParam("id") int collID, @RequestParam("name") String vendorName)
+    public VendorProducts editVendorProd(@RequestParam("id") int collID, @RequestParam("name") String vendorName)
     {
-
         return collectionDao.getAVendor(collID, vendorName);
     }
 
     @RequestMapping(value="/editSubObj", method =RequestMethod.GET)
     @ResponseBody
-    public Contacts editSubObj(@RequestParam("id") int collID, @RequestParam("name") String subobjName, @RequestParam("type")String subObjtype)
+    public SubObjects editSubObj(@RequestParam("id") int collID, @RequestParam("name") String subobjName, @RequestParam("type")String subObjtype)
     {
 
-        return collectionDao.getASubObject(collID, subobjName, subObjtype);
+        return collectionDao.getASubObj(collID, subobjName, subObjtype);
     }
 
     @RequestMapping(value="/editRelationship", method =RequestMethod.GET)
     @ResponseBody
-    public Contacts editRelationship(@RequestParam("id") int collID, @RequestParam("type") String relType, @RequestParam("val")String relVal)
+    public Relationships editRelationship(@RequestParam("id") int collID, @RequestParam("type") String relType, @RequestParam("val")String relVal)
     {
 
         return collectionDao.getARelationship(collID, relType, relVal);
@@ -121,7 +118,7 @@ public class EditController {
 
     @RequestMapping(value="/editEditors", method =RequestMethod.GET)
     @ResponseBody
-    public Contacts editEditors(@RequestParam("id") int collID, @RequestParam("uID") int uID)
+    public Editors editEditors(@RequestParam("id") int collID, @RequestParam("uID") int uID)
     {
 
         return collectionDao.getEditor(collID, uID);
@@ -129,42 +126,42 @@ public class EditController {
     
     @DeleteMapping("/deleteContact")
     @ResponseBody
-    public boolean deleteContact(@RequestParam("id") int collID, @RequestParam("uID") int userId)
+    public void deleteContact(@RequestParam("id") int collID, @RequestParam("uID") int userId)
     {
-        return collectionDao.deleteAContact(collID, userId);
+        collectionDao.deleteAContact(collID, userId);
 
     }
 
     @DeleteMapping("/deleteVendorProd")
     @ResponseBody
-    public boolean deleteVendorProd(@RequestParam("id") int collID, @RequestParam("name") String vendorName)
+    public void deleteVendorProd(@RequestParam("id") int collID, @RequestParam("name") String vendorName)
     {
-        return collectionDao.deleteAVendor(collID, vendorName);
+        //collectionDao.deleteAVendor(collID, vendorName);
 
     }
 
     @DeleteMapping("/deleteSubObj")
     @ResponseBody
-    public boolean deleteSubObj(@RequestParam("id") int collID, @RequestParam("name") String subobjName, @RequestParam("type")String subObjtype)
+    public void deleteSubObj(@RequestParam("id") int collID, @RequestParam("name") String subobjName, @RequestParam("type")String subObjtype)
     {
-        return collectionDao.deleteASubObj(collID, subobjName,subObjtype);
+        //collectionDao.deleteASubObj(collID, subobjName,subObjtype);
 
     }
 
     @DeleteMapping("/deleteRelationship")
     @ResponseBody
-    public boolean deleteRelationship(@RequestParam("id") int collID, @RequestParam("type") String relType, @RequestParam("val")String relVal)
+    public void deleteRelationship(@RequestParam("id") int collID, @RequestParam("type") String relType, @RequestParam("val")String relVal)
     {
-        return collectionDao.deleteARelationship(collID, relType, relVal);
+        //collectionDao.deleteARelationship(collID, relType, relVal);
 
     }
 
     @DeleteMapping(value="/deleteEditors")
     @ResponseBody
-    public Contacts deleteEditors(@RequestParam("id") int collID, @RequestParam("uID") int uID)
+    public void deleteEditors(@RequestParam("id") int collID, @RequestParam("uID") int uID)
     {
 
-        return collectionDao.deleteEditor(collID, uID);
+        //collectionDao.deleteEditor(collID, uID);
     }
 
 }
