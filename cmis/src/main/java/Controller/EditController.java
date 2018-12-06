@@ -126,5 +126,45 @@ public class EditController {
 
         return collectionDao.getEditor(collID, uID);
     }
+    
+    @DeleteMapping("/deleteContact")
+    @ResponseBody
+    public boolean deleteContact(@RequestParam("id") int collID, @RequestParam("uID") int userId)
+    {
+        return collectionDao.deleteAContact(collID, userId);
+
+    }
+
+    @DeleteMapping("/deleteVendorProd")
+    @ResponseBody
+    public boolean deleteVendorProd(@RequestParam("id") int collID, @RequestParam("name") String vendorName)
+    {
+        return collectionDao.deleteAVendor(collID, vendorName);
+
+    }
+
+    @DeleteMapping("/deleteSubObj")
+    @ResponseBody
+    public boolean deleteSubObj(@RequestParam("id") int collID, @RequestParam("name") String subobjName, @RequestParam("type")String subObjtype)
+    {
+        return collectionDao.deleteASubObj(collID, subobjName,subObjtype);
+
+    }
+
+    @DeleteMapping("/deleteRelationship")
+    @ResponseBody
+    public boolean deleteRelationship(@RequestParam("id") int collID, @RequestParam("type") String relType, @RequestParam("val")String relVal)
+    {
+        return collectionDao.deleteARelationship(collID, relType, relVal);
+
+    }
+
+    @DeleteMapping(value="/deleteEditors")
+    @ResponseBody
+    public Contacts deleteEditors(@RequestParam("id") int collID, @RequestParam("uID") int uID)
+    {
+
+        return collectionDao.deleteEditor(collID, uID);
+    }
 
 }
