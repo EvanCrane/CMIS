@@ -6,9 +6,9 @@ public class SubObjects {
     private String subType;
     private String subName;
     private String version;
-    private boolean classified;
+    private Boolean classified;
 
-    public SubObjects(int aColID, String aSubType, String aSubName, String aVersion, boolean aClassified)
+    public SubObjects(int aColID, String aSubType, String aSubName, String aVersion, Boolean aClassified)
     {
         setColID(aColID);
         setSubType(aSubType);
@@ -49,11 +49,11 @@ public class SubObjects {
         this.version = version;
     }
 
-    public boolean isClassified() {
+    public Boolean isClassified() {
         return classified;
     }
 
-    public void setClassified(boolean classified) {
+    public void setClassified(Boolean classified) {
         this.classified = classified;
     }
 }

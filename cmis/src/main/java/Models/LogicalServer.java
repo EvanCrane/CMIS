@@ -4,10 +4,10 @@ public class LogicalServer {
 
     private int colID;
     private String backUp;
-    private boolean monitored;
+    private Boolean monitored;
     private String respGroup;
 
-    public LogicalServer(int acolId, String abackUp, boolean  aMonitored, String aRespGroup)
+    public LogicalServer(int acolId, String abackUp, Boolean  aMonitored, String aRespGroup)
     {
         setColID(acolId);
         setBackUp(abackUp);
@@ -23,11 +23,11 @@ public class LogicalServer {
         this.respGroup = respGroup;
     }
 
-    public boolean isMonitored() {
+    public Boolean isMonitored() {
         return monitored;
     }
 
-    public void setMonitored(boolean monitored) {
+    public void setMonitored(Boolean monitored) {
         this.monitored = monitored;
     }
 

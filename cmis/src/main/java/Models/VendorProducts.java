@@ -6,9 +6,9 @@ public class VendorProducts {
     private String prodName;
     private String version;
     private String description;
-    private boolean classified;
+    private Boolean classified;
 
-    public VendorProducts(int aColID, String aProdName, String aVersion, String aDescription, boolean aClassified)
+    public VendorProducts(int aColID, String aProdName, String aVersion, String aDescription, Boolean aClassified)
     {
         setColID(aColID);
         setProdName(aProdName);
@@ -49,11 +49,11 @@ public class VendorProducts {
         this.description = description;
     }
 
-    public boolean isClassified() {
+    public Boolean isClassified() {
         return classified;
     }
 
-    public void setClassified(boolean classified) {
+    public void setClassified(Boolean classified) {
         this.classified = classified;
     }
 }

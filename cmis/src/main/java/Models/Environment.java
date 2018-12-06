@@ -5,10 +5,10 @@ public class Environment {
     private int collID;
     private String subType;
     private String backUp;
-    private boolean monitored;
+    private Boolean monitored;
     private String respGroup;
 
-    public Environment(int aCollID, String aSubType, String aBackUp, boolean aMonitored, String aRespGroup)
+    public Environment(int aCollID, String aSubType, String aBackUp, Boolean aMonitored, String aRespGroup)
     {
         setCollID(aCollID);
         setSubType(aSubType);
@@ -25,11 +25,11 @@ public class Environment {
         this.respGroup = respGroup;
     }
 
-    public boolean isMonitored() {
+    public Boolean isMonitored() {
         return monitored;
     }
 
-    public void setMonitored(boolean monitored) {
+    public void setMonitored(Boolean monitored) {
         this.monitored = monitored;
     }
 
