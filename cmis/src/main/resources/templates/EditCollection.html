@@ -272,10 +272,10 @@
                     <td th:text="${subObj.getVersion()}"></td>
                     <td th:text="${subObj.isClassified()}"></td>
                     <td>
-                        <a class="btn btn-primary" id="editSubObjBtn">Edit</a>
+                        <a th:href="@{/editSubObj(id=${collID}, type=${subObj.getSubType()}, name=${subObj.getSubName()})}" class="btn btn-primary" id="editSubObjBtn">Edit</a>
                     </td>
                     <td>
-                        <a class="btn btn-danger" id="deleteSubObjBtn">Delete</a>
+                        <a th:href="@{/deleteSubObj(id=${collID}, type=${subObj.getSubType()}, name=${subObj.getSubName()})}" class="btn btn-danger" id="deleteSubObjBtn">Delete</a>
                     </td>
                 </tr>
             </table>
